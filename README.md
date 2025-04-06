@@ -1,2 +1,3 @@
-# numly
-Minimalist mental arithmetic training app.
+# Numly
+
+Minimalist cross-platform mental arithmetic training app.

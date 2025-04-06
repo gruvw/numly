@@ -8,5 +8,6 @@ abstract class Styles {
 
   static const fontFamily = "Roboto";
 
+  static const contentMaxWidth = 500.0;
   static const standardSpacing = 2.0;
 }

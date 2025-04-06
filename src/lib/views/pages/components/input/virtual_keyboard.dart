@@ -70,6 +70,7 @@ class VirtualKeyboard extends StatelessWidget {
 
     return Container(
       color: Styles.backgroundColor,
+      padding: EdgeInsets.all(Styles.standardSpacing),
       child: keypad,
     );
   }

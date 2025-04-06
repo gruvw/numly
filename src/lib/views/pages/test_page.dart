@@ -8,19 +8,31 @@ class TestPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          Values.applicationTitle,
-        ),
-        backgroundColor: Styles.foregroundColor,
-        foregroundColor: Styles.backgroundColor,
+    final appBar = AppBar(
+      title: Text(
+        Values.applicationTitle,
       ),
-      body: Column(
-        children: [
-          Spacer(),
-          VirtualKeyboard(),
-        ],
+      backgroundColor: Styles.foregroundColor,
+      foregroundColor: Styles.backgroundColor,
+    );
+
+    final content = Column(
+      children: [
+        Spacer(),
+        VirtualKeyboard(),
+      ],
+    );
+
+    return Scaffold(
+      backgroundColor: Styles.foregroundColor,
+      appBar: appBar,
+      body: Center(
+        child: Container(
+          constraints: BoxConstraints(
+            maxWidth: Styles.contentMaxWidth,
+          ),
+          child: content,
+        ),
       ),
     );
   }

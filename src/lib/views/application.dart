@@ -13,7 +13,7 @@ class Application extends StatelessWidget {
       title: Values.applicationTitle,
       theme: ThemeData(
         fontFamily: Styles.fontFamily,
-        colorSchemeSeed: Styles.black,
+        colorSchemeSeed: Styles.foregroundColor,
       ),
       onGenerateRoute: Routes.generateRoute,
       initialRoute: Routes.initial.name,

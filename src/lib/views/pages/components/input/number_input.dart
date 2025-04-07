@@ -21,9 +21,9 @@ class NumberInput extends StatelessWidget {
         decimal: true,
       ),
       enableSuggestions: false,
-      // inputFormatters: [
-      //   NumberFormatter(),
-      // ],
+      inputFormatters: [
+        NumberFormatter(),
+      ],
       textAlign: TextAlign.center,
       style: TextStyle(
         color: Styles.foregroundColor,

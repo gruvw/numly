@@ -30,6 +30,8 @@
     - [ ] Number ranges
     - [ ] Force reduced fractions (or scalar if possible 4/2 = 2)
     - [ ] Different ranges for each number (first, second number)
+    - [ ] Persist current settings
+    - [ ] Save custom settings presets
 - [ ] Levels page
     - [ ] Per-defined settings with each level
     - [ ] Small level description ("single digit additions")

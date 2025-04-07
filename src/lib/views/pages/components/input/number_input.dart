@@ -12,6 +12,7 @@ class NumberInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO autofocus, without showing keyboard on phone
     final numberField = TextField(
       controller: numberController,
       showCursor: false,

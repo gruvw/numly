@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:numly/static/styles.dart";
+import "package:numly/utils/language.dart";
 
 class VirtualKey extends StatelessWidget {
   final bool disabled;
@@ -30,7 +31,9 @@ class VirtualKey extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(),
         backgroundColor: Styles.foregroundColor,
+        disabledBackgroundColor: Styles.foregroundColor.lighten(0.3),
         foregroundColor: Styles.backgroundColor,
+        disabledForegroundColor: Styles.backgroundColor.darken(0.2),
       ),
       child: content,
     );

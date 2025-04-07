@@ -19,7 +19,7 @@ class VirtualKeyboard extends HookWidget {
     );
   }
 
-  Widget _textKey(String text, bool disabled) {
+  Widget _textKey(String text, [bool disabled = false]) {
     return VirtualKey(
       disabled: disabled,
       onPressed: () {
@@ -45,7 +45,7 @@ class VirtualKeyboard extends HookWidget {
     );
   }
 
-  Widget _textKeys(Iterable<String> texts, bool disabled) {
+  Widget _textKeys(Iterable<String> texts, [bool disabled = false]) {
     return _rowKeys(texts.map((t) => _textKey(t, disabled)));
   }
 
@@ -65,8 +65,10 @@ class VirtualKeyboard extends HookWidget {
       },
     );
 
+    // TODO enter key should submit
     final submitKey = _iconKey(Icons.check, () {
       // TODO submit press
+      // TODO on submit, remove ending fraction or decimal separators
     });
 
     final numberDisabled = numberText.endsWith(Keys.percent);
@@ -75,10 +77,10 @@ class VirtualKeyboard extends HookWidget {
         numberText.contains(Keys.percent);
     final keys = [
       _rowKeys([
-        _textKey(Keys.negative, false),
+        _textKey(Keys.negative),
         _textKey(Keys.decimal, symbolDisabled),
-        _textKey(Keys.fraction, symbolDisabled),
-        _textKey(Keys.percent, symbolDisabled),
+        _textKey(Keys.fraction, symbolDisabled || numberText.isEmpty),
+        _textKey(Keys.percent, symbolDisabled || numberText.isEmpty),
       ]),
       _textKeys(Keys.numbersRow1, numberDisabled),
       _textKeys(Keys.numbersRow2, numberDisabled),

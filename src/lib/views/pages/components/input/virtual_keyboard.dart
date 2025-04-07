@@ -1,9 +1,15 @@
 import "package:flutter/material.dart";
+import "package:numly/static/keys.dart";
 import "package:numly/static/styles.dart";
 import "package:numly/views/pages/components/input/virtual_key.dart";
 
 class VirtualKeyboard extends StatelessWidget {
-  const VirtualKeyboard({super.key});
+  final TextEditingController numberController;
+
+  const VirtualKeyboard({
+    super.key,
+    required this.numberController,
+  });
 
   Widget _rowKeys(Iterable<Widget> keys) => Row(
         spacing: Styles.standardSpacing,
@@ -13,7 +19,7 @@ class VirtualKeyboard extends StatelessWidget {
   Widget _textKey(String text) {
     return VirtualKey(
       onPressed: () {
-        // TODO on text key press
+        numberController.text = numberController.text + text;
       },
       child: Text(text),
     );
@@ -34,7 +40,7 @@ class VirtualKeyboard extends StatelessWidget {
     );
   }
 
-  Widget _textKeys(List<String> texts) {
+  Widget _textKeys(Iterable<String> texts) {
     return _rowKeys(texts.map(_textKey));
   }
 
@@ -43,10 +49,11 @@ class VirtualKeyboard extends StatelessWidget {
     final backspaceKey = _iconKey(
       Icons.keyboard_backspace,
       () {
-        // TODO backspace press
+        numberController.text = numberController.text
+            .substring(0, numberController.text.length - 1);
       },
       () {
-        // TODO backspace long press
+        numberController.text = "";
       },
     );
 
@@ -55,12 +62,11 @@ class VirtualKeyboard extends StatelessWidget {
     });
 
     final keys = [
-      _textKeys(["-", ".", "/", "%"]),
-      _textKeys(["1", "2", "3"]),
-      _textKeys(["4", "5", "6"]),
-      _textKeys(["7", "8", "9"]),
-      _textKeys(["7", "8", "9"]),
-      _rowKeys([backspaceKey, _textKey("0"), submitKey]),
+      _textKeys(Keys.symbolsRow),
+      _textKeys(Keys.numbersRow1),
+      _textKeys(Keys.numbersRow2),
+      _textKeys(Keys.numbersRow3),
+      _rowKeys([backspaceKey, _textKey(Keys.zero), submitKey]),
     ];
 
     final keypad = Column(

@@ -28,13 +28,14 @@
     - [ ] Number of questions per test
     - [ ] Zen mode / Practice mode (no test length, no time limit)
     - [ ] Number ranges
+    - [ ] Force reduced fractions (or scalar if possible 4/2 = 2)
     - [ ] Different ranges for each number (first, second number)
 - [ ] Levels page
     - [ ] Per-defined settings with each level
     - [ ] Small level description ("single digit additions")
 - [ ] Layout
     - [ ] Show/Hide virtual keyboard
-    - [ ] Tablet layout
+    - [ ] Tablet / Web layout
     - [ ] Small screens
 - [ ] Result page
     - [ ] Test duration (20 questions, as fast as possible)

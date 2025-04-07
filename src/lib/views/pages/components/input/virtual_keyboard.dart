@@ -1,9 +1,10 @@
 import "package:flutter/material.dart";
+import "package:flutter_hooks/flutter_hooks.dart";
 import "package:numly/static/keys.dart";
 import "package:numly/static/styles.dart";
 import "package:numly/views/pages/components/input/virtual_key.dart";
 
-class VirtualKeyboard extends StatelessWidget {
+class VirtualKeyboard extends HookWidget {
   final TextEditingController numberController;
 
   const VirtualKeyboard({
@@ -11,14 +12,18 @@ class VirtualKeyboard extends StatelessWidget {
     required this.numberController,
   });
 
-  Widget _rowKeys(Iterable<Widget> keys) => Row(
-        spacing: Styles.standardSpacing,
-        children: keys.toList(),
-      );
+  Widget _rowKeys(Iterable<Widget> keys) {
+    return Row(
+      spacing: Styles.standardSpacing,
+      children: keys.toList(),
+    );
+  }
 
-  Widget _textKey(String text) {
+  Widget _textKey(String text, bool disabled) {
     return VirtualKey(
+      disabled: disabled,
       onPressed: () {
+        // TODO apply number formatter
         numberController.text = numberController.text + text;
       },
       child: Text(text),
@@ -40,12 +45,15 @@ class VirtualKeyboard extends StatelessWidget {
     );
   }
 
-  Widget _textKeys(Iterable<String> texts) {
-    return _rowKeys(texts.map(_textKey));
+  Widget _textKeys(Iterable<String> texts, bool disabled) {
+    return _rowKeys(texts.map((t) => _textKey(t, disabled)));
   }
 
   @override
   Widget build(BuildContext context) {
+    useListenable(numberController);
+    final numberText = numberController.text;
+
     final backspaceKey = _iconKey(
       Icons.keyboard_backspace,
       () {
@@ -61,12 +69,21 @@ class VirtualKeyboard extends StatelessWidget {
       // TODO submit press
     });
 
+    final numberDisabled = numberText.endsWith(Keys.percent);
+    final symbolDisabled = numberText.contains(Keys.decimal) ||
+        numberText.contains(Keys.fraction) ||
+        numberText.contains(Keys.percent);
     final keys = [
-      _textKeys(Keys.symbolsRow),
-      _textKeys(Keys.numbersRow1),
-      _textKeys(Keys.numbersRow2),
-      _textKeys(Keys.numbersRow3),
-      _rowKeys([backspaceKey, _textKey(Keys.zero), submitKey]),
+      _rowKeys([
+        _textKey(Keys.negative, false),
+        _textKey(Keys.decimal, symbolDisabled),
+        _textKey(Keys.fraction, symbolDisabled),
+        _textKey(Keys.percent, symbolDisabled),
+      ]),
+      _textKeys(Keys.numbersRow1, numberDisabled),
+      _textKeys(Keys.numbersRow2, numberDisabled),
+      _textKeys(Keys.numbersRow3, numberDisabled),
+      _rowKeys([backspaceKey, _textKey(Keys.zero, numberDisabled), submitKey]),
     ];
 
     final keypad = Column(

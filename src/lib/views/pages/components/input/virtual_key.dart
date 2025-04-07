@@ -2,12 +2,14 @@ import "package:flutter/material.dart";
 import "package:numly/static/styles.dart";
 
 class VirtualKey extends StatelessWidget {
+  final bool disabled;
   final VoidCallback onPressed;
   final VoidCallback? onLongPress;
   final Widget child;
 
   const VirtualKey({
     super.key,
+    this.disabled = false,
     this.onLongPress,
     required this.onPressed,
     required this.child,
@@ -23,7 +25,7 @@ class VirtualKey extends StatelessWidget {
     );
 
     final button = ElevatedButton(
-      onPressed: onPressed,
+      onPressed: disabled ? null : onPressed,
       onLongPress: onLongPress,
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(),

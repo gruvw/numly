@@ -3,10 +3,12 @@
 ## Features
 
 - [X] Scaffold base UI
-- [ ] Text input
+- [X] Text input
 - [X] Virtual keyboard (0123456789./%-BE)
-    - [ ] Long press on backspace clears
-- [ ] Actual keyboard
+    - [X] Long press on backspace clears
+    - [X] Text input formatter
+    - [X] Disabled virtual keys
+- [X] Actual keyboard
 - [ ] Question generation
     - [ ] With minimum/maximum input numbers
     - [ ] With minimum/maximum result value

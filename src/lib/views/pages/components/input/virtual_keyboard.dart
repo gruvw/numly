@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:numly/static/keys.dart";
 import "package:numly/static/styles.dart";
+import "package:numly/utils/language.dart";
+import "package:numly/views/pages/components/input/number_formatter.dart";
 import "package:numly/views/pages/components/input/virtual_key.dart";
 
 class VirtualKeyboard extends HookWidget {
@@ -23,8 +25,7 @@ class VirtualKeyboard extends HookWidget {
     return VirtualKey(
       disabled: disabled,
       onPressed: () {
-        // TODO apply number formatter
-        numberController.text = numberController.text + text;
+        numberController.text = numberFormatter(numberController.text + text);
       },
       child: Text(text),
     );
@@ -54,38 +55,42 @@ class VirtualKeyboard extends HookWidget {
     useListenable(numberController);
     final numberText = numberController.text;
 
-    final backspaceKey = _iconKey(
-      Icons.keyboard_backspace,
-      () {
-        numberController.text = numberController.text
-            .substring(0, numberController.text.length - 1);
-      },
-      () {
-        numberController.text = "";
-      },
-    );
-
-    // TODO enter key should submit
-    final submitKey = _iconKey(Icons.check, () {
-      // TODO submit press
-      // TODO on submit, remove ending fraction or decimal separators
-    });
-
     final numberDisabled = numberText.endsWith(Keys.percent);
     final symbolDisabled = numberText.contains(Keys.decimal) ||
         numberText.contains(Keys.fraction) ||
         numberText.contains(Keys.percent);
+    final emptyDisabled = numberText.isEmpty;
+    final fractionDisabled = numberText.endsWith(Keys.fraction);
+
+    final backspaceKey = _iconKey(
+      Icons.keyboard_backspace,
+      () => numberController.text =
+          numberController.text.substring(0, numberController.text.length - 1),
+      () => numberController.text = "",
+    );
+
+    final zeroKey = _textKey(
+      Keys.zero,
+      numberDisabled || emptyDisabled || fractionDisabled,
+    );
+
+    // TODO enter on keyboard should submit
+    final submitKey = _iconKey(Icons.check, () {
+      numberController.text = numberText.removeAll(RegExp(r"\.+$|/+$"));
+      // TODO submit press
+    });
+
     final keys = [
       _rowKeys([
         _textKey(Keys.negative),
         _textKey(Keys.decimal, symbolDisabled),
-        _textKey(Keys.fraction, symbolDisabled || numberText.isEmpty),
-        _textKey(Keys.percent, symbolDisabled || numberText.isEmpty),
+        _textKey(Keys.fraction, symbolDisabled || emptyDisabled),
+        _textKey(Keys.percent, symbolDisabled || emptyDisabled),
       ]),
       _textKeys(Keys.numbersRow1, numberDisabled),
       _textKeys(Keys.numbersRow2, numberDisabled),
       _textKeys(Keys.numbersRow3, numberDisabled),
-      _rowKeys([backspaceKey, _textKey(Keys.zero, numberDisabled), submitKey]),
+      _rowKeys([backspaceKey, zeroKey, submitKey]),
     ];
 
     final keypad = Column(

@@ -76,7 +76,9 @@ class VirtualKeyboard extends HookWidget {
 
     // TODO enter on keyboard should submit
     final submitKey = _iconKey(Icons.check, () {
+      // remove ending . or /
       numberController.text = numberText.removeAll(RegExp(r"\.+$|/+$"));
+      // TODO empty numbers
       // TODO submit press
     });
 

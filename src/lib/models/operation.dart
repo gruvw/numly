@@ -8,16 +8,16 @@ enum Operation {
   // power,
   // root,
 
-  Number compute(Number number1, Number number2) {
+  DecimalNumber compute(DecimalNumber number1, DecimalNumber number2) {
     switch (this) {
       case addition:
-        return Number(value: number1.value + number2.value);
+        return DecimalNumber(value: number1.value + number2.value);
       case subtraction:
-        return Number(value: number1.value - number2.value);
+        return DecimalNumber(value: number1.value - number2.value);
       case multiplication:
-        return Number(value: number1.value * number2.value);
+        return DecimalNumber(value: number1.value * number2.value);
       case division:
-        return Number(value: number1.value / number2.value);
+        return DecimalNumber(value: number1.value / number2.value);
     }
   }
 }

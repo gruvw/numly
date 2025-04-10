@@ -3,11 +3,11 @@ import "package:numly/models/number.dart";
 import "package:numly/models/operation.dart";
 
 class Question {
-  final Number number1;
-  final Number number2;
+  final DecimalNumber number1;
+  final DecimalNumber number2;
   final Operation operation;
 
-  late final Number answer = operation.compute(number1, number2);
+  late final DecimalNumber answer = operation.compute(number1, number2);
 
   Question({
     required this.number1,
@@ -51,7 +51,7 @@ class MinMaxQuestionGenerator implements QuestionGenerator {
   Question generate() {
     final double? min = this.min, max = this.max;
 
-    Number number1, number2;
+    DecimalNumber number1, number2;
     Question question;
 
     int iterations = 0;

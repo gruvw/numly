@@ -2,26 +2,125 @@ import "dart:math";
 
 import "package:numly/models/random.dart";
 
-class Number {
-  final double value;
+// https://github.com/dart-lang/sdk/issues/46180
+int _gcd(int a, int b) {
+  while (b != 0) {
+    final t = b;
+    b = a % b;
+    a = t;
+  }
+  return a;
+}
 
-  late final isNegative = value < 0;
-  late final isDecimal = value % 1 != 0;
+class RationalNumber {
+  static final fractionalPattern = RegExp(r"^(-?\d+)/(\d+)$");
+  static final percentPattern = RegExp(r"^(-?\d+)%$");
+  static final decimalPattern = RegExp(r"^(-?\d+)(\.(\d+))?$");
 
-  Number({required this.value});
+  final int numerator;
+  final int denominator;
+
+  late final isNegative = numerator < 0;
+  late final isInteger = denominator == 1;
+  // TODO late final isDecimal = ;
+  late final isPercentage = 100 % denominator == 0;
+
+  /// Only use with reduced form, numerator and denominator coprime
+  RationalNumber._reduced({
+    required this.numerator,
+    required this.denominator,
+  })  : assert(
+          denominator >= 1,
+          "denominator ($denominator) must be larger than 1",
+        ),
+        assert(
+          _gcd(numerator.abs(), denominator) == 1,
+          "numerator ($numerator) and denominator ($denominator) must be coprime",
+        );
+
+  factory RationalNumber(
+    int numerator, [
+    int? denominator,
+  ]) {
+    // integer number
+    if (denominator == null) {
+      return RationalNumber._reduced(numerator: numerator, denominator: 1);
+    }
+
+    // division by 0
+    if (denominator == 0) {
+      throw ArgumentError("zero is not a valid denominator");
+    }
+
+    // 0/x = 0
+    if (numerator == 0) {
+      return RationalNumber._reduced(numerator: 0, denominator: 1);
+    }
+
+    // make denominator positive
+    if (denominator < 0) {
+      numerator = -numerator;
+      denominator = -denominator;
+    }
+
+    // reduce
+    final gcd = _gcd(numerator.abs(), denominator.abs());
+
+    return RationalNumber._reduced(
+      numerator: numerator ~/ gcd,
+      denominator: denominator ~/ gcd,
+    );
+  }
+
+  factory RationalNumber.fromString(String text) {
+    final fractionalMatch = fractionalPattern.firstMatch(text);
+    if (fractionalMatch != null) {
+      final numerator = fractionalMatch.group(1)!;
+      final denominator = fractionalMatch.group(2)!;
+      return RationalNumber(
+        int.parse(numerator),
+        int.parse(denominator),
+      );
+    }
+
+    final percentMatch = percentPattern.firstMatch(text);
+    if (percentMatch != null) {
+      final numerator = percentMatch.group(1)!;
+      return RationalNumber(
+        int.parse(numerator),
+        100,
+      );
+    }
+
+    final decimalMatch = decimalPattern.firstMatch(text);
+    if (decimalMatch != null) {
+      final intPart = decimalMatch.group(1)!;
+      final decPart = decimalMatch.group(2) ?? "";
+
+      final numerator = intPart + decPart;
+      final denominator = pow(10, decPart.length);
+
+      return RationalNumber(
+        int.parse(numerator),
+        denominator.toInt(),
+      );
+    }
+
+    throw FormatException("$text is not a valid rational number format");
+  }
 
   @override
   String toString() {
-    if (isDecimal) {
-      return value.toString();
+    if (isInteger) {
+      return "$numerator";
     } else {
-      return value.toInt().toString();
+      return "$numerator/$denominator";
     }
   }
 }
 
 abstract class NumberGenerator {
-  Number generate();
+  DecimalNumber generate();
 }
 
 class ConstantNumberGenerator implements NumberGenerator {
@@ -32,8 +131,8 @@ class ConstantNumberGenerator implements NumberGenerator {
   });
 
   @override
-  Number generate() {
-    return Number(value: value);
+  DecimalNumber generate() {
+    return DecimalNumber(value: value);
   }
 }
 
@@ -62,7 +161,7 @@ class MinMaxDecimalNumberGenerator implements NumberGenerator {
         );
 
   @override
-  Number generate() {
+  DecimalNumber generate() {
     final range = maximum - minimum;
     final intPart = minimum + random.nextInt(range);
 
@@ -75,6 +174,6 @@ class MinMaxDecimalNumberGenerator implements NumberGenerator {
       value = double.parse(value.toStringAsFixed(decimals));
     }
 
-    return Number(value: value);
+    return DecimalNumber(value: value);
   }
 }

@@ -35,9 +35,18 @@
     - [ ] Different ranges for each number (first, second number)
     - [ ] Persist current settings
     - [ ] Save custom settings presets
-- [ ] Levels page
+- [ ] Levels page (learn)
+    - [ ] Split per types
     - [ ] Per-defined settings with each level
     - [ ] Small level description ("single digit additions")
+    - [ ] Favorites section (save levels that you like)
+- [ ] Tests page (practice)
+    - [ ] Common mixes tests
+    - [ ] Favorites section (save tests that you like)
+- [ ] Custom page (create)
+    - [ ] Custom presets
+    - [ ] Simple presets creation mode
+    - [ ] Advanced presets creation mode
 - [ ] Layout
     - [ ] Show/Hide virtual keyboard
     - [ ] Tablet / Web layout

@@ -1,6 +1,4 @@
-import "dart:math";
-
-import "package:numly/models/random.dart";
+import "dart:math" as math;
 
 // https://github.com/dart-lang/sdk/issues/46180
 int _gcd(int a, int b) {
@@ -22,8 +20,45 @@ class RationalNumber {
 
   late final isNegative = numerator < 0;
   late final isInteger = denominator == 1;
-  // TODO late final isDecimal = ;
   late final isPercentage = 100 % denominator == 0;
+  late final isDecimal = () {
+    if (isInteger) {
+      return true;
+    }
+
+    var d = denominator;
+    while (d % 5 == 0) {
+      d ~/= 5;
+    }
+    while (d % 2 == 0) {
+      d ~/= 2;
+    }
+    return d == 1;
+  }();
+
+  late final fractionalString = "$numerator/$denominator";
+  late final intDecFracString = () {
+    if (isInteger) {
+      return numerator.toString();
+    }
+
+    if (!isDecimal) {
+      return fractionalString;
+    }
+
+    final intPart = numerator ~/ denominator;
+    var decimal = "$intPart.";
+
+    var remainder = numerator % denominator;
+    while (remainder != 0) {
+      remainder *= 10;
+      final digit = remainder ~/ denominator;
+      decimal += digit.toString();
+      remainder %= denominator;
+    }
+
+    return decimal;
+  }();
 
   /// Only use with reduced form, numerator and denominator coprime
   RationalNumber._reduced({
@@ -72,7 +107,7 @@ class RationalNumber {
     );
   }
 
-  factory RationalNumber.fromString(String text) {
+  factory RationalNumber.parse(String text) {
     final fractionalMatch = fractionalPattern.firstMatch(text);
     if (fractionalMatch != null) {
       final numerator = fractionalMatch.group(1)!;
@@ -98,7 +133,7 @@ class RationalNumber {
       final decPart = decimalMatch.group(2) ?? "";
 
       final numerator = intPart + decPart;
-      final denominator = pow(10, decPart.length);
+      final denominator = math.pow(10, decPart.length);
 
       return RationalNumber(
         int.parse(numerator),
@@ -109,71 +144,65 @@ class RationalNumber {
     throw FormatException("$text is not a valid rational number format");
   }
 
-  @override
-  String toString() {
-    if (isInteger) {
-      return "$numerator";
-    } else {
-      return "$numerator/$denominator";
-    }
+  RationalNumber get neg => RationalNumber(-numerator, denominator);
+  RationalNumber get inv => RationalNumber(denominator, numerator);
+
+  RationalNumber add(RationalNumber other) {
+    return RationalNumber(
+      numerator * other.denominator + other.numerator * denominator,
+      denominator * other.denominator,
+    );
   }
-}
 
-abstract class NumberGenerator {
-  DecimalNumber generate();
-}
-
-class ConstantNumberGenerator implements NumberGenerator {
-  final double value;
-
-  ConstantNumberGenerator({
-    required this.value,
-  });
-
-  @override
-  DecimalNumber generate() {
-    return DecimalNumber(value: value);
+  RationalNumber sub(RationalNumber other) {
+    return RationalNumber(
+      numerator * other.denominator - other.numerator * denominator,
+      denominator * other.denominator,
+    );
   }
-}
 
-class MinMaxDecimalNumberGenerator implements NumberGenerator {
-  /// Minimum number value (inclusive)
-  final int minimum;
+  RationalNumber mul(RationalNumber other) {
+    return RationalNumber(
+      numerator * other.denominator - other.numerator * denominator,
+      denominator * other.denominator,
+    );
+  }
 
-  /// Maximum number value (exclusive)
-  final int maximum;
+  RationalNumber div(RationalNumber other) {
+    return RationalNumber(
+      numerator * other.denominator,
+      denominator * other.numerator,
+    );
+  }
 
-  /// Number of decimals
-  /// If non-zero, the number will always have a (non-zero) decimal part.
-  final int decimals;
-
-  MinMaxDecimalNumberGenerator({
-    required this.minimum,
-    required this.maximum,
-    required this.decimals,
-  })  : assert(
-          minimum <= maximum,
-          "`minimum` should be smaller than or equal to `maximum`.",
-        ),
-        assert(
-          decimals >= 0,
-          "`decimals` should be positive or zero.",
-        );
-
-  @override
-  DecimalNumber generate() {
-    final range = maximum - minimum;
-    final intPart = minimum + random.nextInt(range);
-
-    var value = intPart.toDouble();
-
-    if (decimals != 0) {
-      final scale = pow(10, decimals).toInt();
-      final decimalPart = 1 + random.nextInt(scale - 1);
-      value += decimalPart / scale;
-      value = double.parse(value.toStringAsFixed(decimals));
+  RationalNumber pow(RationalNumber other) {
+    if (other.isNegative) {
+      return inv.pow(other.neg);
     }
 
-    return DecimalNumber(value: value);
+    // TODO finish power for square root, check if result is integer
+    return RationalNumber(
+      math.pow(numerator, exponent).toInt(),
+      math.pow(denominator, exponent).toInt(),
+    );
   }
+
+  RationalNumber nrt(RationalNumber other) {
+    if (!other.isInteger) {
+      throw ArgumentError("n-th root n = $other is not an integer");
+    }
+
+    return pow(other.inv);
+  }
+
+  int toInt() {
+    if (!isInteger) {
+      throw ArgumentError("cannot convert $this to integer");
+    }
+
+    return numerator;
+  }
+
+  @override
+  String toString() => isInteger ? numerator.toString() : fractionalString;
 }

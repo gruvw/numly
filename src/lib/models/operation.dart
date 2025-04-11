@@ -1,4 +1,4 @@
-import "package:numly/models/number.dart";
+import "package:numly/models/rational_number.dart";
 
 enum Operation {
   addition,
@@ -8,16 +8,16 @@ enum Operation {
   // power,
   // root,
 
-  DecimalNumber compute(DecimalNumber number1, DecimalNumber number2) {
+  RationalNumber compute(RationalNumber number1, RationalNumber number2) {
     switch (this) {
       case addition:
-        return DecimalNumber(value: number1.value + number2.value);
+        return RationalNumber(value: number1.value + number2.value);
       case subtraction:
-        return DecimalNumber(value: number1.value - number2.value);
+        return RationalNumber(value: number1.value - number2.value);
       case multiplication:
-        return DecimalNumber(value: number1.value * number2.value);
+        return RationalNumber(value: number1.value * number2.value);
       case division:
-        return DecimalNumber(value: number1.value / number2.value);
+        return RationalNumber(value: number1.value / number2.value);
     }
   }
 }

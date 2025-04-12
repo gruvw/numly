@@ -1,8 +1,13 @@
-import "dart:math" as math;
+import "package:numly/utils/math.dart";
+
+final _i2 = BigInt.from(2);
+final _i5 = BigInt.from(5);
+final _i10 = BigInt.from(10);
+final _i100 = BigInt.from(100);
 
 // https://github.com/dart-lang/sdk/issues/46180
-int _gcd(int a, int b) {
-  while (b != 0) {
+BigInt _gcd(BigInt a, BigInt b) {
+  while (b != BigInt.zero) {
     final t = b;
     b = a % b;
     a = t;
@@ -15,29 +20,31 @@ class RationalNumber {
   static final percentPattern = RegExp(r"^(-?\d+)%$");
   static final decimalPattern = RegExp(r"^(-?\d+)(\.(\d+))?$");
 
-  final int numerator;
-  final int denominator;
+  final BigInt numerator;
+  final BigInt denominator;
 
-  late final isNegative = numerator < 0;
-  late final isInteger = denominator == 1;
-  late final isPercentage = 100 % denominator == 0;
-  late final isDecimal = () {
+  late final isNegative = numerator < BigInt.zero;
+  late final isInteger = denominator == BigInt.one;
+  late final isPercentage = _i100 % denominator == BigInt.zero;
+
+  bool get isDecimal {
     if (isInteger) {
       return true;
     }
 
     var d = denominator;
-    while (d % 5 == 0) {
-      d ~/= 5;
+    while (d % _i5 == BigInt.zero) {
+      d ~/= _i5;
     }
-    while (d % 2 == 0) {
-      d ~/= 2;
+    while (d % _i2 == BigInt.zero) {
+      d ~/= _i2;
     }
-    return d == 1;
-  }();
 
-  late final fractionalString = "$numerator/$denominator";
-  late final intDecFracString = () {
+    return d == BigInt.one;
+  }
+
+  String get fractionalString => "$numerator/$denominator";
+  String get intDecFracString {
     if (isInteger) {
       return numerator.toString();
     }
@@ -50,50 +57,56 @@ class RationalNumber {
     var decimal = "$intPart.";
 
     var remainder = numerator % denominator;
-    while (remainder != 0) {
-      remainder *= 10;
+    while (remainder != BigInt.zero) {
+      remainder *= _i10;
       final digit = remainder ~/ denominator;
       decimal += digit.toString();
       remainder %= denominator;
     }
 
     return decimal;
-  }();
+  }
 
   /// Only use with reduced form, numerator and denominator coprime
   RationalNumber._reduced({
     required this.numerator,
     required this.denominator,
   })  : assert(
-          denominator >= 1,
+          denominator >= BigInt.one,
           "denominator ($denominator) must be larger than 1",
         ),
         assert(
-          _gcd(numerator.abs(), denominator) == 1,
+          _gcd(numerator.abs(), denominator) == BigInt.one,
           "numerator ($numerator) and denominator ($denominator) must be coprime",
         );
 
   factory RationalNumber(
-    int numerator, [
-    int? denominator,
+    BigInt numerator, [
+    BigInt? denominator,
   ]) {
     // integer number
     if (denominator == null) {
-      return RationalNumber._reduced(numerator: numerator, denominator: 1);
+      return RationalNumber._reduced(
+        numerator: numerator,
+        denominator: BigInt.one,
+      );
     }
 
     // division by 0
-    if (denominator == 0) {
+    if (denominator == BigInt.zero) {
       throw ArgumentError("zero is not a valid denominator");
     }
 
     // 0/x = 0
-    if (numerator == 0) {
-      return RationalNumber._reduced(numerator: 0, denominator: 1);
+    if (numerator == BigInt.zero) {
+      return RationalNumber._reduced(
+        numerator: BigInt.zero,
+        denominator: BigInt.one,
+      );
     }
 
     // make denominator positive
-    if (denominator < 0) {
+    if (denominator < BigInt.zero) {
       numerator = -numerator;
       denominator = -denominator;
     }
@@ -107,14 +120,21 @@ class RationalNumber {
     );
   }
 
+  factory RationalNumber.fromInt(int numerator, [int denominator = 1]) {
+    return RationalNumber(
+      BigInt.from(numerator),
+      BigInt.from(denominator),
+    );
+  }
+
   factory RationalNumber.parse(String text) {
     final fractionalMatch = fractionalPattern.firstMatch(text);
     if (fractionalMatch != null) {
       final numerator = fractionalMatch.group(1)!;
       final denominator = fractionalMatch.group(2)!;
       return RationalNumber(
-        int.parse(numerator),
-        int.parse(denominator),
+        BigInt.parse(numerator),
+        BigInt.parse(denominator),
       );
     }
 
@@ -122,8 +142,8 @@ class RationalNumber {
     if (percentMatch != null) {
       final numerator = percentMatch.group(1)!;
       return RationalNumber(
-        int.parse(numerator),
-        100,
+        BigInt.parse(numerator),
+        _i100,
       );
     }
 
@@ -133,11 +153,11 @@ class RationalNumber {
       final decPart = decimalMatch.group(2) ?? "";
 
       final numerator = intPart + decPart;
-      final denominator = math.pow(10, decPart.length);
+      final denominator = _i10.pow(decPart.length);
 
       return RationalNumber(
-        int.parse(numerator),
-        denominator.toInt(),
+        BigInt.parse(numerator),
+        denominator,
       );
     }
 
@@ -163,7 +183,7 @@ class RationalNumber {
 
   RationalNumber mul(RationalNumber other) {
     return RationalNumber(
-      numerator * other.denominator - other.numerator * denominator,
+      numerator * other.numerator,
       denominator * other.denominator,
     );
   }
@@ -180,10 +200,22 @@ class RationalNumber {
       return inv.pow(other.neg);
     }
 
-    // TODO finish power for square root, check if result is integer
+    final exponent = other.numerator.toInt(); // always non-negative
+    final numeratorPow = numerator.pow(exponent);
+    final denominatorPow = denominator.pow(exponent);
+
+    final base = other.denominator; // always >= 1
+    final numeratorPowRoot = numeratorPow.integerNthRoot(base.toInt());
+    final denominatorPowRoot = denominatorPow.integerNthRoot(base.toInt());
+    if (numeratorPowRoot == null || denominatorPowRoot == null) {
+      throw ArgumentError(
+        "invalid power (n-th root isn't rational) for ($this)^($other)",
+      );
+    }
+
     return RationalNumber(
-      math.pow(numerator, exponent).toInt(),
-      math.pow(denominator, exponent).toInt(),
+      numeratorPowRoot,
+      denominatorPowRoot,
     );
   }
 
@@ -195,12 +227,16 @@ class RationalNumber {
     return pow(other.inv);
   }
 
-  int toInt() {
-    if (!isInteger) {
+  bool equals(RationalNumber other) {
+    return numerator == other.numerator && denominator == other.denominator;
+  }
+
+  int toInteger() {
+    if (!isInteger || !numerator.isValidInt) {
       throw ArgumentError("cannot convert $this to integer");
     }
 
-    return numerator;
+    return numerator.toInt();
   }
 
   @override

@@ -3,15 +3,17 @@ import "package:numly/models/number_generator.dart";
 import "package:numly/models/operation.dart";
 import "package:numly/models/question.dart";
 import "package:numly/models/rational_number.dart";
+import "package:numly/static/numbers.dart";
 
 abstract class QuestionGenerator {
   Question generate();
 }
 
 class MinMaxQuestionGenerator implements QuestionGenerator {
-  final NumberGenerator numberGenerator1;
+  final NumberGenerator numberGenerator;
   final NumberGenerator numberGenerator2;
   final Operation operation;
+  final SolutionType solutionType;
 
   /// Minimum answer value (inclusive)
   final RationalNumber? min;
@@ -20,12 +22,13 @@ class MinMaxQuestionGenerator implements QuestionGenerator {
   final RationalNumber? max;
 
   MinMaxQuestionGenerator({
-    required this.numberGenerator1,
-    required this.numberGenerator2,
+    required this.numberGenerator,
+    NumberGenerator? numberGenerator2,
     required this.operation,
+    required this.solutionType,
     this.min,
     this.max,
-  });
+  }) : numberGenerator2 = numberGenerator2 ?? numberGenerator;
 
   @override
   Question generate() {
@@ -38,15 +41,16 @@ class MinMaxQuestionGenerator implements QuestionGenerator {
     do {
       iterations++;
 
-      number1 = numberGenerator1.generate();
+      number1 = numberGenerator.generate();
       number2 = numberGenerator2.generate();
       question = Question(
         number1: number1,
         number2: number2,
         operation: operation,
+        solutionType: solutionType,
       );
-    } while ((min == null || question.answer >= min) &&
-        (max == null || question.answer <= max));
+    } while ((min == null || question.solution >= min) &&
+        (max == null || question.solution <= max));
 
     if (iterations >= 30) {
       debugPrint(
@@ -58,10 +62,20 @@ class MinMaxQuestionGenerator implements QuestionGenerator {
   }
 }
 
+class PositiveQuestionGenerator extends MinMaxQuestionGenerator {
+  PositiveQuestionGenerator({
+    required super.numberGenerator,
+    super.numberGenerator2,
+    required super.operation,
+    required super.solutionType,
+  }) : super(min: r0);
+}
+
 class SimpleQuestionGenerator extends MinMaxQuestionGenerator {
   SimpleQuestionGenerator({
-    required super.numberGenerator1,
-    required super.numberGenerator2,
+    required super.numberGenerator,
+    super.numberGenerator2,
     required super.operation,
+    required super.solutionType,
   });
 }

@@ -32,7 +32,7 @@ class MinMaxDecimalNumberGenerator implements NumberGenerator {
   final int decimals;
 
   MinMaxDecimalNumberGenerator({
-    required this.minimum,
+    this.minimum = 0,
     required this.maximum,
     required this.decimals,
   })  : assert(
@@ -62,7 +62,7 @@ class MinMaxDecimalNumberGenerator implements NumberGenerator {
 
 class MinMaxIntegerNumberGenerator extends MinMaxDecimalNumberGenerator {
   MinMaxIntegerNumberGenerator({
-    required super.minimum,
+    super.minimum,
     required super.maximum,
   }) : super(decimals: 0);
 }
@@ -81,9 +81,9 @@ class MinMaxFractionalNumberGenerator implements NumberGenerator {
   final int denominatorMaximum;
 
   MinMaxFractionalNumberGenerator({
-    required this.numeratorMinimum,
+    this.numeratorMinimum = 0,
     required this.numeratorMaximum,
-    required this.denominatorMinimum,
+    this.denominatorMinimum = 0,
     required this.denominatorMaximum,
   })  : assert(
           numeratorMinimum <= numeratorMaximum,
@@ -119,7 +119,7 @@ class MinMaxFractionalNumberGenerator implements NumberGenerator {
 
 class MinMaxPercentNumberGenerator extends MinMaxFractionalNumberGenerator {
   MinMaxPercentNumberGenerator({
-    required super.numeratorMinimum,
+    super.numeratorMinimum,
     required super.numeratorMaximum,
   }) : super(denominatorMinimum: 100, denominatorMaximum: 100);
 }

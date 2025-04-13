@@ -1,13 +1,9 @@
+import "package:numly/static/numbers.dart";
 import "package:numly/utils/math.dart";
-
-final _i2 = BigInt.from(2);
-final _i5 = BigInt.from(5);
-final _i10 = BigInt.from(10);
-final _i100 = BigInt.from(100);
 
 // https://github.com/dart-lang/sdk/issues/46180
 BigInt _gcd(BigInt a, BigInt b) {
-  while (b != BigInt.zero) {
+  while (b != i0) {
     final t = b;
     b = a % b;
     a = t;
@@ -23,60 +19,16 @@ class RationalNumber implements Comparable<RationalNumber> {
   final BigInt numerator;
   final BigInt denominator;
 
-  late final isNegative = numerator < BigInt.zero;
-  late final isInteger = denominator == BigInt.one;
-  late final isPercentage = _i100 % denominator == BigInt.zero;
-
-  bool get isDecimal {
-    if (isInteger) {
-      return true;
-    }
-
-    var d = denominator;
-    while (d % _i5 == BigInt.zero) {
-      d ~/= _i5;
-    }
-    while (d % _i2 == BigInt.zero) {
-      d ~/= _i2;
-    }
-
-    return d == BigInt.one;
-  }
-
-  String get fractionalString => "$numerator/$denominator";
-  String get intDecFracString {
-    if (isInteger) {
-      return numerator.toString();
-    }
-
-    if (!isDecimal) {
-      return fractionalString;
-    }
-
-    final intPart = numerator ~/ denominator;
-    var decimal = "$intPart.";
-
-    var remainder = numerator % denominator;
-    while (remainder != BigInt.zero) {
-      remainder *= _i10;
-      final digit = remainder ~/ denominator;
-      decimal += digit.toString();
-      remainder %= denominator;
-    }
-
-    return decimal;
-  }
-
   /// Only use with reduced form, numerator and denominator coprime
   RationalNumber._reduced({
     required this.numerator,
     required this.denominator,
   })  : assert(
-          denominator >= BigInt.one,
+          denominator >= i1,
           "denominator ($denominator) must be larger than 1",
         ),
         assert(
-          _gcd(numerator.abs(), denominator) == BigInt.one,
+          _gcd(numerator.abs(), denominator) == i1,
           "numerator ($numerator) and denominator ($denominator) must be coprime",
         );
 
@@ -88,25 +40,25 @@ class RationalNumber implements Comparable<RationalNumber> {
     if (denominator == null) {
       return RationalNumber._reduced(
         numerator: numerator,
-        denominator: BigInt.one,
+        denominator: i1,
       );
     }
 
     // division by 0
-    if (denominator == BigInt.zero) {
+    if (denominator == i0) {
       throw ArgumentError("zero is not a valid denominator");
     }
 
     // 0/x = 0
-    if (numerator == BigInt.zero) {
+    if (numerator == i0) {
       return RationalNumber._reduced(
-        numerator: BigInt.zero,
-        denominator: BigInt.one,
+        numerator: i0,
+        denominator: i1,
       );
     }
 
     // make denominator positive
-    if (denominator < BigInt.zero) {
+    if (denominator < i0) {
       numerator = -numerator;
       denominator = -denominator;
     }
@@ -146,7 +98,7 @@ class RationalNumber implements Comparable<RationalNumber> {
       final numerator = percentMatch.group(1)!;
       return RationalNumber(
         BigInt.parse(numerator),
-        _i100,
+        i100,
       );
     }
 
@@ -156,7 +108,7 @@ class RationalNumber implements Comparable<RationalNumber> {
       final decPart = decimalMatch.group(2) ?? "";
 
       final numerator = intPart + decPart;
-      final denominator = _i10.pow(decPart.length);
+      final denominator = i10.pow(decPart.length);
 
       return RationalNumber(
         BigInt.parse(numerator),
@@ -174,6 +126,58 @@ class RationalNumber implements Comparable<RationalNumber> {
       return null;
     }
   }
+
+  late final isNegative = numerator < i0;
+  late final isInteger = denominator == i1;
+  late final isPercentage = i100 % denominator == i1;
+
+  late final isDecimal = () {
+    if (isInteger) {
+      return true;
+    }
+
+    var d = denominator;
+    while (d % i5 == i0) {
+      d ~/= i5;
+    }
+    while (d % i2 == i0) {
+      d ~/= i2;
+    }
+
+    return d == i1;
+  }();
+
+  late final intFracString =
+      isInteger ? numerator.toString() : "$numerator/$denominator";
+  late final intDecFracString = () {
+    if (isInteger) {
+      return numerator.toString();
+    }
+
+    if (!isDecimal) {
+      return intFracString;
+    }
+
+    final intPart = numerator ~/ denominator;
+    var decimal = "$intPart.";
+
+    var remainder = numerator % denominator;
+    while (remainder != i0) {
+      remainder *= i10;
+      final digit = remainder ~/ denominator;
+      decimal += digit.toString();
+      remainder %= denominator;
+    }
+
+    return decimal;
+  }();
+  late final percentString = () {
+    if (!isPercentage) {
+      throw FormatException("$this is not a valid percent number");
+    }
+
+    return "$numerator%";
+  }();
 
   RationalNumber get neg => RationalNumber(-numerator, denominator);
   RationalNumber get inv => RationalNumber(denominator, numerator);
@@ -262,5 +266,5 @@ class RationalNumber implements Comparable<RationalNumber> {
   bool operator >=(RationalNumber other) => compareTo(other) >= 0;
 
   @override
-  String toString() => isInteger ? numerator.toString() : fractionalString;
+  String toString() => intFracString;
 }

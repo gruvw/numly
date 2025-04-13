@@ -57,6 +57,7 @@
     - [ ] Analytics (difficult questions, average, slowest, fastest, ...)
     - [ ] Share test result
 - [ ] Sound
+- [ ] Translate app
 
 ## Non-Features (out of scope)
 

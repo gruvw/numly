@@ -1,3 +1,5 @@
+import "package:numly/static/numbers.dart";
+
 extension NthRoot on BigInt {
   /// Returns x if there is a integer x such that x^n = this
   BigInt? integerNthRoot(int n) {
@@ -6,16 +8,16 @@ extension NthRoot on BigInt {
     }
 
     // the nth root of 0 is always 0
-    if (this == BigInt.zero) return BigInt.zero;
+    if (this == i0) return i0;
 
     // the 1st root of any number is itself
     if (n == 1) return this;
 
     // the nth root of 1 is always 1
-    if (this == BigInt.one) return BigInt.one;
+    if (this == i1) return i1;
 
     // negative number
-    if (this < BigInt.zero) {
+    if (this < i0) {
       // if n is even, a negative number doesn't have a real nth root
       if (n.isEven) {
         return null;
@@ -27,11 +29,11 @@ extension NthRoot on BigInt {
     }
 
     // binary search to find the positive integer x such that x^n = this (where this is positive)
-    var low = BigInt.one;
+    var low = i1;
     var high = this; // upper bound
 
     while (low <= high) {
-      var mid = (low + high) ~/ BigInt.two;
+      var mid = (low + high) ~/ i2;
 
       // calculate mid^n
       var result = mid.pow(n);
@@ -41,9 +43,9 @@ extension NthRoot on BigInt {
       if (comparison == 0) {
         return mid; // Found exact root
       } else if (comparison < 0) {
-        low = mid + BigInt.one; // Search in upper half
+        low = mid + i1; // Search in upper half
       } else {
-        high = mid - BigInt.one; // Search in lower half
+        high = mid - i1; // Search in lower half
       }
     }
 

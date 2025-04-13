@@ -30,7 +30,7 @@
 - [ ] Settings page
     - [ ] Retry on error / Show correct result (toggle button)
     - [ ] Number of questions per test
-    - [ ] Zen mode / Practice mode (no test length, no time limit)
+    - [ ] Zen mode / Practice mode (no test length, no time limit) for every test
     - [ ] Number ranges
     - [ ] Different ranges for each number (first, second number)
     - [ ] Persist current settings

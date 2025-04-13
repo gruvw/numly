@@ -1,9 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
+import "package:numly/logic/input_processing.dart";
 import "package:numly/static/keys.dart";
 import "package:numly/static/styles.dart";
-import "package:numly/utils/language.dart";
-import "package:numly/views/pages/components/input/number_formatter.dart";
 import "package:numly/views/pages/components/input/virtual_key.dart";
 
 class VirtualKeyboard extends HookWidget {
@@ -76,9 +75,7 @@ class VirtualKeyboard extends HookWidget {
 
     // TODO enter on keyboard should submit
     final submitKey = _iconKey(Icons.check, () {
-      // remove ending . or /
-      numberController.text = numberText.removeAll(RegExp(r"\.+$|/+$"));
-      // TODO empty numbers
+      numberController.text = numberSubmitter(numberText);
       // TODO submit press
     });
 

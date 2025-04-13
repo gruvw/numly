@@ -15,7 +15,7 @@ BigInt _gcd(BigInt a, BigInt b) {
   return a;
 }
 
-class RationalNumber {
+class RationalNumber implements Comparable<RationalNumber> {
   static final fractionalPattern = RegExp(r"^(-?\d+)/(\d+)$");
   static final percentPattern = RegExp(r"^(-?\d+)%$");
   static final decimalPattern = RegExp(r"^(-?\d+)(\.(\d+))?$");
@@ -167,6 +167,14 @@ class RationalNumber {
     throw FormatException("$text is not a valid rational number format");
   }
 
+  static RationalNumber? tryParse(String text) {
+    try {
+      return RationalNumber.parse(text);
+    } catch (_) {
+      return null;
+    }
+  }
+
   RationalNumber get neg => RationalNumber(-numerator, denominator);
   RationalNumber get inv => RationalNumber(denominator, numerator);
 
@@ -241,6 +249,17 @@ class RationalNumber {
 
     return numerator.toInt();
   }
+
+  @override
+  int compareTo(RationalNumber other) {
+    return (numerator * other.denominator)
+        .compareTo(other.numerator * denominator);
+  }
+
+  bool operator <(RationalNumber other) => compareTo(other) < 0;
+  bool operator <=(RationalNumber other) => compareTo(other) <= 0;
+  bool operator >(RationalNumber other) => compareTo(other) > 0;
+  bool operator >=(RationalNumber other) => compareTo(other) >= 0;
 
   @override
   String toString() => isInteger ? numerator.toString() : fractionalString;

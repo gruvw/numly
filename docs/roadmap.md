@@ -10,20 +10,20 @@
     - [X] Disabled virtual keys
 - [X] Actual keyboard
 - [ ] Question generation
-    - [X] With minimum/maximum input numbers
-    - [X] With minimum/maximum result value
+    - [ ] With minimum/maximum input numbers
+    - [ ] With minimum/maximum result value
     - [X] Support addition
     - [X] Support subtract
-        - [X] Only positive answers mode
+        - [ ] Only positive answers mode
     - [X] Support multiply
-    - [ ] Support divide
+    - [X] Support divide
         - [ ] Integer number results
         - [ ] Decimal (finite) number results
     - [ ] Support decimal number as inputs (1, 2 and 3 decimals)
     - [ ] Support fractions as input number
     - [ ] Support % as input number
-    - [ ] Support power
-    - [ ] Support n-th root
+    - [X] Support power
+    - [X] Support n-th root
 - [ ] Question resolution / answer and submit
     - [ ] Force reduced fractions (or scalar if possible 4/2 = 2), maybe show note on wrong result if correct but not reduced
 - [ ] Application icon

@@ -46,17 +46,66 @@ class MinMaxDecimalNumberGenerator implements NumberGenerator {
 
   @override
   RationalNumber generate() {
-    final range = maximum - minimum;
-    final intPart = minimum + random.nextInt(range);
+    final intPart = randomIntRange(minimum, maximum);
 
     var number = intPart.toString();
 
     if (decimals != 0) {
       final scale = pow(10, decimals).toInt();
-      final decimalPart = 1 + random.nextInt(scale - 1);
+      final decimalPart = randomIntRange(1, scale - 1);
       number += ".$decimalPart";
     }
 
     return RationalNumber.parse(number);
+  }
+}
+
+class MinMaxFractionalNumberGenerator implements NumberGenerator {
+  /// Minimum number value (inclusive)
+  final int numeratorMinimum;
+
+  /// Maximum number value (exclusive)
+  final int numeratorMaximum;
+
+  /// Minimum number value (inclusive)
+  final int denominatorMinimum;
+
+  /// Maximum number value (exclusive)
+  final int denominatorMaximum;
+
+  MinMaxFractionalNumberGenerator({
+    required this.numeratorMinimum,
+    required this.numeratorMaximum,
+    required this.denominatorMinimum,
+    required this.denominatorMaximum,
+  })  : assert(
+          numeratorMinimum <= numeratorMaximum,
+          "`numeratorMinimum` should be smaller than or equal to `numeratorMaximum`.",
+        ),
+        assert(
+          denominatorMinimum <= denominatorMaximum,
+          "`denominatorMinimum` should be smaller than or equal to `denominatorMaximum`.",
+        );
+
+  @override
+  RationalNumber generate() {
+    final numerator = randomIntRange(numeratorMinimum, numeratorMaximum);
+
+    int denominator;
+    if (denominatorMinimum <= 0 && 0 <= denominatorMaximum) {
+      // zero is within the range, so we skip it
+      denominator = randomIntRange(denominatorMinimum, denominatorMaximum - 1);
+      if (denominator >= 0) {
+        denominator++;
+      }
+    } else {
+      // zero is not in the range, no division by 0
+      denominator = randomIntRange(denominatorMinimum, denominatorMaximum);
+    }
+
+    return RationalNumber.fromInt(
+      numerator,
+      denominator,
+    );
   }
 }

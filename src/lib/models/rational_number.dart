@@ -120,7 +120,10 @@ class RationalNumber {
     );
   }
 
-  factory RationalNumber.fromInt(int numerator, [int denominator = 1]) {
+  factory RationalNumber.fromInt(
+    int numerator, [
+    int denominator = 1,
+  ]) {
     return RationalNumber(
       BigInt.from(numerator),
       BigInt.from(denominator),

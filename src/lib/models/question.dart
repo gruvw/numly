@@ -1,13 +1,13 @@
 import "package:flutter/material.dart";
-import "package:numly/models/number.dart";
 import "package:numly/models/operation.dart";
+import "package:numly/models/rational_number.dart";
 
 class Question {
-  final DecimalNumber number1;
-  final DecimalNumber number2;
+  final RationalNumber number1;
+  final RationalNumber number2;
   final Operation operation;
 
-  late final DecimalNumber answer = operation.compute(number1, number2);
+  late final RationalNumber answer = operation.compute(number1, number2);
 
   Question({
     required this.number1,

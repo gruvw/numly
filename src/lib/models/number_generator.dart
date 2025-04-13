@@ -60,6 +60,13 @@ class MinMaxDecimalNumberGenerator implements NumberGenerator {
   }
 }
 
+class MinMaxIntegerNumberGenerator extends MinMaxDecimalNumberGenerator {
+  MinMaxIntegerNumberGenerator({
+    required super.minimum,
+    required super.maximum,
+  }) : super(decimals: 0);
+}
+
 class MinMaxFractionalNumberGenerator implements NumberGenerator {
   /// Minimum number value (inclusive)
   final int numeratorMinimum;
@@ -108,4 +115,11 @@ class MinMaxFractionalNumberGenerator implements NumberGenerator {
       denominator,
     );
   }
+}
+
+class MinMaxPercentNumberGenerator extends MinMaxFractionalNumberGenerator {
+  MinMaxPercentNumberGenerator({
+    required super.numeratorMinimum,
+    required super.numeratorMaximum,
+  }) : super(denominatorMinimum: 100, denominatorMaximum: 100);
 }

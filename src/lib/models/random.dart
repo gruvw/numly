@@ -1,6 +1,6 @@
 import "dart:math";
 
-final Random _random = Random();
+final Random random = Random();
 
 /// Generates random int between `minimum` (inclusive) and `maximum` (exclusive).
 /// If minimum >= maximum, generates `minimum`.
@@ -10,7 +10,7 @@ int randomIntRange(int minimum, int maximum) {
     return minimum;
   }
 
-  return minimum + _random.nextInt(maximum);
+  return minimum + random.nextInt(maximum);
 }
 
 /// Generates random int between 0 (inclusive) and `maximum` (exclusive).

@@ -117,8 +117,8 @@ class MinMaxFractionalNumberGenerator implements NumberGenerator {
   }
 }
 
-class MinMaxPercentNumberGenerator extends MinMaxFractionalNumberGenerator {
-  MinMaxPercentNumberGenerator({
+class SimplePercentNumberGenerator extends MinMaxFractionalNumberGenerator {
+  SimplePercentNumberGenerator({
     super.numeratorMinimum,
     required super.numeratorMaximum,
   }) : super(denominatorMinimum: 100, denominatorMaximum: 100);

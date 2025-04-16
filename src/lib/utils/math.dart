@@ -1,4 +1,5 @@
-import "package:numly/static/numbers.dart";
+
+import "package:numly/static/math/numbers.dart";
 
 extension NthRoot on BigInt {
   /// Returns x if there is a integer x such that x^n = this

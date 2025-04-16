@@ -1,4 +1,4 @@
-import "package:numly/static/numbers.dart";
+import "package:numly/static/math/numbers.dart";
 import "package:numly/utils/math.dart";
 
 // https://github.com/dart-lang/sdk/issues/46180

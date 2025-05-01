@@ -1,10 +1,12 @@
 import "package:flutter/material.dart";
-import "package:numly/views/pages/test_page.dart";
+import "package:numly/views/pages/overview_page/overview_page.dart";
+import "package:numly/views/pages/test_page/test_page.dart";
 
 enum Routes {
+  overview("overview"),
   test("test");
 
-  static const initial = test;
+  static const initial = overview;
 
   final String name;
 
@@ -21,6 +23,8 @@ enum Routes {
 
   Widget page(Object? args) {
     switch (this) {
+      case overview:
+        return const OverviewPage();
       case test:
         return const TestPage();
     }

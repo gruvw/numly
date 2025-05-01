@@ -3,7 +3,7 @@ import "package:flutter_hooks/flutter_hooks.dart";
 import "package:numly/logic/input_processing.dart";
 import "package:numly/static/keys.dart";
 import "package:numly/static/styles.dart";
-import "package:numly/views/pages/components/input/virtual_key.dart";
+import "package:numly/views/pages/test_page/components/input/virtual_key.dart";
 
 class VirtualKeyboard extends HookWidget {
   final TextEditingController numberController;

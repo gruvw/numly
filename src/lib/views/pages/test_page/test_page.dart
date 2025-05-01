@@ -3,8 +3,8 @@ import "package:flutter_hooks/flutter_hooks.dart";
 import "package:gap/gap.dart";
 import "package:numly/static/styles.dart";
 import "package:numly/static/values.dart";
-import "package:numly/views/pages/components/input/number_input.dart";
-import "package:numly/views/pages/components/input/virtual_keyboard.dart";
+import "package:numly/views/pages/test_page/components/input/number_input.dart";
+import "package:numly/views/pages/test_page/components/input/virtual_keyboard.dart";
 
 class TestPage extends HookWidget {
   const TestPage({super.key});

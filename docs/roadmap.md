@@ -70,3 +70,8 @@
 
 - [ ] Write first README
 - [ ] Include app pictures in README
+
+## Inspiration
+
+- Go-math
+- Complete Music Trainer

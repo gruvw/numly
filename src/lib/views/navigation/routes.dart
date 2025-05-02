@@ -13,7 +13,12 @@ enum Routes {
   const Routes(this.name);
 
   static Routes parse(String name) {
-    return Routes.values.firstWhere((r) => r.name == name);
+    return Routes.values.firstWhere(
+      (r) => r.name == name,
+      orElse: () => throw Exception(
+        "Route error: named route '$name' is invalid!",
+      ),
+    );
   }
 
   static Route generateRoute(RouteSettings settings) {

@@ -14,14 +14,6 @@ class OverviewPage extends HookWidget {
   Widget build(BuildContext context) {
     final currentScreenIndex = useState(1);
 
-    final appBar = AppBar(
-      title: Text(
-        Values.applicationTitle,
-      ),
-      backgroundColor: Styles.foregroundColor,
-      foregroundColor: Styles.backgroundColor,
-    );
-
     final screens = [
       LearnScreen(),
       TrainScreen(),
@@ -52,8 +44,15 @@ class OverviewPage extends HookWidget {
     );
 
     return Scaffold(
-      appBar: appBar,
       backgroundColor: Styles.backgroundColor,
+      appBar: AppBar(
+        title: Text(
+          Values.applicationTitle,
+        ),
+        backgroundColor: Styles.foregroundColor,
+        foregroundColor: Styles.backgroundColor,
+      ),
+      // Replace with IndexedStack for screen state preservation
       body: screens[currentScreenIndex.value],
       bottomNavigationBar: bottomNavigationBar,
     );

@@ -23,11 +23,13 @@ class CategoryItem extends StatelessWidget {
   factory CategoryItem.favorites({
     required String title,
     required List<Widget> favorites,
+    VoidCallback? onTap,
   }) {
     return CategoryItem(
       title: title,
       leading: Icon(Symbols.star),
       trailing: Icon(Symbols.arrow_forward_ios),
+      onTap: onTap,
     );
   }
 

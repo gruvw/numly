@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:material_symbols_icons/symbols.dart";
 import "package:numly/static/styles.dart";
 import "package:numly/views/pages/overview_page/screens/components/category_item.dart";
 
@@ -7,10 +6,13 @@ class FavoriteDividedListView extends StatelessWidget {
   final List<Widget> children;
   final List<Widget> favorites;
 
+  final VoidCallback? onFavoritesTap;
+
   const FavoriteDividedListView({
     super.key,
     required this.favorites,
     required this.children,
+    this.onFavoritesTap,
   });
 
   Column _itemBuilder(Widget item) {
@@ -31,6 +33,7 @@ class FavoriteDividedListView extends StatelessWidget {
     final favoritesItem = CategoryItem.favorites(
       title: "Favorites (${favorites.length})",
       favorites: favorites,
+      onTap: onFavoritesTap,
     );
 
     return SingleChildScrollView(

@@ -1,0 +1,56 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    --black: #000000;
+    --white: #FFFFFF;
+
+    --margin: 35px;
+    --thickness: 40px;
+}
+
+.logo {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+
+    width: 512px;
+    aspect-ratio: 1;
+    background-color: var(--black);
+}
+
+.logo div {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bar {
+    position: absolute;
+    background-color: var(--white);
+    width: calc(100% - 2*var(--margin));
+    height: var(--thickness);
+    border-radius: calc(var(--thickness) / 2);
+}
+
+.bar.vert {
+    transform: rotate(90deg);
+}
+
+.bar.diag {
+    width: calc((100% - 2*var(--margin))*sqrt(2) - var(--thickness));
+    transform: rotate(-45deg);
+}
+
+.bar.diag.rev {
+    transform: rotate(45deg);
+}

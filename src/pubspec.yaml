@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_hooks: ^0.21.2
+  flutter_launcher_icons: ^0.14.3
   gap: ^3.0.1
   hooks_riverpod: ^2.6.1
   material_symbols_icons: ^4.2815.0
@@ -25,3 +26,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+# Command to generate the icons: `dart run flutter_launcher_icons`
+flutter_launcher_icons:
+  image_path: assets/logo/numly.png
+  android: true
+  web:
+    generate: true

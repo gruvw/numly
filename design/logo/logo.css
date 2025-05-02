@@ -13,25 +13,18 @@ html {
     --black: #000000;
     --white: #FFFFFF;
 
-    --margin: 35px;
+    --margin: 80px;
     --thickness: 40px;
 }
 
 .logo {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-
-    width: 512px;
-    aspect-ratio: 1;
-    background-color: var(--black);
-}
-
-.logo div {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 512px;
+    aspect-ratio: 1;
+    background-color: var(--black);
 }
 
 .bar {
@@ -47,7 +40,7 @@ html {
 }
 
 .bar.diag {
-    width: calc((100% - 2*var(--margin))*sqrt(2) - var(--thickness));
+    width: calc(100% - 2*var(--margin));
     transform: rotate(-45deg);
 }
 

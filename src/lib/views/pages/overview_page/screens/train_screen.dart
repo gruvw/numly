@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:numly/views/pages/overview_page/screens/components/category_item.dart";
+import "package:numly/views/pages/overview_page/screens/components/favorite_divided_list_view.dart";
 
 class TrainScreen extends StatelessWidget {
   const TrainScreen({super.key});
@@ -7,26 +8,51 @@ class TrainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = [
-      CategoryItem(),
-      CategoryItem(),
-      CategoryItem(),
-      CategoryItem(),
-      CategoryItem(),
-      CategoryItem(),
-      CategoryItem(),
+      CategoryItem(
+        title: "Hey",
+        subtitle: "hey",
+      ),
+      CategoryItem(
+        title: "Hey",
+        subtitle: "hey",
+      ),
+      CategoryItem(
+        title: "Hey",
+        subtitle: "hey",
+      ),
+      CategoryItem(
+        title: "Hey",
+        subtitle: "hey",
+      ),
+      CategoryItem(
+        title: "Hey",
+        subtitle: "hey",
+      ),
+      CategoryItem(
+        title: "Hey",
+        subtitle: "hey",
+      ),
+      CategoryItem(
+        title: "Hey",
+        subtitle: "hey",
+      ),
+      CategoryItem(
+        title: "Hey",
+        subtitle: "hey",
+      ),
+      CategoryItem(
+        title: "Hey",
+        subtitle: "hey",
+      ),
+      CategoryItem(
+        title: "Hey",
+        subtitle: "hey",
+      ),
     ];
 
-    return SingleChildScrollView(
-      child: Column(
-        children: items.map((item) {
-          return Column(
-            children: [
-              item,
-              Divider(),
-            ],
-          );
-        }).toList(),
-      ),
+    return FavoriteDividedListView(
+      favorites: items,
+      children: items,
     );
   }
 }

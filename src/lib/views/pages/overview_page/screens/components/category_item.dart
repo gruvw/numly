@@ -1,13 +1,44 @@
 import "package:flutter/material.dart";
+import "package:material_symbols_icons/symbols.dart";
+import "package:numly/utils/language.dart";
 
 class CategoryItem extends StatelessWidget {
-  const CategoryItem({super.key});
+  final String title;
+  final String? subtitle;
+
+  final Widget? leading;
+  final Widget? trailing;
+
+  final VoidCallback? onTap;
+
+  const CategoryItem({
+    super.key,
+    required this.title,
+    this.subtitle,
+    this.leading,
+    this.trailing,
+    this.onTap,
+  });
+
+  factory CategoryItem.favorites({
+    required String title,
+    required List<Widget> favorites,
+  }) {
+    return CategoryItem(
+      title: title,
+      leading: Icon(Symbols.star),
+      trailing: Icon(Symbols.arrow_forward_ios),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text("Hey"),
-      subtitle: Text("hey"),
+      title: Text(title),
+      subtitle: subtitle?.nmap((subtitle) => Text(subtitle)),
+      leading: leading,
+      trailing: trailing,
+      onTap: onTap,
     );
   }
 }

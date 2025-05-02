@@ -17,3 +17,10 @@ extension Coloren on Color {
     return Color.lerp(this, Colors.white, amount)!;
   }
 }
+
+/// Null map operation extension.
+extension NullMap<T extends Object> on T {
+  R? nmap<R>(R Function(T v) convert) {
+    return convert(this);
+  }
+}

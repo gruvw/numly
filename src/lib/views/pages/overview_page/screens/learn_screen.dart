@@ -5,8 +5,6 @@ class LearnScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text("Learn"),
-    );
+    return Placeholder();
   }
 }

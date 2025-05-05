@@ -3,6 +3,8 @@ import "package:numly/views/pages/overview_page/screens/components/category_item
 import "package:numly/views/pages/overview_page/screens/components/favorite_divided_list_view.dart";
 
 class TrainScreen extends StatelessWidget {
+  static final navigatorKey = GlobalKey<NavigatorState>();
+
   const TrainScreen({super.key});
 
   @override

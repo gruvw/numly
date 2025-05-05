@@ -3,7 +3,9 @@ import "package:numly/views/pages/overview_page/screens/components/category_item
 import "package:numly/views/pages/overview_page/screens/components/favorite_divided_list_view.dart";
 
 class LearnScreen extends StatelessWidget {
-  const LearnScreen({super.key});
+  const LearnScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,7 @@ class LearnScreen extends StatelessWidget {
             },
           );
         }
+
         return MaterialPageRoute(
           builder: (context) {
             final items = [

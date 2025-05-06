@@ -19,6 +19,8 @@
     - [X] Support divide
         - [ ] Integer number results
         - [ ] Decimal (finite) number results
+    - [ ] Support integer division
+    - [ ] Support modulo (integer remainer)
     - [X] Support decimal number as inputs (1, 2 and 3 decimals)
     - [X] Support fractions as input number
     - [ ] Support % as input number
@@ -31,7 +33,7 @@
 - [ ] Settings page
     - [ ] Retry on error / Show correct result (toggle button)
     - [ ] Number of questions per test
-    - [ ] Zen mode / Practice mode (no test length, no time limit) for every test
+    - [ ] Zen (endless) mode / Practice mode (no test length, no time limit) for every test (add a flag button, transforms into a finish test button once enabled)
     - [ ] Number ranges
     - [ ] Different ranges for each number (first, second number)
     - [ ] Persist current settings
@@ -61,10 +63,15 @@
 - [ ] Translate app
 - [ ] Algorithmic quetion generation mode (automatically adjust difficulty based on time and accuracy)
 
+### Extra
+
+- [ ] Pause (button) text at next operation (finish your question then pause test, without revealing next answer, max 2 times per test?)
+- [ ] Option to show the current time taken while taking the test
+
 ## Non-Features (out of scope)
 
 - More than 2 input numbers
-- No other test type (time based)
+- No other test type (time based), only amount of questions tests
 
 ## Documentation
 

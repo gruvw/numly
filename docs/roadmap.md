@@ -28,8 +28,18 @@
     - [X] Support n-th root
 - [X] Question resolution / answer and submit
     - [X] Force reduced fractions (or scalar if possible 4/2 = 2), maybe show note on wrong result if correct but not reduced
+- [ ] Overview Page UI
+    - [ ] Learn page
+    - [ ] Train page
+        - [ ] Common mixed tests display
+    - [ ] Favorites sections (save tests that you like)
+    - [ ] Custom page (create)
+        - [ ] Custom presets
+        - [ ] Simple presets creation mode
+        - [ ] Advanced presets creation mode
 - [ ] Test UI
-- [ ] Application icon
+- [ ] Level design (train and learn basic levels)
+- [X] Application icon
 - [ ] Settings page
     - [ ] Retry on error / Show correct result (toggle button)
     - [ ] Number of questions per test
@@ -44,13 +54,6 @@
     - [X] Per-defined settings with each level
     - [X] Small level description ("single digit additions")
     - [ ] Favorites section (save levels that you like)
-- [ ] Tests page (train)
-    - [ ] Common mixes tests
-    - [ ] Favorites section (save tests that you like)
-- [ ] Custom page (create)
-    - [ ] Custom presets
-    - [ ] Simple presets creation mode
-    - [ ] Advanced presets creation mode
 - [ ] Layout
     - [ ] Tablet / Web layout
     - [ ] Small screens
@@ -59,14 +62,15 @@
     - [ ] Best scores (persistence)
     - [ ] Analytics (difficult questions, average, slowest, fastest, ...)
     - [ ] Share test result
+- [ ] Splash screen
 - [ ] Sound
 - [ ] Translate app
-- [ ] Algorithmic quetion generation mode (automatically adjust difficulty based on time and accuracy)
 
 ### Extra
 
 - [ ] Pause (button) text at next operation (finish your question then pause test, without revealing next answer, max 2 times per test?)
 - [ ] Option to show the current time taken while taking the test
+- [ ] Algorithmic quetion generation mode (automatically adjust difficulty based on time and accuracy)
 
 ## Non-Features (out of scope)
 

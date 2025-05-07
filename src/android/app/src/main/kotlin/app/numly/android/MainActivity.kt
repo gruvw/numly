@@ -1,4 +1,4 @@
-package com.example.numly
+package app.numly.android
 
 import io.flutter.embedding.android.FlutterActivity
 

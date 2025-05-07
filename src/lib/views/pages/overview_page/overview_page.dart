@@ -2,7 +2,6 @@ import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:go_router/go_router.dart";
 import "package:numly/static/styles.dart";
-import "package:numly/static/values.dart";
 import "package:numly/utils/language.dart";
 import "package:numly/views/navigation/routes.dart";
 
@@ -18,7 +17,8 @@ class OverviewPage extends HookWidget {
   Widget build(BuildContext context) {
     final appBar = AppBar(
       title: Text(
-        Values.applicationTitle,
+        Routes.overviewBottomNavigationRoutes[navigationShell.currentIndex].name
+            .capitalize(),
       ),
       backgroundColor: Styles.foregroundColor,
       foregroundColor: Styles.backgroundColor,
@@ -30,7 +30,12 @@ class OverviewPage extends HookWidget {
       backgroundColor: Styles.foregroundColor,
       selectedItemColor: Styles.backgroundColor,
       unselectedItemColor: Styles.colorIgnored,
-      onTap: navigationShell.goBranch,
+      onTap: (index) {
+        navigationShell.goBranch(
+          index,
+          initialLocation: true,
+        );
+      },
       items: Routes.overviewBottomNavigationRoutes.map((route) {
         return BottomNavigationBarItem(
           icon: Icon(route.icon),

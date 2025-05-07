@@ -16,6 +16,7 @@ final router = GoRouter(
       },
       branches: Routes.overviewBottomNavigationRoutes.map((route) {
         return StatefulShellBranch(
+          initialLocation: route.path,
           routes: [
             switch (route) {
               OverviewNavigationRoutes.learn => GoRoute(

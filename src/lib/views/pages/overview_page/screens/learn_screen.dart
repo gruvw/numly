@@ -9,97 +9,49 @@ class LearnScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Navigator(
-      onGenerateRoute: (settings) {
-        final arg = settings.arguments;
-        if (arg != null && arg is List<Widget>) {
-          return MaterialPageRoute(
-            builder: (context) {
-              return FavoriteDividedListView(
-                favorites: [],
-                children: arg,
-              );
-            },
-          );
-        }
+    final items = [
+      CategoryItem(
+        title: "LEARN",
+        subtitle: "hey",
+        onTap: () => Navigator.pushNamed(
+          context,
+          "",
+          arguments: [
+            CategoryItem(
+              title: "HeySub",
+              subtitle: "heySub",
+            ),
+            CategoryItem(
+              title: "HeySub",
+              subtitle: "heySub",
+            ),
+            CategoryItem(
+              title: "HeySub",
+              subtitle: "heySub",
+            ),
+          ],
+        ),
+      ),
+      CategoryItem(
+        title: "Hey",
+        subtitle: "hey",
+      ),
+      CategoryItem(
+        title: "Hey",
+        subtitle: "hey",
+      ),
+    ];
 
-        return MaterialPageRoute(
-          builder: (context) {
-            final items = [
-              CategoryItem(
-                title: "Hey",
-                subtitle: "hey",
-                onTap: () => Navigator.pushNamed(
-                  context,
-                  "",
-                  arguments: [
-                    CategoryItem(
-                      title: "HeySub",
-                      subtitle: "heySub",
-                    ),
-                    CategoryItem(
-                      title: "HeySub",
-                      subtitle: "heySub",
-                    ),
-                    CategoryItem(
-                      title: "HeySub",
-                      subtitle: "heySub",
-                    ),
-                  ],
-                ),
-              ),
-              CategoryItem(
-                title: "Hey",
-                subtitle: "hey",
-              ),
-              CategoryItem(
-                title: "Hey",
-                subtitle: "hey",
-              ),
-              CategoryItem(
-                title: "Hey",
-                subtitle: "hey",
-              ),
-              CategoryItem(
-                title: "Hey",
-                subtitle: "hey",
-              ),
-              CategoryItem(
-                title: "Hey",
-                subtitle: "hey",
-              ),
-              CategoryItem(
-                title: "Hey",
-                subtitle: "hey",
-              ),
-              CategoryItem(
-                title: "Hey",
-                subtitle: "hey",
-              ),
-              CategoryItem(
-                title: "Hey",
-                subtitle: "hey",
-              ),
-              CategoryItem(
-                title: "Hey",
-                subtitle: "hey",
-              ),
-            ];
+    final favorites = items;
 
-            final favorites = items;
-
-            return FavoriteDividedListView(
-              favorites: favorites,
-              children: items,
-              onFavoritesTap: () => Navigator.pushNamed(
-                context,
-                "",
-                arguments: favorites,
-              ),
-            );
-          },
-        );
-      },
+    return FavoriteDividedListView(
+      favorites: favorites,
+      children: items,
+      onFavoritesTap: () => Navigator.pushNamed(
+        context,
+        "",
+        arguments: favorites,
+      ),
     );
   }
 }

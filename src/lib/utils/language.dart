@@ -4,6 +4,14 @@ extension RemoveAll on String {
   String removeAll(Pattern pattern) => replaceAll(pattern, "");
 }
 
+extension Capitalize on String {
+  String capitalize() {
+    if (isEmpty) return "";
+
+    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+  }
+}
+
 extension Coloren on Color {
   Color darken(double amount) {
     assert(amount >= 0 && amount <= 1);

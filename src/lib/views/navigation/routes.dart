@@ -1,37 +1,25 @@
-import "package:flutter/material.dart";
-import "package:numly/views/pages/overview_page/overview_page.dart";
-import "package:numly/views/pages/test_page/test_page.dart";
+import "package:flutter/widgets.dart";
+import "package:material_symbols_icons/symbols.dart";
 
-enum Routes {
-  overview("overview"),
-  test("test");
+class Routes {
+  static final initial = OverviewNavigationRoutes.train;
 
-  static const initial = overview;
+  static final overviewBottomNavigationRoutes = OverviewNavigationRoutes.values;
+}
 
-  final String name;
+abstract class Route {
+  String get path;
+}
 
-  const Routes(this.name);
+enum OverviewNavigationRoutes implements Route {
+  learn("/learn", Symbols.school),
+  train("/train", Symbols.assignment),
+  custom("/custom", Symbols.equalizer);
 
-  static Routes parse(String name) {
-    return Routes.values.firstWhere(
-      (r) => r.name == name,
-      orElse: () => throw Exception(
-        "Route error: named route '$name' is invalid!",
-      ),
-    );
-  }
+  @override
+  final String path;
 
-  static Route generateRoute(RouteSettings settings) {
-    final route = Routes.parse(settings.name ?? Routes.initial.name);
-    return MaterialPageRoute(builder: (_) => route.page(settings.arguments));
-  }
+  final IconData icon;
 
-  Widget page(Object? args) {
-    switch (this) {
-      case overview:
-        return const OverviewPage();
-      case test:
-        return const TestPage();
-    }
-  }
+  const OverviewNavigationRoutes(this.path, this.icon);
 }

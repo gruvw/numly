@@ -1,4 +1,6 @@
 import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
+import "package:numly/views/navigation/routes.dart";
 import "package:numly/views/pages/overview_page/screens/components/category_item.dart";
 import "package:numly/views/pages/overview_page/screens/components/favorite_divided_list_view.dart";
 
@@ -13,23 +15,8 @@ class LearnScreen extends StatelessWidget {
       CategoryItem(
         title: "LEARN",
         subtitle: "hey",
-        onTap: () => Navigator.pushNamed(
-          context,
-          "",
-          arguments: [
-            CategoryItem(
-              title: "HeySub",
-              subtitle: "heySub",
-            ),
-            CategoryItem(
-              title: "HeySub",
-              subtitle: "heySub",
-            ),
-            CategoryItem(
-              title: "HeySub",
-              subtitle: "heySub",
-            ),
-          ],
+        onTap: () => context.go(
+          CategoryRoutes.levels.categoryPath("hey"),
         ),
       ),
       CategoryItem(

@@ -28,6 +28,11 @@
     - [X] Support n-th root
 - [X] Question resolution / answer and submit
     - [X] Force reduced fractions (or scalar if possible 4/2 = 2), maybe show note on wrong result if correct but not reduced
+- [ ] Levels system
+    - [X] Split per types
+    - [X] Per-defined settings with each level
+    - [X] Small level description ("single digit additions")
+    - [ ] Favorites section (save levels that you like)
 - [ ] Overview Page UI
     - [ ] Learn page
     - [ ] Train page
@@ -49,11 +54,6 @@
     - [ ] Persist current settings
     - [ ] Save custom settings presets
     - [ ] Randomly invert sides of communtative expressions
-- [ ] Levels page (learn)
-    - [X] Split per types
-    - [X] Per-defined settings with each level
-    - [X] Small level description ("single digit additions")
-    - [ ] Favorites section (save levels that you like)
 - [ ] Layout
     - [ ] Tablet / Web layout
     - [ ] Small screens
@@ -81,6 +81,12 @@
 
 - [ ] Write first README
 - [ ] Include app pictures in README
+
+## Deployment
+
+- [ ] Flutter checks on deploy main
+- [ ] Deploy WEB (to web.numly.app)
+    - [ ] Continuous Delivery with automatic web deploy on main
 
 ## Inspiration
 

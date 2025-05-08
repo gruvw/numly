@@ -33,6 +33,7 @@ class OverviewPage extends HookWidget {
       onTap: (index) {
         navigationShell.goBranch(
           index,
+          // go back to root of nested navigatior when clicking on a tab
           initialLocation: true,
         );
       },

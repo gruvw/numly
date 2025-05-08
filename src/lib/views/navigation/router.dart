@@ -1,3 +1,4 @@
+import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:numly/views/navigation/routes.dart";
 import "package:numly/views/pages/overview_page/overview_page.dart";
@@ -6,6 +7,30 @@ import "package:numly/views/pages/overview_page/screens/learn_screen/learn_scree
 import "package:numly/views/pages/overview_page/screens/learn_screen/levels.dart";
 import "package:numly/views/pages/overview_page/screens/train_screen/train_screen.dart";
 import "package:numly/views/pages/overview_page/screens/train_screen/trainnings.dart";
+
+final router = GoRouter(
+  initialLocation: Routes.initial.path,
+  errorBuilder: (context, state) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.go(Routes.initial.path);
+    });
+    return const Scaffold(
+      body: Center(
+        child: Text("Routing error, redirecting..."),
+      ),
+    );
+  },
+  routes: [
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) {
+        return OverviewPage(
+          navigationShell: navigationShell,
+        );
+      },
+      branches: _bottomNavigationBranches.toList(),
+    ),
+  ],
+);
 
 final _bottomNavigationBranches =
     Routes.overviewBottomNavigationRoutes.map((route) {
@@ -61,17 +86,3 @@ final _bottomNavigationBranches =
     ],
   );
 });
-
-final router = GoRouter(
-  initialLocation: Routes.initial.path,
-  routes: [
-    StatefulShellRoute.indexedStack(
-      builder: (context, state, navigationShell) {
-        return OverviewPage(
-          navigationShell: navigationShell,
-        );
-      },
-      branches: _bottomNavigationBranches.toList(),
-    ),
-  ],
-);

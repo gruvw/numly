@@ -10,6 +10,7 @@ class Levels extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO handle favorites
     return Text("Level $category");
   }
 }

@@ -29,16 +29,12 @@ class LearnScreen extends StatelessWidget {
       ),
     ];
 
-    final favorites = items;
-
     return FavoriteDividedListView(
-      favorites: favorites,
+      favoritesAmount: 5,
       children: items,
-      onFavoritesTap: () => Navigator.pushNamed(
-        context,
-        "",
-        arguments: favorites,
-      ),
+      onFavoritesTap: () {
+        context.go(CategoryRoutes.levels.favoritesCategoryPath);
+      },
     );
   }
 }

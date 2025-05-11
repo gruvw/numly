@@ -3,6 +3,7 @@ import "package:flutter_hooks/flutter_hooks.dart";
 import "package:go_router/go_router.dart";
 import "package:numly/static/styles.dart";
 import "package:numly/utils/language.dart";
+import "package:numly/views/navigation/router.dart";
 import "package:numly/views/navigation/routes.dart";
 
 class OverviewPage extends HookWidget {
@@ -15,11 +16,24 @@ class OverviewPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final subRouteNavigatorState =
+        bottomNavigatorKeys[navigationShell.currentIndex].currentState;
+
+    // Workaround to know if the current subroute is not at its root
+    final isSubrouteDeep = router.routerDelegate.state.path ==
+        ":${CategoryRoutes.categoryParameter}";
+
     final appBar = AppBar(
       title: Text(
         Routes.overviewBottomNavigationRoutes[navigationShell.currentIndex].name
             .capitalize(),
       ),
+      leading: isSubrouteDeep
+          ? IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: subRouteNavigatorState?.maybePop,
+            )
+          : null,
       backgroundColor: Styles.foregroundColor,
       foregroundColor: Styles.backgroundColor,
     );
@@ -45,11 +59,19 @@ class OverviewPage extends HookWidget {
       }).toList(),
     );
 
-    return Scaffold(
-      backgroundColor: Styles.backgroundColor,
-      appBar: appBar,
-      body: navigationShell,
-      bottomNavigationBar: bottomNavigationBar,
+    return PopScope(
+      canPop: !isSubrouteDeep,
+      onPopInvokedWithResult: (didPop, result) {
+        if (!didPop) {
+          subRouteNavigatorState?.maybePop();
+        }
+      },
+      child: Scaffold(
+        backgroundColor: Styles.backgroundColor,
+        appBar: appBar,
+        body: navigationShell,
+        bottomNavigationBar: bottomNavigationBar,
+      ),
     );
   }
 }

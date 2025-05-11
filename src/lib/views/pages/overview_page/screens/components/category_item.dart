@@ -22,7 +22,6 @@ class CategoryItem extends StatelessWidget {
 
   factory CategoryItem.favorites({
     required String title,
-    required List<Widget> favorites,
     VoidCallback? onTap,
   }) {
     return CategoryItem(

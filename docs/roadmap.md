@@ -62,12 +62,19 @@
     - [ ] Best scores (persistence)
     - [ ] Analytics (difficult questions, average, slowest, fastest, ...)
     - [ ] Share test result
+    - [ ] Share exact test for friends to try it
 - [ ] Splash screen
 - [ ] Sound
 - [ ] Translate app
 
 ### Extra
 
+- [ ] Gamification features
+    - [ ] Levels to complete (completed badge)
+    - [ ] XP to aquire
+    - [ ] Daily streaks
+    - [ ] Leaderboards
+- [ ] Synchronized tests, take the test together with friends
 - [ ] Pause (button) text at next operation (finish your question then pause test, without revealing next answer, max 2 times per test?)
 - [ ] Option to show the current time taken while taking the test
 - [ ] Algorithmic quetion generation mode (automatically adjust difficulty based on time and accuracy)

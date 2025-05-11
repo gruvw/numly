@@ -26,18 +26,22 @@ enum OverviewNavigationRoutes implements Route {
 }
 
 enum CategoryRoutes implements Route {
-  levels,
-  trainnigs;
+  levels(OverviewNavigationRoutes.learn),
+  trainnigs(OverviewNavigationRoutes.train);
 
   static const categoryParameter = "category";
+  static const favoritesCategory = "favorites";
 
   @override
   final String path = ":$categoryParameter";
 
+  final OverviewNavigationRoutes navigationRoute;
+
+  const CategoryRoutes(this.navigationRoute);
+
+  String get favoritesCategoryPath => categoryPath(favoritesCategory);
+
   String categoryPath(String category) {
-    return switch (this) {
-      levels => "${OverviewNavigationRoutes.learn.path}/$category",
-      trainnigs => "${OverviewNavigationRoutes.train.path}/$category",
-    };
+    return "${navigationRoute.path}/$category";
   }
 }

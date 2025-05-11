@@ -1,3 +1,4 @@
+import "package:collection/collection.dart";
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:numly/views/navigation/routes.dart";
@@ -14,6 +15,7 @@ final router = GoRouter(
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.go(Routes.initial.path);
     });
+
     return const Scaffold(
       body: Center(
         child: Text("Routing error, redirecting..."),
@@ -32,10 +34,15 @@ final router = GoRouter(
   ],
 );
 
+final bottomNavigatorKeys = Routes.overviewBottomNavigationRoutes
+    .map((_) => GlobalKey<NavigatorState>())
+    .toList();
+
 final _bottomNavigationBranches =
-    Routes.overviewBottomNavigationRoutes.map((route) {
+    Routes.overviewBottomNavigationRoutes.mapIndexed((index, route) {
   return StatefulShellBranch(
     initialLocation: route.path,
+    navigatorKey: bottomNavigatorKeys[index],
     routes: [
       switch (route) {
         OverviewNavigationRoutes.learn => GoRoute(
@@ -46,12 +53,15 @@ final _bottomNavigationBranches =
             routes: [
               GoRoute(
                 path: CategoryRoutes.levels.path,
-                builder: (context, state) {
+                pageBuilder: (context, state) {
                   final category =
                       state.pathParameters[CategoryRoutes.categoryParameter]!;
 
-                  return Levels(
-                    category: category,
+                  return _slidingSubroute(
+                    state: state,
+                    child: Levels(
+                      category: category,
+                    ),
                   );
                 },
               ),
@@ -65,12 +75,15 @@ final _bottomNavigationBranches =
             routes: [
               GoRoute(
                 path: CategoryRoutes.trainnigs.path,
-                builder: (context, state) {
+                pageBuilder: (context, state) {
                   final category =
                       state.pathParameters[CategoryRoutes.categoryParameter]!;
 
-                  return Trainnings(
-                    category: category,
+                  return _slidingSubroute(
+                    state: state,
+                    child: Trainnings(
+                      category: category,
+                    ),
                   );
                 },
               ),
@@ -81,8 +94,31 @@ final _bottomNavigationBranches =
             builder: (context, state) {
               return CustomScreen();
             },
-          )
+          ),
       },
     ],
   );
 });
+
+CustomTransitionPage<dynamic> _slidingSubroute({
+  required GoRouterState state,
+  required Widget child,
+}) {
+  return CustomTransitionPage(
+    key: state.pageKey,
+    child: child,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(1.0, 0.0); // Slide from right
+      const end = Offset.zero;
+      const curve = Curves.easeInOut;
+
+      final tween =
+          Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
+}

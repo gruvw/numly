@@ -4,13 +4,13 @@ import "package:numly/views/pages/overview_page/screens/components/category_item
 
 class FavoriteDividedListView extends StatelessWidget {
   final List<Widget> children;
-  final List<Widget> favorites;
+  final int favoritesAmount;
 
   final VoidCallback? onFavoritesTap;
 
   const FavoriteDividedListView({
     super.key,
-    required this.favorites,
+    required this.favoritesAmount,
     required this.children,
     this.onFavoritesTap,
   });
@@ -31,15 +31,14 @@ class FavoriteDividedListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final favoritesItem = CategoryItem.favorites(
-      title: "Favorites (${favorites.length})",
-      favorites: favorites,
+      title: "Favorites ($favoritesAmount)",
       onTap: onFavoritesTap,
     );
 
     return SingleChildScrollView(
       child: Column(
         children: [
-          if (favorites.isNotEmpty) _itemBuilder(favoritesItem),
+          if (favoritesAmount > 0) _itemBuilder(favoritesItem),
           ...children.map(
             (item) => _itemBuilder(item),
           ),

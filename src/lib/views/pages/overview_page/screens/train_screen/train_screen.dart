@@ -1,4 +1,6 @@
 import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
+import "package:numly/views/navigation/routes.dart";
 import "package:numly/views/pages/overview_page/screens/components/category_item.dart";
 import "package:numly/views/pages/overview_page/screens/components/favorite_divided_list_view.dart";
 
@@ -23,8 +25,11 @@ class TrainScreen extends StatelessWidget {
     ];
 
     return FavoriteDividedListView(
-      favorites: items,
+      favoritesAmount: 3,
       children: items,
+      onFavoritesTap: () {
+        context.go(CategoryRoutes.trainnigs.favoritesCategoryPath);
+      },
     );
   }
 }

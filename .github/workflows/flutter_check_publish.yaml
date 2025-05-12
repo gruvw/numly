@@ -24,13 +24,17 @@ jobs:
 
       - name: Check code formatting
         run: |
+          cd src
           dart format --output=none --set-exit-if-changed .
 
       - name: Check for code errors
-        run: flutter analyze
+        run: |
+          cd src
+          flutter analyze
 
       - name: Build prod
         run: |
+          cd src
           flutter build web --release
 
       - name: Publish to GitHub Pages

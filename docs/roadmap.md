@@ -66,6 +66,10 @@
 - [ ] Splash screen
 - [ ] Sound
 - [ ] Translate app
+- [ ] Settings page
+    - [ ] Export data (export results, export settings, ...)
+- [ ] Add bug report button
+- [ ] Add donate feature
 
 ### Extra
 
@@ -78,6 +82,7 @@
 - [ ] Pause (button) text at next operation (finish your question then pause test, without revealing next answer, max 2 times per test?)
 - [ ] Option to show the current time taken while taking the test
 - [ ] Algorithmic quetion generation mode (automatically adjust difficulty based on time and accuracy)
+- [ ] Data synchronisation across platforms (login/account)
 
 ## Non-Features (out of scope)
 

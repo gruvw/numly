@@ -7,13 +7,15 @@ import "package:numly/static/math/number_generators.dart";
 import "package:numly/static/math/numbers.dart";
 import "package:numly/static/math/times.dart";
 
+final _id = "integer-addition";
+
 final integerAddition = Category(
-  id: 0,
+  id: _id,
   title: "Integer Addition",
   subtitle: "Adding integer numbers",
   games: [
     Game.part(
-      id: 0,
+      id: Category.subId(_id, "small-result"),
       title: "Small result",
       subtitle: "Addition with result <10",
       part: TestPart(
@@ -27,7 +29,7 @@ final integerAddition = Category(
       ),
     ),
     Game.part(
-      id: 1,
+      id: Category.subId(_id, "small-numbers"),
       title: "Small numbers",
       subtitle: "Adding numbers <10",
       part: TestPart(

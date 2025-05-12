@@ -1,10 +1,14 @@
 import "package:numly/models/test.dart";
 
 class Category {
-  final int id;
+  final String id;
   final String title;
   final String subtitle;
   final List<Game> games;
+
+  static String subId(String categoryId, String gameId) {
+    return "$categoryId/$gameId";
+  }
 
   Category({
     required this.id,
@@ -15,7 +19,7 @@ class Category {
 }
 
 class Game {
-  final int id;
+  final String id;
   final String title;
   final String subtitle;
   final List<TestPart> parts;

@@ -5,19 +5,19 @@ import "package:numly/models/random.dart";
 
 class TestPart {
   final QuestionGenerator questionGenerator;
-  final Duration targetTimePerQuestion;
+  final Duration? targetTimePerQuestion; // non-null only for levels
   final int proportion;
 
   TestPart({
     required this.questionGenerator,
-    required this.targetTimePerQuestion,
+    this.targetTimePerQuestion,
     this.proportion = 1,
   }) : assert(proportion >= 1, "proportion must be >= 1");
 }
 
 class Test {
   final List<Question> _questions;
-  final Duration targetDuration;
+  final Duration targetDuration; // relevant only for levels
 
   Test._(
     this._questions, {
@@ -38,7 +38,7 @@ class Test {
       final amount = (part.proportion * length / proportions).floor();
       for (int i = 0; i < amount; i++) {
         questions.add(part.questionGenerator.generate());
-        targetDuration += part.targetTimePerQuestion;
+        targetDuration += part.targetTimePerQuestion ?? Duration.zero;
       }
     }
 
@@ -46,13 +46,15 @@ class Test {
     for (int i = questions.length; i < length; i++) {
       final part = parts[random.nextInt(parts.length)];
       questions.add(part.questionGenerator.generate());
-      targetDuration += part.targetTimePerQuestion;
+      targetDuration += part.targetTimePerQuestion ?? Duration.zero;
     }
 
-    // shuffle questions
     questions.shuffle(random);
 
-    return Test._(questions, targetDuration: targetDuration);
+    return Test._(
+      questions,
+      targetDuration: targetDuration,
+    );
   }
 
   Question getQuestion(int i) => _questions[i];

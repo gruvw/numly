@@ -1,4 +1,3 @@
-
 import "package:numly/static/math/numbers.dart";
 
 extension NthRoot on BigInt {

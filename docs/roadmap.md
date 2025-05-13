@@ -34,18 +34,20 @@
     - [X] Small level description ("single digit additions")
     - [ ] Favorites section (save levels that you like)
 - [ ] Overview Page UI
-    - [ ] Learn page
-    - [ ] Train page
+    - [X] Learn page
+    - [X] Train page
         - [ ] Common mixed tests display
     - [ ] Favorites sections (save tests that you like)
     - [ ] Custom page (create)
         - [ ] Custom presets
         - [ ] Simple presets creation mode
         - [ ] Advanced presets creation mode
+- [ ] Database and persistence system
 - [ ] Test UI
 - [ ] Level design (train and learn basic levels)
 - [X] Application icon
 - [ ] Settings page
+    - [ ] Change number of questions per test in trainnings (10, 20, 30, 50, 100)
     - [ ] Retry on error / Show correct result (toggle button)
     - [ ] Number of questions per test
     - [ ] Zen (endless) mode / Practice mode (no test length, no time limit) for every test (add a flag button, transforms into a finish test button once enabled)
@@ -93,12 +95,15 @@
 
 - [ ] Write first README
 - [ ] Include app pictures in README
+- [ ] Link to the web app in README
+- [ ] Write a documentation website to numly.app
+    - [ ] Link downloads
 
 ## Deployment
 
-- [ ] Flutter checks on deploy main
-- [ ] Deploy WEB (to web.numly.app)
-    - [ ] Continuous Delivery with automatic web deploy on main
+- [X] Flutter checks on deploy main
+- [X] Deploy WEB (to web.numly.app)
+    - [X] Continuous Delivery with automatic web deploy on main
 
 ## Inspiration
 

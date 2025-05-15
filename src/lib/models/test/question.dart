@@ -1,6 +1,6 @@
 import "package:numly/logic/input_processing.dart";
-import "package:numly/models/operation.dart";
-import "package:numly/models/rational_number.dart";
+import "package:numly/models/math/rational_number.dart";
+import "package:numly/models/test/operation.dart";
 
 enum SolutionType {
   decimal,

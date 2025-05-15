@@ -1,7 +1,7 @@
 import "package:collection/collection.dart";
-import "package:numly/models/question.dart";
-import "package:numly/models/question_generator.dart";
-import "package:numly/models/random.dart";
+import "package:numly/models/math/random.dart";
+import "package:numly/models/test/question.dart";
+import "package:numly/models/test/question_generator.dart";
 
 class TestPart {
   final QuestionGenerator questionGenerator;

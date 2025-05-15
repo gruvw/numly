@@ -1,4 +1,4 @@
-import "package:numly/models/test.dart";
+import "package:numly/models/test/test.dart";
 
 class Category {
   final String id;

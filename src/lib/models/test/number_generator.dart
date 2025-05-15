@@ -1,7 +1,7 @@
 import "dart:math";
 
-import "package:numly/models/random.dart";
-import "package:numly/models/rational_number.dart";
+import "package:numly/models/math/random.dart";
+import "package:numly/models/math/rational_number.dart";
 
 abstract class NumberGenerator {
   RationalNumber generate();

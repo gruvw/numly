@@ -1,4 +1,4 @@
-import "package:numly/models/rational_number.dart";
+import "package:numly/models/math/rational_number.dart";
 
 final i0 = BigInt.zero;
 final i1 = BigInt.one;

@@ -1,4 +1,4 @@
-import "package:numly/models/rational_number.dart";
+import "package:numly/models/math/rational_number.dart";
 
 enum Operation {
   addition,

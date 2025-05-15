@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
-import "package:numly/models/number_generator.dart";
-import "package:numly/models/operation.dart";
-import "package:numly/models/question.dart";
-import "package:numly/models/rational_number.dart";
+import "package:numly/models/math/rational_number.dart";
+import "package:numly/models/test/number_generator.dart";
+import "package:numly/models/test/operation.dart";
+import "package:numly/models/test/question.dart";
 import "package:numly/static/math/numbers.dart";
 
 abstract class QuestionGenerator {

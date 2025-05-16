@@ -1,6 +1,11 @@
 import "package:flutter/material.dart";
+import "package:hooks_riverpod/hooks_riverpod.dart";
 import "package:numly/views/application.dart";
 
 void main() {
-  runApp(const Application());
+  runApp(
+    ProviderScope(
+      child: const Application(),
+    ),
+  );
 }

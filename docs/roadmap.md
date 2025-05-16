@@ -56,6 +56,7 @@
     - [ ] Persist current settings
     - [ ] Save custom settings presets
     - [ ] Randomly invert sides of communtative expressions
+    - [ ] Reset all high scores
 - [ ] Layout
     - [ ] Tablet / Web layout
     - [ ] Small screens

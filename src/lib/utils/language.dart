@@ -1,3 +1,5 @@
+import "dart:math";
+
 import "package:flutter/material.dart";
 
 extension RemoveAll on String {
@@ -30,5 +32,11 @@ extension Coloren on Color {
 extension NullMap<T extends Object> on T {
   R? nmap<R>(R Function(T v) convert) {
     return convert(this);
+  }
+}
+
+extension RandomListPick<T> on List<T> {
+  T pick(Random random) {
+    return this[random.nextInt(length)];
   }
 }

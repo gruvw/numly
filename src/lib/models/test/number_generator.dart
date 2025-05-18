@@ -2,6 +2,7 @@ import "dart:math";
 
 import "package:numly/models/math/random.dart";
 import "package:numly/models/math/rational_number.dart";
+import "package:numly/utils/language.dart";
 
 abstract class NumberGenerator {
   RationalNumber generate();
@@ -17,6 +18,23 @@ class ConstantNumberGenerator implements NumberGenerator {
   @override
   RationalNumber generate() {
     return number;
+  }
+}
+
+class UniformPoolNumberGenerator implements NumberGenerator {
+  final List<NumberGenerator> pool;
+
+  UniformPoolNumberGenerator({required this.pool})
+      : assert(
+          pool.isNotEmpty,
+          "pool must contain at least one generator",
+        );
+
+  @override
+  RationalNumber generate() {
+    final generator = pool.pick(random);
+
+    return generator.generate();
   }
 }
 

@@ -36,13 +36,15 @@
 - [ ] Overview Page UI
     - [X] Learn page
     - [X] Train page
-        - [ ] Common mixed tests display
+        - [X] Common mixed tests display
     - [ ] Favorites sections (save tests that you like)
     - [ ] Custom page (create)
         - [ ] Custom presets
         - [ ] Simple presets creation mode
         - [ ] Advanced presets creation mode
-- [ ] Database and persistence system
+- [X] Database and persistence system (drift and SQLite + browser support)
+- [X] Fix web deep linking navigation (minimal working examlpe: shell route + ListTile)
+- [ ] High scores persistence and high scores providers
 - [ ] Test UI
 - [ ] Level design (train and learn basic levels)
 - [X] Application icon
@@ -57,6 +59,7 @@
     - [ ] Save custom settings presets
     - [ ] Randomly invert sides of communtative expressions
     - [ ] Reset all high scores
+    - [ ] Reset high score for a particular test
 - [ ] Layout
     - [ ] Tablet / Web layout
     - [ ] Small screens
@@ -91,6 +94,7 @@
 
 - More than 2 input numbers
 - No other test type (time based), only amount of questions tests
+- Persisting all test results
 
 ## Documentation
 

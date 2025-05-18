@@ -2,6 +2,7 @@ import "package:collection/collection.dart";
 import "package:numly/models/math/random.dart";
 import "package:numly/models/test/question.dart";
 import "package:numly/models/test/question_generator.dart";
+import "package:numly/utils/language.dart";
 
 class TestPart {
   final QuestionGenerator questionGenerator;
@@ -44,7 +45,7 @@ class Test {
 
     // generate missing questions from random parts
     for (int i = questions.length; i < length; i++) {
-      final part = parts[random.nextInt(parts.length)];
+      final part = parts.pick(random);
       questions.add(part.questionGenerator.generate());
       targetDuration += part.targetTimePerQuestion ?? Duration.zero;
     }

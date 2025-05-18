@@ -34,12 +34,14 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(title),
-      subtitle: subtitle?.nmap((subtitle) => Text(subtitle)),
-      leading: leading,
-      trailing: trailing,
-      onTap: onTap,
+    return Material(
+      child: ListTile(
+        title: Text(title),
+        subtitle: subtitle?.nmap((subtitle) => Text(subtitle)),
+        leading: leading,
+        trailing: trailing,
+        onTap: onTap,
+      ),
     );
   }
 }

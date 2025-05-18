@@ -30,7 +30,7 @@ extension Coloren on Color {
 
 /// Null map operation extension.
 extension NullMap<T extends Object> on T {
-  R? nmap<R>(R Function(T v) convert) {
+  R nmap<R>(R Function(T v) convert) {
     return convert(this);
   }
 }

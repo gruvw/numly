@@ -1,25 +1,19 @@
+typedef GameSetting = ({String gameId, int length});
+
 class Score {
   final String gameId;
-  final int questionCount;
+  final int length; // in number of questions
   final Duration duration;
 
   Score({
     required this.gameId,
-    required this.questionCount,
+    required this.length,
     required this.duration,
   });
 
-  factory Score.fromData({
-    required String gameId,
-    required int questionCount,
+  Score.fromData({
+    required this.gameId,
+    required this.length,
     required int durationMs,
-  }) {
-    return Score(
-      gameId: gameId,
-      questionCount: questionCount,
-      duration: Duration(
-        milliseconds: durationMs,
-      ),
-    );
-  }
+  }) : duration = Duration(milliseconds: durationMs);
 }

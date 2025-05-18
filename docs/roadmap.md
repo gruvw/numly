@@ -44,7 +44,8 @@
         - [ ] Advanced presets creation mode
 - [X] Database and persistence system (drift and SQLite + browser support)
 - [X] Fix web deep linking navigation (minimal working examlpe: shell route + ListTile)
-- [ ] High scores persistence and high scores providers
+- [X] Application settings persistence
+- [X] High scores persistence and high scores providers
 - [ ] Test UI
 - [ ] Level design (train and learn basic levels)
 - [X] Application icon

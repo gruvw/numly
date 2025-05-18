@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:material_symbols_icons/symbols.dart";
+import "package:numly/static/styles.dart";
 import "package:numly/utils/language.dart";
 
 class CategoryItem extends StatelessWidget {
@@ -20,23 +21,20 @@ class CategoryItem extends StatelessWidget {
     this.onTap,
   });
 
-  factory CategoryItem.favorites({
-    required String title,
-    VoidCallback? onTap,
-  }) {
-    return CategoryItem(
-      title: title,
-      leading: Icon(Symbols.star),
-      trailing: Icon(Symbols.arrow_forward_ios),
-      onTap: onTap,
-    );
-  }
+  CategoryItem.favorites({
+    super.key,
+    required this.title,
+    this.onTap,
+  })  : leading = Icon(Symbols.star),
+        trailing = Icon(Symbols.arrow_forward_ios),
+        subtitle = null;
 
   @override
   Widget build(BuildContext context) {
     return Material(
       child: ListTile(
         title: Text(title),
+        tileColor: Styles.backgroundColor,
         subtitle: subtitle?.nmap((subtitle) => Text(subtitle)),
         leading: leading,
         trailing: trailing,

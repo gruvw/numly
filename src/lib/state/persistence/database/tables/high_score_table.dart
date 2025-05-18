@@ -7,10 +7,10 @@ class HighScoreTable extends Table {
   String get tableName => "high_score";
 
   @override
-  Set<Column> get primaryKey => {gameId, questionCount};
+  Set<Column> get primaryKey => {gameId, length};
 
   TextColumn get gameId => text()();
-  IntColumn get questionCount => integer()();
+  IntColumn get length => integer()();
 
   IntColumn get durationMs => integer()();
 }

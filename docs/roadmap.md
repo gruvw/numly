@@ -44,8 +44,11 @@
         - [ ] Advanced presets creation mode
 - [X] Database and persistence system (drift and SQLite + browser support)
 - [X] Fix web deep linking navigation (minimal working examlpe: shell route + ListTile)
-- [X] Application settings persistence
-- [X] High scores persistence and high scores providers
+- [X] Persistence
+    - [X] Application settings persistence
+    - [X] High scores persistence and high scores providers
+    - [X] Favorites persistence
+- [X] Redirect to parent page if category id does not exist
 - [X] Very basic tests
     - [X] app runs
     - [X] in-memory DB mock
@@ -53,6 +56,7 @@
     - [X] levels non-null times
 - [ ] Test UI
 - [ ] Level design (train and learn basic levels)
+- [ ] Last game played quick play button
 - [X] Application icon
 - [ ] Settings page
     - [ ] Change number of questions per test in trainnings (10, 20, 30, 50, 100)
@@ -66,6 +70,7 @@
     - [ ] Randomly invert sides of communtative expressions
     - [ ] Reset all high scores
     - [ ] Reset high score for a particular test
+    - [ ] Show next operation (display next operation in small text, tetris next piece like)
 - [ ] Layout
     - [ ] Tablet / Web layout
     - [ ] Small screens

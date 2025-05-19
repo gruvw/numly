@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:numly/static/styles.dart";
-import "package:numly/views/pages/overview_page/screens/components/category_item.dart";
+import "package:numly/views/pages/overview_page/screens/components/list_item.dart";
 
 class FavoriteDividedListView extends StatelessWidget {
   final List<Widget> children;
@@ -10,8 +10,8 @@ class FavoriteDividedListView extends StatelessWidget {
 
   const FavoriteDividedListView({
     super.key,
-    required this.favoritesAmount,
     required this.children,
+    this.favoritesAmount = 0,
     this.onFavoritesTap,
   });
 
@@ -30,7 +30,7 @@ class FavoriteDividedListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favoritesItem = CategoryItem.favorites(
+    final favoritesItem = ListItem.favorites(
       title: "Favorites ($favoritesAmount)",
       onTap: onFavoritesTap,
     );

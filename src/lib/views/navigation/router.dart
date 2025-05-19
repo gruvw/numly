@@ -1,6 +1,8 @@
 import "package:collection/collection.dart";
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
+import "package:numly/models/game/learn/learn.dart";
+import "package:numly/models/game/train/train.dart";
 import "package:numly/views/navigation/routes.dart";
 import "package:numly/views/pages/overview_page/overview_page.dart";
 import "package:numly/views/pages/overview_page/screens/custom_screen/custom_screen.dart";
@@ -53,14 +55,26 @@ final _bottomNavigationBranches =
             routes: [
               GoRoute(
                 path: CategoryRoutes.levels.path,
+                redirect: (context, state) {
+                  final categoryId =
+                      state.pathParameters[CategoryRoutes.categoryParameter];
+
+                  if (!learnCategoryIds.contains(categoryId) &&
+                      categoryId != CategoryRoutes.favoritesCategory) {
+                    // category does not exist
+                    return route.path;
+                  }
+
+                  return null;
+                },
                 pageBuilder: (context, state) {
-                  final category =
+                  final categoryId =
                       state.pathParameters[CategoryRoutes.categoryParameter]!;
 
                   return _slidingSubroute(
                     state: state,
                     child: Levels(
-                      category: category,
+                      categoryId: categoryId,
                     ),
                   );
                 },
@@ -75,14 +89,26 @@ final _bottomNavigationBranches =
             routes: [
               GoRoute(
                 path: CategoryRoutes.trainnigs.path,
+                redirect: (context, state) {
+                  final categoryId =
+                      state.pathParameters[CategoryRoutes.categoryParameter];
+
+                  if (!trainCategoryIds.contains(categoryId) &&
+                      categoryId != CategoryRoutes.favoritesCategory) {
+                    // category does not exist
+                    return route.path;
+                  }
+
+                  return null;
+                },
                 pageBuilder: (context, state) {
-                  final category =
+                  final categoryId =
                       state.pathParameters[CategoryRoutes.categoryParameter]!;
 
                   return _slidingSubroute(
                     state: state,
                     child: Trainnings(
-                      category: category,
+                      category: categoryId,
                     ),
                   );
                 },

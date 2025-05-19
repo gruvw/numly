@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:numly/views/navigation/routes.dart";
-import "package:numly/views/pages/overview_page/screens/components/category_item.dart";
 import "package:numly/views/pages/overview_page/screens/components/favorite_divided_list_view.dart";
+import "package:numly/views/pages/overview_page/screens/components/list_item.dart";
 
 class TrainScreen extends StatelessWidget {
   const TrainScreen({super.key});
@@ -10,15 +10,15 @@ class TrainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = [
-      CategoryItem(
+      ListItem(
         title: "TRAIN",
         subtitle: "hey",
       ),
-      CategoryItem(
+      ListItem(
         title: "Hey",
         subtitle: "hey",
       ),
-      CategoryItem(
+      ListItem(
         title: "Hey",
         subtitle: "hey",
       ),

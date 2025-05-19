@@ -1,8 +1,9 @@
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
+import "package:numly/models/game/learn/learn.dart";
 import "package:numly/views/navigation/routes.dart";
-import "package:numly/views/pages/overview_page/screens/components/category_item.dart";
 import "package:numly/views/pages/overview_page/screens/components/favorite_divided_list_view.dart";
+import "package:numly/views/pages/overview_page/screens/components/list_item.dart";
 
 class LearnScreen extends StatelessWidget {
   const LearnScreen({
@@ -11,23 +12,15 @@ class LearnScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final items = [
-      CategoryItem(
-        title: "LEARN",
-        subtitle: "hey",
+    final items = learnCategories.map((category) {
+      return ListItem(
+        title: category.title,
+        subtitle: category.subtitle,
         onTap: () => context.go(
-          CategoryRoutes.levels.categoryPath("hey"),
+          CategoryRoutes.levels.categoryPath(category.id),
         ),
-      ),
-      CategoryItem(
-        title: "Hey",
-        subtitle: "hey",
-      ),
-      CategoryItem(
-        title: "Hey",
-        subtitle: "hey",
-      ),
-    ];
+      );
+    }).toList();
 
     return FavoriteDividedListView(
       favoritesAmount: 5,

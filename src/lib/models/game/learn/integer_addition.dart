@@ -7,7 +7,7 @@ import "package:numly/static/math/number_generators.dart";
 import "package:numly/static/math/numbers.dart";
 import "package:numly/static/math/times.dart";
 
-final _id = "integer-addition";
+const _id = "integer-addition";
 
 final integerAddition = Category(
   id: _id,

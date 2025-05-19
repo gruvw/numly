@@ -3,7 +3,7 @@ import "package:material_symbols_icons/symbols.dart";
 import "package:numly/static/styles.dart";
 import "package:numly/utils/language.dart";
 
-class CategoryItem extends StatelessWidget {
+class ListItem extends StatelessWidget {
   final String title;
   final String? subtitle;
 
@@ -12,7 +12,7 @@ class CategoryItem extends StatelessWidget {
 
   final VoidCallback? onTap;
 
-  const CategoryItem({
+  const ListItem({
     super.key,
     required this.title,
     this.subtitle,
@@ -21,7 +21,7 @@ class CategoryItem extends StatelessWidget {
     this.onTap,
   });
 
-  CategoryItem.favorites({
+  ListItem.favorites({
     super.key,
     required this.title,
     this.onTap,

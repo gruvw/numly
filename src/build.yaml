@@ -1,4 +1,4 @@
-# generation cmd: dart run build_runner build
+# generation command: dart run build_runner build -d
 targets:
   $default:
     builders:

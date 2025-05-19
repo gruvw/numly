@@ -57,7 +57,7 @@ class Preference<T> extends AsyncNotifier<T> {
   @override
   Future<T> build() async {
     final row = await ref.watch(preferenceSourceProvider(configKey).future);
-    final value = row?.nmap((row) => parse(row.value));
+    final value = row?.nmap((source) => parse(source));
 
     return value ?? defaultValue;
   }

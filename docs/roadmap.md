@@ -47,8 +47,8 @@
 - [X] Application settings persistence
 - [X] High scores persistence and high scores providers
 - [ ] Very basic tests
-    - [ ] app runs
-    - [ ] in-memory DB mock
+    - [X] app runs
+    - [X] in-memory DB mock
     - [X] gameId consistency
     - [X] levels non-null times
 - [ ] Test UI

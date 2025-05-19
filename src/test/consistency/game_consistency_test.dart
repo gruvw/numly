@@ -10,4 +10,17 @@ void main() {
 
     expect(gameIds.length, gameIds.toSet().length);
   });
+
+  test("all game level parts have time constrains", () {
+    final levelsExpectedTimesPerQuestion = learnCategories.expand(
+      (category) => category.games.expand(
+        (game) => game.parts.map((part) => part.targetTimePerQuestion),
+      ),
+    );
+
+    expect(
+      levelsExpectedTimesPerQuestion.every((duration) => duration != null),
+      true,
+    );
+  });
 }

@@ -121,6 +121,7 @@
 - [X] Deploy WEB (to web.numly.app)
     - [X] Continuous Delivery with automatic web deploy on main
 - [X] Tests should run in CI
+- [ ] Exclude vendored files from (linguist) language stats
 
 ## Inspiration
 

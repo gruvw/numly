@@ -32,6 +32,11 @@ jobs:
           cd src
           flutter analyze
 
+      - name: Run tests
+        run: |
+          cd src
+          flutter test -r github
+
       - name: Build prod
         run: |
           cd src

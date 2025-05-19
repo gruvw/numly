@@ -46,6 +46,7 @@
 - [X] Fix web deep linking navigation (minimal working examlpe: shell route + ListTile)
 - [X] Application settings persistence
 - [X] High scores persistence and high scores providers
+- [ ] Very basic tests (app runs, in-memory DB, gameId consistency, levels non-null times) + run in CI
 - [ ] Test UI
 - [ ] Level design (train and learn basic levels)
 - [X] Application icon
@@ -110,6 +111,7 @@
 - [X] Flutter checks on deploy main
 - [X] Deploy WEB (to web.numly.app)
     - [X] Continuous Delivery with automatic web deploy on main
+- [ ] Tests should run in CI
 
 ## Inspiration
 

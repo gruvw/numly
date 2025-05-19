@@ -5,6 +5,42 @@ import "package:numly/state/persistence/providers.dart";
 import "package:numly/utils/language.dart";
 
 class Preference<T> extends AsyncNotifier<T> {
+  static Preference<bool> boolean({
+    required String configKey,
+    required bool defaultValue,
+  }) {
+    return Preference(
+      configKey: configKey,
+      defaultValue: defaultValue,
+      parse: (s) => bool.parse(s),
+      serialize: (v) => v.toString(),
+    );
+  }
+
+  static Preference<int> integer({
+    required String configKey,
+    required int defaultValue,
+  }) {
+    return Preference(
+      configKey: configKey,
+      defaultValue: defaultValue,
+      parse: (s) => int.parse(s),
+      serialize: (v) => v.toString(),
+    );
+  }
+
+  static Preference<String> string({
+    required String configKey,
+    required String defaultValue,
+  }) {
+    return Preference(
+      configKey: configKey,
+      defaultValue: defaultValue,
+      serialize: (s) => s,
+      parse: (s) => s,
+    );
+  }
+
   final String configKey;
   final T defaultValue;
 
@@ -37,34 +73,4 @@ class Preference<T> extends AsyncNotifier<T> {
           ),
         );
   }
-}
-
-class PreferenceString extends Preference<String> {
-  PreferenceString({
-    required super.configKey,
-    required super.defaultValue,
-  }) : super(
-          parse: (s) => s,
-          serialize: (v) => v,
-        );
-}
-
-class PreferenceInt extends Preference<int> {
-  PreferenceInt({
-    required super.configKey,
-    required super.defaultValue,
-  }) : super(
-          parse: (s) => int.parse(s),
-          serialize: (v) => v.toString(),
-        );
-}
-
-class PreferenceBool extends Preference<bool> {
-  PreferenceBool({
-    required super.configKey,
-    required super.defaultValue,
-  }) : super(
-          parse: (s) => bool.parse(s),
-          serialize: (v) => v.toString(),
-        );
 }

@@ -46,7 +46,7 @@
 - [X] Fix web deep linking navigation (minimal working examlpe: shell route + ListTile)
 - [X] Application settings persistence
 - [X] High scores persistence and high scores providers
-- [ ] Very basic tests
+- [X] Very basic tests
     - [X] app runs
     - [X] in-memory DB mock
     - [X] gameId consistency

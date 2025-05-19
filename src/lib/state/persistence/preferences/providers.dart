@@ -15,8 +15,8 @@ final preferenceSourceProvider =
 );
 
 final preferenceTrainingLengthProvider =
-    AsyncNotifierProvider<PreferenceInt, int>(() {
-  return PreferenceInt(
+    AsyncNotifierProvider<Preference<int>, int>(() {
+  return Preference.integer(
     configKey: "training_length",
     defaultValue: 20,
   );

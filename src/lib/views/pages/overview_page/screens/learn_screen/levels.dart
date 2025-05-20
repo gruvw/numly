@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
+import "package:material_symbols_icons/symbols.dart";
 import "package:numly/models/game/game.dart";
 import "package:numly/models/game/learn/learn.dart";
 import "package:numly/state/persistence/providers.dart";
@@ -18,6 +19,7 @@ class Levels extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final db = ref.watch(dbProvider);
     final favoriteLevelIds = ref.watch(favortieLevelIdsProvider).valueOrNull;
 
     late final List<Game> games;
@@ -33,6 +35,12 @@ class Levels extends ConsumerWidget {
       games = learnGames
           .where((game) => favoriteLevelIds.contains(game.id))
           .toList();
+
+      if (games.isEmpty) {
+        return Center(
+          child: Text("No favorite games."),
+        );
+      }
     } else {
       games = learnCategories
           .where((category) => category.id == categoryId)
@@ -43,6 +51,15 @@ class Levels extends ConsumerWidget {
     final items = games.map((game) {
       return ListItem(
         title: game.title,
+        leading: IconButton(
+          onPressed: () {
+            db.queries.toggleFavorite(game.id);
+          },
+          icon: Icon(
+            Symbols.star,
+            fill: favoriteLevelIds?.contains(game.id) == true ? 1 : 0,
+          ),
+        ),
         subtitle: game.subtitle,
         onTap: () {
           // TODO launch game

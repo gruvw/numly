@@ -7,19 +7,22 @@ class CustomScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final trainingLength = ref.watch(preferenceTrainingLengthProvider);
+    final trainingLength =
+        ref.watch(preferenceTrainingLengthProvider).valueOrNull;
 
-    final highScoreText = trainingLength.maybeWhen(
-      data: (length) => length.toString(),
-      orElse: () => "LOADING",
-    );
+    final highScoreText =
+        trainingLength == null ? "LOADING" : trainingLength.toString();
 
     return Center(
       child: InkWell(
         child: Text("Custom - $highScoreText"),
-        onTap: () => trainingLength.whenData((length) {
-          ref.read(preferenceTrainingLengthProvider.notifier).set(length + 1);
-        }),
+        onTap: () {
+          if (trainingLength != null) {
+            ref
+                .read(preferenceTrainingLengthProvider.notifier)
+                .set(trainingLength + 1);
+          }
+        },
       ),
     );
   }

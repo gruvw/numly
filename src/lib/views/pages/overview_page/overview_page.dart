@@ -29,9 +29,12 @@ class OverviewPage extends HookWidget {
             .capitalize(),
       ),
       leading: isSubrouteDeep
-          ? IconButton(
+          ?
+          // BUG back arrow is not visible when using URL to go to subpage
+          IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: subRouteNavigatorState?.maybePop,
+              color: Styles.backgroundColor,
             )
           : null,
       backgroundColor: Styles.foregroundColor,

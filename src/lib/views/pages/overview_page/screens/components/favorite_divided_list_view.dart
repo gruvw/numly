@@ -11,9 +11,9 @@ class FavoriteDividedListView extends StatelessWidget {
   const FavoriteDividedListView({
     super.key,
     required this.children,
-    this.favoritesAmount = 0,
+    int? favoritesAmount,
     this.onFavoritesTap,
-  });
+  }) : favoritesAmount = favoritesAmount ?? 0;
 
   Column _itemBuilder(Widget item) {
     final divider = Divider(

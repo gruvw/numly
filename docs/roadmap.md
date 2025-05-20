@@ -32,12 +32,12 @@
     - [X] Split per types
     - [X] Per-defined settings with each level
     - [X] Small level description ("single digit additions")
-    - [ ] Favorites section (save levels that you like)
+    - [X] Favorites section (save levels that you like)
 - [ ] Overview Page UI
     - [X] Learn page
     - [X] Train page
         - [X] Common mixed tests display
-    - [ ] Favorites sections (save tests that you like)
+    - [X] Favorites sections (save tests that you like)
     - [ ] Custom page (create)
         - [ ] Custom presets
         - [ ] Simple presets creation mode
@@ -54,6 +54,7 @@
     - [X] in-memory DB mock
     - [X] gameId consistency
     - [X] levels non-null times
+- [ ] Factorize common code to levels and trainings
 - [ ] Test UI
 - [ ] Level design (train and learn basic levels)
 - [ ] Last game played quick play button
@@ -121,7 +122,7 @@
 - [X] Deploy WEB (to web.numly.app)
     - [X] Continuous Delivery with automatic web deploy on main
 - [X] Tests should run in CI
-- [ ] Exclude vendored files from (linguist) language stats
+- [X] Exclude vendored files from (linguist) language stats
 
 ## Inspiration
 

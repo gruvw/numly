@@ -1,6 +1,7 @@
 import "package:drift/drift.dart";
 import "package:drift_flutter/drift_flutter.dart";
 import "package:numly/state/persistence/database/core/database.drift.dart";
+import "package:numly/state/persistence/database/queries/queries.dart";
 import "package:numly/state/persistence/database/tables/favorite_table.dart";
 import "package:numly/state/persistence/database/tables/high_score_table.dart";
 import "package:numly/state/persistence/database/tables/preference_table.dart";
@@ -15,7 +16,7 @@ import "package:numly/static/values.dart";
   ],
 )
 class Database extends $Database {
-  static QueryExecutor _openConnection() {
+  static QueryExecutor _nativeConnection() {
     return driftDatabase(
       name: Values.databaseName,
       web: DriftWebOptions(
@@ -25,9 +26,11 @@ class Database extends $Database {
     );
   }
 
+  late final queries = Queries(this);
+
   Database(super.executor);
 
-  Database.native() : this(_openConnection());
+  Database.native() : this(_nativeConnection());
 
   @override
   int get schemaVersion => 1;

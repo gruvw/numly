@@ -16,8 +16,7 @@ class OverviewPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final subRouteNavigatorState =
-        bottomNavigatorKeys[navigationShell.currentIndex].currentState;
+    final subNavigatorKey = bottomNavigatorKeys[navigationShell.currentIndex];
 
     // Workaround to know if the current subroute is not at its root
     final isSubrouteDeep = router.routerDelegate.state.path ==
@@ -29,11 +28,9 @@ class OverviewPage extends HookWidget {
             .capitalize(),
       ),
       leading: isSubrouteDeep
-          ?
-          // BUG back arrow is not visible when using URL to go to subpage
-          IconButton(
+          ? IconButton(
               icon: const Icon(Icons.arrow_back),
-              onPressed: subRouteNavigatorState?.maybePop,
+              onPressed: () => subNavigatorKey.currentState?.maybePop(),
               color: Styles.backgroundColor,
             )
           : null,
@@ -66,7 +63,7 @@ class OverviewPage extends HookWidget {
       canPop: !isSubrouteDeep,
       onPopInvokedWithResult: (didPop, result) {
         if (!didPop) {
-          subRouteNavigatorState?.maybePop();
+          subNavigatorKey.currentState?.maybePop();
         }
       },
       child: Scaffold(

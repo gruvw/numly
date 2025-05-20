@@ -12,9 +12,9 @@ void main() {
     expect(categoryIds.length, categoryIds.toSet().length);
 
     expect(
-      categoryIds.any((id) => id == CategoryRoutes.favoritesCategory),
+      categoryIds.any((id) => id == CategoryRoute.favoritesCategory),
       false,
-      reason: "'${CategoryRoutes.favoritesCategory}' is a reserved category id",
+      reason: "'${CategoryRoute.favoritesCategory}' is a reserved category id",
     );
   });
 

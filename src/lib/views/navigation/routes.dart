@@ -2,17 +2,17 @@ import "package:flutter/widgets.dart";
 import "package:material_symbols_icons/symbols.dart";
 
 class Routes {
-  static final initial = OverviewNavigationRoutes.train;
+  static final initial = OverviewNavigationRoute.train;
 
-  static final overviewBottomNavigationRoutes = OverviewNavigationRoutes.values;
-  static final categoryRoutes = CategoryRoutes.values;
+  static final overviewBottomNavigationRoutes = OverviewNavigationRoute.values;
+  static final categoryRoutes = CategoryRoute.values;
 }
 
 abstract class Route {
   String get path;
 }
 
-enum OverviewNavigationRoutes implements Route {
+enum OverviewNavigationRoute implements Route {
   learn("/learn", Symbols.school),
   train("/train", Symbols.assignment),
   custom("/custom", Symbols.equalizer);
@@ -22,12 +22,12 @@ enum OverviewNavigationRoutes implements Route {
 
   final IconData icon;
 
-  const OverviewNavigationRoutes(this.path, this.icon);
+  const OverviewNavigationRoute(this.path, this.icon);
 }
 
-enum CategoryRoutes implements Route {
-  levels(OverviewNavigationRoutes.learn),
-  trainnigs(OverviewNavigationRoutes.train);
+enum CategoryRoute implements Route {
+  levels(OverviewNavigationRoute.learn),
+  trainings(OverviewNavigationRoute.train);
 
   static const categoryParameter = "category";
   static const favoritesCategory = "favorites";
@@ -35,9 +35,9 @@ enum CategoryRoutes implements Route {
   @override
   final String path = ":$categoryParameter";
 
-  final OverviewNavigationRoutes navigationRoute;
+  final OverviewNavigationRoute navigationRoute;
 
-  const CategoryRoutes(this.navigationRoute);
+  const CategoryRoute(this.navigationRoute);
 
   String get favoritesCategoryPath => categoryPath(favoritesCategory);
 

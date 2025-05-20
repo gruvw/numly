@@ -15,14 +15,14 @@ class LearnScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final favoriteLevelIds = ref.watch(favortieLevelIdsProvider).valueOrNull;
+    final favoriteLevelIds = ref.watch(favoriteLevelIdsProvider).valueOrNull;
 
     final items = learnCategories.map((category) {
       return ListItem(
         title: category.title,
         subtitle: category.subtitle,
         onTap: () => context.go(
-          CategoryRoutes.levels.categoryPath(category.id),
+          CategoryRoute.levels.categoryPath(category.id),
         ),
       );
     }).toList();
@@ -31,7 +31,7 @@ class LearnScreen extends ConsumerWidget {
       favoritesAmount:
           favoriteLevelIds?.nmap((favoriteLevelIds) => favoriteLevelIds.length),
       onFavoritesTap: () {
-        context.go(CategoryRoutes.levels.favoritesCategoryPath);
+        context.go(CategoryRoute.levels.favoritesCategoryPath);
       },
       children: items,
     );

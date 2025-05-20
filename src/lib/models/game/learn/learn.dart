@@ -2,12 +2,11 @@ import "package:numly/models/game/learn/integer_addition.dart";
 
 const defaultLevelLength = 20;
 
-// TODO maybe convert to maps (categoryId => category, gameId => game)
-
 final learnCategories = [
   integerAddition,
 ];
 
+// Using `.toList()` to preserve ordering
 final learnCategoryIds =
     learnCategories.map((category) => category.id).toList();
 

@@ -20,7 +20,7 @@ class OverviewPage extends HookWidget {
 
     // Workaround to know if the current subroute is not at its root
     final isSubrouteDeep = router.routerDelegate.state.path ==
-        ":${CategoryRoutes.categoryParameter}";
+        ":${CategoryRoute.categoryParameter}";
 
     final appBar = AppBar(
       title: Text(

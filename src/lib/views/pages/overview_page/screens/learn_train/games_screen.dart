@@ -2,29 +2,32 @@ import "package:flutter/material.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
 import "package:material_symbols_icons/symbols.dart";
 import "package:numly/models/game/game.dart";
-import "package:numly/models/game/learn/learn.dart";
 import "package:numly/state/persistence/providers.dart";
 import "package:numly/static/styles.dart";
 import "package:numly/views/navigation/routes.dart";
 import "package:numly/views/pages/overview_page/screens/components/favorite_divided_list_view.dart";
 import "package:numly/views/pages/overview_page/screens/components/list_item.dart";
 
-class Levels extends ConsumerWidget {
+class GamesScreen extends ConsumerWidget {
   final String categoryId;
+  final List<Category> categories;
+  final List<Game> allGames;
 
-  const Levels({
+  const GamesScreen({
     super.key,
     required this.categoryId,
+    required this.categories,
+    required this.allGames,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final db = ref.watch(dbProvider);
-    final favoriteLevelIds = ref.watch(favortieLevelIdsProvider).valueOrNull;
+    final favoriteGameIds = ref.watch(favoriteGameIdsProvider).valueOrNull;
 
     late final List<Game> games;
-    if (categoryId == CategoryRoutes.favoritesCategory) {
-      if (favoriteLevelIds == null) {
+    if (categoryId == CategoryRoute.favoritesCategory) {
+      if (favoriteGameIds == null) {
         return Center(
           child: CircularProgressIndicator(
             color: Styles.foregroundColor,
@@ -32,9 +35,8 @@ class Levels extends ConsumerWidget {
         );
       }
 
-      games = learnGames
-          .where((game) => favoriteLevelIds.contains(game.id))
-          .toList();
+      games =
+          allGames.where((game) => favoriteGameIds.contains(game.id)).toList();
 
       if (games.isEmpty) {
         return Center(
@@ -42,10 +44,8 @@ class Levels extends ConsumerWidget {
         );
       }
     } else {
-      games = learnCategories
-          .where((category) => category.id == categoryId)
-          .first
-          .games;
+      games =
+          categories.where((category) => category.id == categoryId).first.games;
     }
 
     final items = games.map((game) {
@@ -57,10 +57,11 @@ class Levels extends ConsumerWidget {
           },
           icon: Icon(
             Symbols.star,
-            fill: favoriteLevelIds?.contains(game.id) == true ? 1 : 0,
+            fill: favoriteGameIds?.contains(game.id) == true ? 1 : 0,
           ),
         ),
         subtitle: game.subtitle,
+        // TODO trailing
         onTap: () {
           // TODO launch game
         },

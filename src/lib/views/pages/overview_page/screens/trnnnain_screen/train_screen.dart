@@ -28,7 +28,7 @@ class TrainScreen extends StatelessWidget {
       favoritesAmount: 3,
       children: items,
       onFavoritesTap: () {
-        context.go(CategoryRoutes.trainnigs.favoritesCategoryPath);
+        context.go(CategoryRoute.trainings.favoritesCategoryPath);
       },
     );
   }

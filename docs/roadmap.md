@@ -54,13 +54,13 @@
     - [X] in-memory DB mock
     - [X] gameId consistency
     - [X] levels non-null times
-- [ ] Factorize common code to levels and trainings
+- [X] Factorize common UI code to levels and trainings
 - [ ] Test UI
 - [ ] Level design (train and learn basic levels)
-- [ ] Last game played quick play button
+- [ ] Last game played quick play (replay) button
 - [X] Application icon
 - [ ] Settings page
-    - [ ] Change number of questions per test in trainnings (10, 20, 30, 50, 100)
+    - [ ] Change number of questions per test in trainings (10, 20, 30, 50, 100)
     - [ ] Retry on error / Show correct result (toggle button)
     - [ ] Number of questions per test
     - [ ] Zen (endless) mode / Practice mode (no test length, no time limit) for every test (add a flag button, transforms into a finish test button once enabled)

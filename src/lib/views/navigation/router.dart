@@ -3,13 +3,12 @@ import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:numly/models/game/learn/learn.dart";
 import "package:numly/models/game/train/train.dart";
+import "package:numly/state/persistence/providers.dart";
 import "package:numly/views/navigation/routes.dart";
 import "package:numly/views/pages/overview_page/overview_page.dart";
 import "package:numly/views/pages/overview_page/screens/custom_screen/custom_screen.dart";
-import "package:numly/views/pages/overview_page/screens/learn_screen/learn_screen.dart";
-import "package:numly/views/pages/overview_page/screens/learn_screen/levels.dart";
-import "package:numly/views/pages/overview_page/screens/train_screen/train_screen.dart";
-import "package:numly/views/pages/overview_page/screens/train_screen/trainnings.dart";
+import "package:numly/views/pages/overview_page/screens/learn_train/categories_screen.dart";
+import "package:numly/views/pages/overview_page/screens/learn_train/games_screen.dart";
 
 final router = GoRouter(
   initialLocation: Routes.initial.path,
@@ -47,20 +46,24 @@ final _bottomNavigationBranches =
     navigatorKey: bottomNavigatorKeys[index],
     routes: [
       switch (route) {
-        OverviewNavigationRoutes.learn => GoRoute(
+        OverviewNavigationRoute.learn => GoRoute(
             path: route.path,
             builder: (context, state) {
-              return LearnScreen();
+              return CategoriesScreen(
+                categoryRoute: CategoryRoute.levels,
+                favoriteGameIdsProvider: favoriteLevelIdsProvider,
+                categories: learnCategories,
+              );
             },
             routes: [
               GoRoute(
-                path: CategoryRoutes.levels.path,
+                path: CategoryRoute.levels.path,
                 redirect: (context, state) {
                   final categoryId =
-                      state.pathParameters[CategoryRoutes.categoryParameter];
+                      state.pathParameters[CategoryRoute.categoryParameter];
 
                   if (!learnCategoryIds.contains(categoryId) &&
-                      categoryId != CategoryRoutes.favoritesCategory) {
+                      categoryId != CategoryRoute.favoritesCategory) {
                     // category does not exist
                     return route.path;
                   }
@@ -69,32 +72,38 @@ final _bottomNavigationBranches =
                 },
                 pageBuilder: (context, state) {
                   final categoryId =
-                      state.pathParameters[CategoryRoutes.categoryParameter]!;
+                      state.pathParameters[CategoryRoute.categoryParameter]!;
 
                   return _slidingSubroute(
                     state: state,
-                    child: Levels(
+                    child: GamesScreen(
                       categoryId: categoryId,
+                      categories: learnCategories,
+                      allGames: learnGames,
                     ),
                   );
                 },
               ),
             ],
           ),
-        OverviewNavigationRoutes.train => GoRoute(
+        OverviewNavigationRoute.train => GoRoute(
             path: route.path,
             builder: (context, state) {
-              return TrainScreen();
+              return CategoriesScreen(
+                categoryRoute: CategoryRoute.trainings,
+                favoriteGameIdsProvider: favoriteTrainingsIdsProvider,
+                categories: trainCategories,
+              );
             },
             routes: [
               GoRoute(
-                path: CategoryRoutes.trainnigs.path,
+                path: CategoryRoute.trainings.path,
                 redirect: (context, state) {
                   final categoryId =
-                      state.pathParameters[CategoryRoutes.categoryParameter];
+                      state.pathParameters[CategoryRoute.categoryParameter];
 
                   if (!trainCategoryIds.contains(categoryId) &&
-                      categoryId != CategoryRoutes.favoritesCategory) {
+                      categoryId != CategoryRoute.favoritesCategory) {
                     // category does not exist
                     return route.path;
                   }
@@ -103,19 +112,21 @@ final _bottomNavigationBranches =
                 },
                 pageBuilder: (context, state) {
                   final categoryId =
-                      state.pathParameters[CategoryRoutes.categoryParameter]!;
+                      state.pathParameters[CategoryRoute.categoryParameter]!;
 
                   return _slidingSubroute(
                     state: state,
-                    child: Trainnings(
-                      category: categoryId,
+                    child: GamesScreen(
+                      categoryId: categoryId,
+                      categories: trainCategories,
+                      allGames: trainGames,
                     ),
                   );
                 },
               ),
             ],
           ),
-        OverviewNavigationRoutes.custom => GoRoute(
+        OverviewNavigationRoute.custom => GoRoute(
             path: route.path,
             builder: (context, state) {
               return CustomScreen();

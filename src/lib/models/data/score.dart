@@ -1,4 +1,6 @@
-typedef GameSetting = ({String gameId, int length});
+import "package:numly/models/game/game.dart";
+
+typedef GameSetting = ({GameId gameId, int length});
 
 class Score {
   final String gameId;

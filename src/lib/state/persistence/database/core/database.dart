@@ -2,6 +2,7 @@ import "package:drift/drift.dart";
 import "package:drift_flutter/drift_flutter.dart";
 import "package:numly/state/persistence/database/core/database.drift.dart";
 import "package:numly/state/persistence/database/queries/queries.dart";
+import "package:numly/state/persistence/database/tables/completed_levels_table.dart";
 import "package:numly/state/persistence/database/tables/favorite_table.dart";
 import "package:numly/state/persistence/database/tables/high_score_table.dart";
 import "package:numly/state/persistence/database/tables/preference_table.dart";
@@ -13,6 +14,7 @@ import "package:numly/static/values.dart";
     HighScoreTable,
     PreferenceTable,
     FavoriteTable,
+    CompletedLevelsTable,
   ],
 )
 class Database extends $Database {

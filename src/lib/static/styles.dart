@@ -5,6 +5,7 @@ abstract class Styles {
   static const foregroundColor = Colors.black;
 
   static const colorDanger = Colors.red;
+  static const colorSuccess = Colors.green;
   static const colorIgnored = Colors.grey;
 
   static const fontFamily = "Roboto";

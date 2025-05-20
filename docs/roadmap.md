@@ -55,6 +55,7 @@
     - [X] gameId consistency
     - [X] levels non-null times
 - [X] Factorize common UI code to levels and trainings
+- [ ] Games and categories trailing widgets (highscores and completion)
 - [ ] Test UI
 - [ ] Level design (train and learn basic levels)
 - [ ] Last game played quick play (replay) button

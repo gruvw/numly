@@ -51,7 +51,7 @@ final _bottomNavigationBranches =
             builder: (context, state) {
               return CategoriesScreen(
                 categoryRoute: CategoryRoute.levels,
-                favoriteGameIdsProvider: favoriteLevelIdsProvider,
+                favoriteGameIdsForTypeProvider: favoriteLevelIdsProvider,
                 categories: learnCategories,
               );
             },
@@ -91,7 +91,7 @@ final _bottomNavigationBranches =
             builder: (context, state) {
               return CategoriesScreen(
                 categoryRoute: CategoryRoute.trainings,
-                favoriteGameIdsProvider: favoriteTrainingsIdsProvider,
+                favoriteGameIdsForTypeProvider: favoriteTrainingsIdsProvider,
                 categories: trainCategories,
               );
             },

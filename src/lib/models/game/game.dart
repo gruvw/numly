@@ -1,13 +1,16 @@
 import "package:numly/models/test/test.dart";
 
+typedef CategoryId = String;
+typedef GameId = String;
+
 class Category {
-  final String id;
+  final CategoryId id;
   final String title;
   final String subtitle;
   final List<Game> games;
 
-  static String subId(String categoryId, String gameId) {
-    return "$categoryId/$gameId";
+  static String subId(CategoryId categoryId, String gameIdSuffix) {
+    return "$categoryId/$gameIdSuffix";
   }
 
   Category({
@@ -19,7 +22,7 @@ class Category {
 }
 
 class Game {
-  final String id;
+  final GameId id;
   final String title;
   final String subtitle;
   final List<TestPart> parts;

@@ -8,6 +8,8 @@ class Application extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO eager initialization of providers to avoid loading data on first builds
+
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: Values.applicationTitle,

@@ -7,6 +7,8 @@ import 'package:numly/state/persistence/database/tables/preference_table.drift.d
     as i2;
 import 'package:numly/state/persistence/database/tables/favorite_table.drift.dart'
     as i3;
+import 'package:numly/state/persistence/database/tables/completed_levels_table.drift.dart'
+    as i4;
 
 abstract class $Database extends i0.GeneratedDatabase {
   $Database(i0.QueryExecutor e) : super(e);
@@ -16,12 +18,14 @@ abstract class $Database extends i0.GeneratedDatabase {
       i2.$PreferenceTableTable(this);
   late final i3.$FavoriteTableTable favoriteTable =
       i3.$FavoriteTableTable(this);
+  late final i4.$CompletedLevelsTableTable completedLevelsTable =
+      i4.$CompletedLevelsTableTable(this);
   @override
   Iterable<i0.TableInfo<i0.Table, Object?>> get allTables =>
       allSchemaEntities.whereType<i0.TableInfo<i0.Table, Object?>>();
   @override
   List<i0.DatabaseSchemaEntity> get allSchemaEntities =>
-      [highScoreTable, preferenceTable, favoriteTable];
+      [highScoreTable, preferenceTable, favoriteTable, completedLevelsTable];
   @override
   i0.DriftDatabaseOptions get options =>
       const i0.DriftDatabaseOptions(storeDateTimeAsText: true);

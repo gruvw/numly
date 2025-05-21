@@ -1,12 +1,11 @@
 import "package:flutter/material.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
-import "package:material_symbols_icons/symbols.dart";
 import "package:numly/models/game/game.dart";
 import "package:numly/state/persistence/providers.dart";
 import "package:numly/static/styles.dart";
 import "package:numly/views/navigation/routes.dart";
 import "package:numly/views/pages/overview_page/screens/components/favorite_divided_list_view.dart";
-import "package:numly/views/pages/overview_page/screens/components/list_item.dart";
+import "package:numly/views/pages/overview_page/screens/learn_train/components/game_item.dart";
 
 class GamesScreen extends ConsumerWidget {
   final String categoryId;
@@ -22,7 +21,6 @@ class GamesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final db = ref.watch(dbProvider);
     final favoriteGameIds = ref.watch(favoriteGameIdsProvider).valueOrNull;
 
     late final List<Game> games;
@@ -45,27 +43,12 @@ class GamesScreen extends ConsumerWidget {
         );
       }
     } else {
-      games =
-          category.games;
+      games = category.games;
     }
 
     final items = games.map((game) {
-      return ListItem(
-        title: game.title,
-        leading: IconButton(
-          onPressed: () {
-            db.queries.toggleFavorite(game.id);
-          },
-          icon: Icon(
-            Symbols.star,
-            fill: favoriteGameIds?.contains(game.id) == true ? 1 : 0,
-          ),
-        ),
-        subtitle: game.subtitle,
-        // TODO trailing
-        onTap: () {
-          // TODO launch game
-        },
+      return GameItem(
+        game: game,
       );
     }).toList();
 

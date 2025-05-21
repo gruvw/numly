@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:material_symbols_icons/symbols.dart";
 import "package:numly/static/styles.dart";
 import "package:numly/utils/language.dart";
 
@@ -25,8 +24,8 @@ class ListItem extends StatelessWidget {
     super.key,
     required this.title,
     this.onTap,
-  })  : leading = Icon(Symbols.star),
-        trailing = Icon(Symbols.arrow_forward_ios),
+  })  : leading = Icon(Styles.iconFavorite),
+        trailing = Icon(Styles.iconNext),
         subtitle = null;
 
   @override

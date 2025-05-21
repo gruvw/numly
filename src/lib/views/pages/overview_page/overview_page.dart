@@ -29,7 +29,7 @@ class OverviewPage extends HookWidget {
       ),
       leading: isSubrouteDeep
           ? IconButton(
-              icon: const Icon(Icons.arrow_back),
+              icon: const Icon(Styles.iconPrevious),
               onPressed: () => subNavigatorKey.currentState?.maybePop(),
               color: Styles.backgroundColor,
             )

@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:material_symbols_icons/symbols.dart";
 
 abstract class Styles {
   static const backgroundColor = Colors.white;
@@ -12,4 +13,11 @@ abstract class Styles {
 
   static const contentMaxWidth = 500.0;
   static const standardSpacing = 2.0;
+
+  static const iconFavorite = Symbols.star;
+  static const iconNext = Symbols.arrow_forward;
+  static const iconPrevious = Symbols.arrow_back;
+  static const iconNoData = Symbols.check_indeterminate_small;
+  static const iconProgress = Symbols.timeline;
+  static const iconCompleted = Symbols.check_circle;
 }

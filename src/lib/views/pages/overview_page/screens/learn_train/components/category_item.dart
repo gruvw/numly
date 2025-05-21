@@ -2,7 +2,6 @@ import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:go_router/go_router.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
-import "package:material_symbols_icons/symbols.dart";
 import "package:numly/models/game/game.dart";
 import "package:numly/models/game/learn/learn.dart";
 import "package:numly/state/persistence/providers.dart";
@@ -54,7 +53,7 @@ class CategoryItem extends HookConsumerWidget {
             icon: forceShowProgress.value
                 ? progress
                 : Icon(
-                    Symbols.check_circle,
+                    Styles.iconCompleted,
                     color: Styles.colorSuccess,
                   ),
           );
@@ -66,7 +65,7 @@ class CategoryItem extends HookConsumerWidget {
 
     final trailing = learnCategoryIds.contains(category.id)
         ? levelsProgress
-        : Icon(Symbols.arrow_forward);
+        : Icon(Styles.iconNext);
 
     return ListItem(
       title: category.title,

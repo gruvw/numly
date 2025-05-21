@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
+import "package:material_symbols_icons/symbols.dart";
 import "package:numly/logic/input_processing.dart";
 import "package:numly/static/keys.dart";
 import "package:numly/static/styles.dart";
@@ -62,7 +63,7 @@ class VirtualKeyboard extends HookWidget {
     final fractionDisabled = numberText.endsWith(Keys.fraction);
 
     final backspaceKey = _iconKey(
-      Icons.keyboard_backspace,
+      Symbols.keyboard_backspace,
       () => numberController.text =
           numberController.text.substring(0, numberController.text.length - 1),
       () => numberController.text = "",
@@ -74,7 +75,7 @@ class VirtualKeyboard extends HookWidget {
     );
 
     // TODO enter on keyboard should submit
-    final submitKey = _iconKey(Icons.check, () {
+    final submitKey = _iconKey(Symbols.check, () {
       numberController.text = numberSubmitter(numberText);
       // TODO submit press
     });

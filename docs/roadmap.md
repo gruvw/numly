@@ -55,7 +55,7 @@
     - [X] gameId consistency
     - [X] levels non-null times
 - [X] Factorize common UI code to levels and trainings
-- [ ] Games and categories trailing widgets (highscores and completion)
+- [X] Games and categories trailing widgets (highscores and completion)
 - [ ] Test UI
 - [ ] Level design (train and learn basic levels)
 - [ ] Last game played quick play (replay) button
@@ -97,6 +97,7 @@
     - [ ] XP to aquire
     - [ ] Daily streaks
     - [ ] Leaderboards
+    - [ ] Daily challenge
 - [ ] Synchronized tests, take the test together with friends
 - [ ] Pause (button) text at next operation (finish your question then pause test, without revealing next answer, max 2 times per test?)
 - [ ] Option to show the current time taken while taking the test

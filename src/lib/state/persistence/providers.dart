@@ -3,12 +3,14 @@ import "package:hooks_riverpod/hooks_riverpod.dart";
 import "package:numly/models/data/score.dart";
 import "package:numly/models/game/game.dart";
 import "package:numly/state/persistence/database/core/database.dart";
+import "package:numly/state/persistence/preferences/providers.dart";
 
 final dbProvider = Provider<Database>(
   (ref) => Database.native(),
 );
 
-final highScoreProvider = StreamProvider.family<Score?, GameSetting>(
+final highScoreForTrainingLengthProvider =
+    StreamProvider.family<Score?, GameSetting>(
   (ref, gameSetting) {
     final db = ref.watch(dbProvider);
 
@@ -19,6 +21,20 @@ final highScoreProvider = StreamProvider.family<Score?, GameSetting>(
                 t.length.equals(gameSetting.length),
           ))
         .watchSingleOrNull();
+  },
+);
+
+final highScoreSelectedTrainingLengthProvider =
+    FutureProvider.family<Score?, GameId>(
+  (ref, gameId) async {
+    final selectedTrainingLength =
+        await ref.watch(preferenceTrainingLengthProvider.future);
+
+    return ref.watch(
+      highScoreForTrainingLengthProvider(
+        (gameId: gameId, length: selectedTrainingLength),
+      ).future,
+    );
   },
 );
 

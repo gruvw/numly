@@ -1,3 +1,5 @@
+import "dart:collection";
+
 import "package:numly/models/game/learn/integer_addition.dart";
 
 const defaultLevelLength = 20;
@@ -6,10 +8,9 @@ final learnCategories = [
   integerAddition,
 ];
 
-// Using `.toList()` to preserve ordering
 final learnCategoryIds =
-    learnCategories.map((category) => category.id).toList();
+    LinkedHashSet.of(learnCategories.map((category) => category.id));
 
 final learnGames =
-    learnCategories.expand((category) => category.games).toList();
-final learnGameIds = learnGames.map((game) => game.id).toList();
+    LinkedHashSet.of(learnCategories.expand((category) => category.games));
+final learnGameIds = LinkedHashSet.of(learnGames.map((game) => game.id));

@@ -10,14 +10,14 @@ import "package:numly/views/pages/overview_page/screens/components/list_item.dar
 
 class GamesScreen extends ConsumerWidget {
   final String categoryId;
-  final List<Category> categories;
-  final List<Game> allGames;
+  final Category category;
+  final Set<Game> allGamesForType;
 
   const GamesScreen({
     super.key,
     required this.categoryId,
-    required this.categories,
-    required this.allGames,
+    required this.category,
+    required this.allGamesForType,
   });
 
   @override
@@ -35,8 +35,9 @@ class GamesScreen extends ConsumerWidget {
         );
       }
 
-      games =
-          allGames.where((game) => favoriteGameIds.contains(game.id)).toList();
+      games = allGamesForType
+          .where((game) => favoriteGameIds.contains(game.id))
+          .toList();
 
       if (games.isEmpty) {
         return Center(
@@ -45,7 +46,7 @@ class GamesScreen extends ConsumerWidget {
       }
     } else {
       games =
-          categories.where((category) => category.id == categoryId).first.games;
+          category.games;
     }
 
     final items = games.map((game) {

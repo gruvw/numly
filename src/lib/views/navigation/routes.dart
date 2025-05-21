@@ -2,7 +2,7 @@ import "package:flutter/widgets.dart";
 import "package:material_symbols_icons/symbols.dart";
 
 class Routes {
-  static final initial = OverviewNavigationRoute.train;
+  static final initial = OverviewNavigationRoute.learn;
 
   static final overviewBottomNavigationRoutes = OverviewNavigationRoute.values;
   static final categoryRoutes = CategoryRoute.values;

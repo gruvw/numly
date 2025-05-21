@@ -6,3 +6,4 @@ Minimalist cross-platform mental arithmetic training app.
 
 <!-- TODO list features -->
 - No account required
+- Offline-first

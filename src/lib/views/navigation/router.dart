@@ -3,7 +3,6 @@ import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:numly/models/game/learn/learn.dart";
 import "package:numly/models/game/train/train.dart";
-import "package:numly/state/persistence/providers.dart";
 import "package:numly/views/navigation/routes.dart";
 import "package:numly/views/pages/overview_page/overview_page.dart";
 import "package:numly/views/pages/overview_page/screens/custom_screen/custom_screen.dart";
@@ -51,7 +50,7 @@ final _bottomNavigationBranches =
             builder: (context, state) {
               return CategoriesScreen(
                 categoryRoute: CategoryRoute.levels,
-                favoriteGameIdsForTypeProvider: favoriteLevelIdsProvider,
+                allGamesForType: learnGames,
                 categories: learnCategories,
               );
             },
@@ -73,13 +72,16 @@ final _bottomNavigationBranches =
                 pageBuilder: (context, state) {
                   final categoryId =
                       state.pathParameters[CategoryRoute.categoryParameter]!;
+                  final category = learnCategories
+                      .where((category) => category.id == categoryId)
+                      .first;
 
                   return _slidingSubroute(
                     state: state,
                     child: GamesScreen(
                       categoryId: categoryId,
-                      categories: learnCategories,
-                      allGames: learnGames,
+                      category: category,
+                      allGamesForType: learnGames,
                     ),
                   );
                 },
@@ -91,7 +93,7 @@ final _bottomNavigationBranches =
             builder: (context, state) {
               return CategoriesScreen(
                 categoryRoute: CategoryRoute.trainings,
-                favoriteGameIdsForTypeProvider: favoriteTrainingsIdsProvider,
+                allGamesForType: trainGames,
                 categories: trainCategories,
               );
             },
@@ -113,13 +115,16 @@ final _bottomNavigationBranches =
                 pageBuilder: (context, state) {
                   final categoryId =
                       state.pathParameters[CategoryRoute.categoryParameter]!;
+                  final category = trainCategories
+                      .where((category) => category.id == categoryId)
+                      .first;
 
                   return _slidingSubroute(
                     state: state,
                     child: GamesScreen(
                       categoryId: categoryId,
-                      categories: trainCategories,
-                      allGames: trainGames,
+                      category: category,
+                      allGamesForType: trainGames,
                     ),
                   );
                 },

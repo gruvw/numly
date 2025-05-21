@@ -1,5 +1,5 @@
 name: numly
-description: "Minimalist cross-platform mental arithmetic training app."
+description: "Efficient cross-platform mental math training app."
 publish_to: "none"
 version: 0.0.1
 
@@ -24,6 +24,7 @@ dependencies:
   drift: ^2.26.1
   drift_flutter: ^0.2.4
   path_provider: ^2.1.5
+  flutter_native_splash: ^2.4.6
 
 dev_dependencies:
   # testing
@@ -54,3 +55,13 @@ flutter_launcher_icons:
   android: true
   web:
     generate: true
+
+# command to generate the splash screen: `dart run flutter_native_splash:create`
+flutter_native_splash:
+  android: true
+  ios: true
+  web: true
+  color: "#FFFFFF"
+  image: assets/logo/numly.png
+  android_12:
+    color: "#FFFFFF"

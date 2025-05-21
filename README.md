@@ -1,9 +1,13 @@
 # Numly
 
-Minimalist cross-platform mental arithmetic training app.
+Efficient cross-platform mental math training app.
 
 ## Features
 
 <!-- TODO list features -->
-- No account required
+- Minimalist design
 - Offline-first
+- No account required
+- No permission required
+- No ads
+- No in-app purchases

@@ -59,7 +59,14 @@
 - [ ] Test UI
 - [ ] Level design (train and learn basic levels)
 - [ ] Last game played quick play (replay) button
+- [ ] Result page
+    - [ ] Test duration (20 questions, as fast as possible)
+    - [ ] Best scores (persistence)
+    - [ ] Analytics (difficult questions, average, slowest, fastest, ...)
+    - [ ] Share test result
+    - [ ] Share exact test for friends to try it
 - [X] Application icon
+- [X] Splash screen
 - [ ] Settings page
     - [ ] Change number of questions per test in trainings (10, 20, 30, 50, 100)
     - [ ] Retry on error / Show correct result (toggle button)
@@ -73,20 +80,13 @@
     - [ ] Reset all high scores
     - [ ] Reset high score for a particular test
     - [ ] Show next operation (display next operation in small text, tetris next piece like)
+    - [ ] Export data (export results, export settings, ...)
+    - [ ] Import data
 - [ ] Layout
     - [ ] Tablet / Web layout
     - [ ] Small screens
-- [ ] Result page
-    - [ ] Test duration (20 questions, as fast as possible)
-    - [ ] Best scores (persistence)
-    - [ ] Analytics (difficult questions, average, slowest, fastest, ...)
-    - [ ] Share test result
-    - [ ] Share exact test for friends to try it
-- [ ] Splash screen
 - [ ] Sound
 - [ ] Translate app
-- [ ] Settings page
-    - [ ] Export data (export results, export settings, ...)
 - [ ] Add bug report button
 - [ ] Add donate feature
 
@@ -128,5 +128,5 @@
 
 ## Inspiration
 
-- Go-math
+- Go-maths
 - Complete Music Trainer

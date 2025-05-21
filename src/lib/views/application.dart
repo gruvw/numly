@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_native_splash/flutter_native_splash.dart";
 import "package:numly/static/styles.dart";
 import "package:numly/static/values.dart";
 import "package:numly/views/navigation/router.dart";
@@ -8,6 +9,9 @@ class Application extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // hide splash screen
+    FlutterNativeSplash.remove();
+
     // TODO eager initialization of providers to avoid loading data on first builds
 
     return MaterialApp.router(

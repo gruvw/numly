@@ -8,6 +8,6 @@ Efficient cross-platform mental math training app.
 - Minimalist design
 - Offline-first
 - No account required
-- No permission required
+- No additionnal permission required
 - No ads
 - No in-app purchases

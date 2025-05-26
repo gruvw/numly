@@ -26,6 +26,9 @@ class GameItem extends HookConsumerWidget {
         ref.watch(highScoreSelectedTrainingLengthProvider(game.id)).valueOrNull;
     final completedLevelIds = ref.watch(completedLevelIdsProvider).valueOrNull;
 
+    toggleForceShowHighScore() =>
+        forceShowHighScore.value = !forceShowHighScore.value;
+
     final leading = IconButton(
       onPressed: () {
         db.queries.toggleFavorite(game.id);
@@ -59,7 +62,7 @@ class GameItem extends HookConsumerWidget {
           : Icon(Styles.iconProgress);
 
       trailing = IconButton(
-        onPressed: () => forceShowHighScore.value = !forceShowHighScore.value,
+        onPressed: toggleForceShowHighScore,
         icon: forceShowHighScore.value || !learnGameIds.contains(game.id)
             ? highScoreText
             : levelIcon,
@@ -71,6 +74,7 @@ class GameItem extends HookConsumerWidget {
       leading: leading,
       subtitle: game.subtitle,
       trailing: trailing,
+      onLongPress: toggleForceShowHighScore,
       onTap: () {
         // TODO launch game
       },

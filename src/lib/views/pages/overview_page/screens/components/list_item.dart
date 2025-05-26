@@ -10,6 +10,7 @@ class ListItem extends StatelessWidget {
   final Widget? trailing;
 
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
 
   const ListItem({
     super.key,
@@ -18,12 +19,14 @@ class ListItem extends StatelessWidget {
     this.leading,
     this.trailing,
     this.onTap,
+    this.onLongPress,
   });
 
   ListItem.favorites({
     super.key,
     required this.title,
     this.onTap,
+    this.onLongPress,
   })  : leading = Icon(Styles.iconFavorite),
         trailing = Icon(Styles.iconNext),
         subtitle = null;
@@ -38,6 +41,7 @@ class ListItem extends StatelessWidget {
         leading: leading,
         trailing: trailing,
         onTap: onTap,
+        onLongPress: onLongPress,
       ),
     );
   }

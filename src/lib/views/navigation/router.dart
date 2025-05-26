@@ -23,7 +23,11 @@ final router = GoRouter(
     );
   },
   routes: [
-    StatefulShellRoute.indexedStack(
+    StatefulShellRoute(
+      // not using indexedStack to avoid conserving the state
+      navigatorContainerBuilder: (context, navigationShell, children) {
+        return children[navigationShell.currentIndex];
+      },
       builder: (context, state, navigationShell) {
         return OverviewPage(
           navigationShell: navigationShell,

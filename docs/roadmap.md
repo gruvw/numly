@@ -38,6 +38,7 @@
     - [X] Train page
         - [X] Common mixed tests display
     - [X] Favorites sections (save tests that you like)
+    - [X] Long click on game should display high score
     - [ ] Custom page (create)
         - [ ] Custom presets
         - [ ] Simple presets creation mode
@@ -57,21 +58,23 @@
 - [X] Factorize common UI code to levels and trainings
 - [X] Games and categories trailing widgets (highscores and completion)
 - [ ] Test UI
-- [ ] Level design (train and learn basic levels)
+    - [ ] Making mistakes should not be "red = bad" type, encourage making mistakes and promote learning, same with sound (no big error sound)
 - [ ] Last game played quick play (replay) button
+- [ ] Zen (endless) mode / Practice mode (no test length, no time limit) for every test (add a flag button, transforms into a finish test button once enabled)
 - [ ] Result page
     - [ ] Test duration (20 questions, as fast as possible)
     - [ ] Best scores (persistence)
     - [ ] Analytics (difficult questions, average, slowest, fastest, ...)
     - [ ] Share test result
     - [ ] Share exact test for friends to try it
+- [ ] Level design (train and learn basic levels)
+    - [ ] Currency change (dollars, euro, chf, pounds, japanese yen)
 - [X] Application icon
 - [X] Splash screen
 - [ ] Settings page
     - [ ] Change number of questions per test in trainings (10, 20, 30, 50, 100)
     - [ ] Retry on error / Show correct result (toggle button)
     - [ ] Number of questions per test
-    - [ ] Zen (endless) mode / Practice mode (no test length, no time limit) for every test (add a flag button, transforms into a finish test button once enabled)
     - [ ] Number ranges
     - [ ] Different ranges for each number (first, second number)
     - [ ] Persist current settings
@@ -89,6 +92,7 @@
 - [ ] Translate app
 - [ ] Add bug report button
 - [ ] Add donate feature
+- [ ] Find a license for the project
 
 ### Extra
 

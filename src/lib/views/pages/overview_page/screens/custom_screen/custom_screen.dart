@@ -10,12 +10,12 @@ class CustomScreen extends ConsumerWidget {
     final trainingLength =
         ref.watch(preferenceTrainingLengthProvider).valueOrNull;
 
-    final highScoreText =
+    final trainingLengthText =
         trainingLength == null ? "LOADING" : trainingLength.toString();
 
     return Center(
       child: InkWell(
-        child: Text("Custom - $highScoreText"),
+        child: Text("Custom - $trainingLengthText"),
         onTap: () {
           if (trainingLength != null) {
             ref

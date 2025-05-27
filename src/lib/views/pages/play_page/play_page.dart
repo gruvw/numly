@@ -20,7 +20,7 @@ class PlayPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     // TODO custom games retrieval
-    final game = allGames[gameId];
+    final game = allGames[gameId]!;
 
     final appBar = AppBar(
       title: Text(

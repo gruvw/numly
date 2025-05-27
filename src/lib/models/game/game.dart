@@ -53,8 +53,8 @@ class Game {
   }) : parts = [part];
 }
 
-final allGames = Map.unmodifiable(
-  LinkedHashMap<GameId, Game>.fromEntries(
+final allGames = Map<GameId, Game>.unmodifiable(
+  LinkedHashMap.fromEntries(
     learnGames.entries.followedBy(trainGames.entries),
   ),
 );

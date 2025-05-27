@@ -74,6 +74,7 @@
     - [ ] Share exact test for friends to try it
 - [ ] Level design (train and learn basic levels)
     - [ ] Currency change (dollars, euro, chf, pounds, japanese yen)
+    - [ ] Date / Age computation (1900, 2025)
 - [X] Application icon
 - [X] Splash screen
 - [ ] Settings page

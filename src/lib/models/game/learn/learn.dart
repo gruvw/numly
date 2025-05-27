@@ -1,16 +1,26 @@
 import "dart:collection";
 
+import "package:flutter/material.dart";
+import "package:numly/models/game/game.dart";
 import "package:numly/models/game/learn/integer_addition.dart";
 
 const defaultLevelLength = 20;
 
-final learnCategories = [
+@visibleForTesting
+final learnCategoriesList = [
   integerAddition,
 ];
 
-final learnCategoryIds =
-    LinkedHashSet.of(learnCategories.map((category) => category.id));
+final learnCategories = Map<CategoryId, Category>.unmodifiable(
+  LinkedHashMap.fromIterable(
+    learnCategoriesList,
+    key: (category) => category.id,
+  ),
+);
 
-final learnGames =
-    LinkedHashSet.of(learnCategories.expand((category) => category.games));
-final learnGameIds = LinkedHashSet.of(learnGames.map((game) => game.id));
+final learnGames = Map<GameId, Game>.unmodifiable(
+  LinkedHashMap.fromIterable(
+    learnCategoriesList.expand((category) => category.games),
+    key: (game) => game.id,
+  ),
+);

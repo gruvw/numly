@@ -59,7 +59,7 @@ class CategoryItem extends HookConsumerWidget {
       },
     );
 
-    final trailing = learnCategoryIds.contains(category.id)
+    final trailing = learnCategories.containsKey(category.id)
         ? levelsProgress
         : Icon(Styles.iconNext);
 

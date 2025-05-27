@@ -53,4 +53,8 @@ class Game {
   }) : parts = [part];
 }
 
-final allGames = LinkedHashSet.of(learnGames.followedBy(trainGames));
+final allGames = Map.unmodifiable(
+  LinkedHashMap<GameId, Game>.fromEntries(
+    learnGames.entries.followedBy(trainGames.entries),
+  ),
+);

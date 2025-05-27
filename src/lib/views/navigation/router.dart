@@ -49,16 +49,15 @@ final bottomNavigatorKeys = Routes.overviewBottomNavigationRoutes
 
 GoRoute _categorizedRoute({
   required OverviewNavigationRoute route,
-  required Set<String> categoryIds,
-  required List<Category> categories,
-  required Set<Game> allGamesForType,
+  required Map<CategoryId, Category> categoriesForType,
+  required Map<GameId, Game> gamesForType,
 }) {
   return GoRoute(
     path: route.path,
     builder: (context, state) {
       return CategoriesScreen(
-        allGamesForType: allGamesForType,
-        categories: categories,
+        gamesForType: gamesForType,
+        categoriesForType: categoriesForType,
       );
     },
     routes: [
@@ -67,7 +66,7 @@ GoRoute _categorizedRoute({
         redirect: (context, state) {
           final categoryId = state.pathParameters[CategoryRoute.pathParameter];
 
-          if (!categoryIds.contains(categoryId) &&
+          if (!categoriesForType.containsKey(categoryId) &&
               categoryId != CategoryRoute.favoritesCategory) {
             // category does not exist
             return route.path;
@@ -82,8 +81,8 @@ GoRoute _categorizedRoute({
             state: state,
             child: GamesScreen(
               categoryId: categoryId,
-              categories: categories,
-              allGamesForType: allGamesForType,
+              categoriesForType: categoriesForType,
+              gamesForType: gamesForType,
             ),
           );
         },
@@ -91,15 +90,28 @@ GoRoute _categorizedRoute({
           GoRoute(
             path: Routes.playRoute.path,
             parentNavigatorKey: rootNavigatorKey,
+            redirect: (context, state) {
+              final categoryId =
+                  state.pathParameters[CategoryRoute.pathParameter]!;
+              final gameIdSuffix =
+                  state.pathParameters[PlayRoute.pathParameter]!;
+              final gameId = Category.subId(categoryId, gameIdSuffix);
+
+              if (!gamesForType.containsKey(gameId)) {
+                // game does not exist
+                return "${route.path}/$categoryId";
+              }
+
+              return null;
+            },
             builder: (context, state) {
               final categoryId =
                   state.pathParameters[CategoryRoute.pathParameter]!;
               final gameIdSuffix =
                   state.pathParameters[PlayRoute.pathParameter]!;
+              final gameId = Category.subId(categoryId, gameIdSuffix);
 
-              return PlayPage(
-                gameId: Category.subId(categoryId, gameIdSuffix),
-              );
+              return PlayPage(gameId: gameId);
             },
           ),
         ],
@@ -117,15 +129,13 @@ final _bottomNavigationBranches =
       switch (route) {
         OverviewNavigationRoute.learn => _categorizedRoute(
             route: route,
-            categoryIds: learnCategoryIds,
-            categories: learnCategories,
-            allGamesForType: learnGames,
+            categoriesForType: learnCategories,
+            gamesForType: learnGames,
           ),
         OverviewNavigationRoute.train => _categorizedRoute(
             route: route,
-            categoryIds: trainCategoryIds,
-            categories: trainCategories,
-            allGamesForType: trainGames,
+            categoriesForType: trainCategories,
+            gamesForType: trainGames,
           ),
         OverviewNavigationRoute.custom => GoRoute(
             path: route.path,

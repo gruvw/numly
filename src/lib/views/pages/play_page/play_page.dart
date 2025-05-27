@@ -8,6 +8,8 @@ import "package:numly/views/pages/play_page/components/input/number_input.dart";
 import "package:numly/views/pages/play_page/components/input/virtual_keyboard.dart";
 
 class PlayPage extends HookWidget {
+  /// The id of the game to play.
+  /// Assumed to be a valid game id.
   final GameId gameId;
 
   const PlayPage({
@@ -17,7 +19,8 @@ class PlayPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final game = allGames.where((game) => game.id == gameId).first;
+    // TODO custom games retrieval
+    final game = allGames[gameId];
 
     final appBar = AppBar(
       title: Text(

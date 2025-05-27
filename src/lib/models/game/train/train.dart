@@ -1,14 +1,23 @@
 import "dart:collection";
 
+import "package:flutter/material.dart";
 import "package:numly/models/game/game.dart";
 
-final List<Category> trainCategories = [
+@visibleForTesting
+final List<Category> trainCategoriesList = [
   // integerAddition,
 ];
 
-final trainCategoryIds =
-    LinkedHashSet.of(trainCategories.map((category) => category.id));
+final trainCategories = Map<CategoryId, Category>.unmodifiable(
+  LinkedHashMap.fromIterable(
+    trainCategoriesList,
+    key: (category) => category.id,
+  ),
+);
 
-final trainGames =
-    LinkedHashSet.of(trainCategories.expand((category) => category.games));
-final trainGameIds = LinkedHashSet.of(trainGames.map((game) => game.id));
+final trainGames = Map<GameId, Game>.unmodifiable(
+  LinkedHashMap.fromIterable(
+    trainCategoriesList.expand((category) => category.games),
+    key: (game) => game.id,
+  ),
+);

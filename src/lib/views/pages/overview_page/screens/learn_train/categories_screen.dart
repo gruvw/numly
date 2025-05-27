@@ -8,31 +8,31 @@ import "package:numly/views/pages/overview_page/screens/components/favorite_divi
 import "package:numly/views/pages/overview_page/screens/learn_train/components/category_item.dart";
 
 class CategoriesScreen extends ConsumerWidget {
-  final Set<Game> allGamesForType;
-  final List<Category> categories;
+  final Map<GameId, Game> gamesForType;
+  final Map<CategoryId, Category> categoriesForType;
 
   const CategoriesScreen({
     super.key,
-    required this.allGamesForType,
-    required this.categories,
+    required this.gamesForType,
+    required this.categoriesForType,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final favoriteGameIds = ref.watch(favoriteGameIdsProvider).valueOrNull;
 
-    final favoriteGamesLengthForType = favoriteGameIds?.nmap(
-      (favoriteGameIds) => allGamesForType
-          .where((game) => favoriteGameIds.contains(game.id))
+    final favoriteGamesForTypeLength = favoriteGameIds?.nmap(
+      (favoriteGameIds) => gamesForType.keys
+          .where((gameId) => favoriteGameIds.contains(gameId))
           .length,
     );
 
-    final items = categories.map((category) {
+    final items = categoriesForType.values.map((category) {
       return CategoryItem(category: category);
     }).toList();
 
     return FavoriteDividedListView(
-      favoritesAmount: favoriteGamesLengthForType,
+      favoritesAmount: favoriteGamesForTypeLength,
       onFavoritesTap: () {
         context.goRelative(CategoryRoute.favoritesCategory);
       },

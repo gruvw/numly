@@ -5,8 +5,8 @@ import "package:test/test.dart";
 
 void main() {
   test("categories have unique (and not conflicting) ids", () {
-    final categoryIds = learnCategories
-        .followedBy(trainCategories)
+    final categoryIds = learnCategoriesList
+        .followedBy(trainCategoriesList)
         .map((category) => category.id);
 
     expect(categoryIds.length, categoryIds.toSet().length);
@@ -19,15 +19,15 @@ void main() {
   });
 
   test("game levels and trainings have unique ids", () {
-    final gameIds = learnCategories
-        .followedBy(trainCategories)
+    final gameIds = learnCategoriesList
+        .followedBy(trainCategoriesList)
         .expand((category) => category.games.map((game) => game.id));
 
     expect(gameIds.length, gameIds.toSet().length);
   });
 
   test("all game level parts have time constrains", () {
-    final levelsExpectedTimesPerQuestion = learnCategories.expand(
+    final levelsExpectedTimesPerQuestion = learnCategoriesList.expand(
       (category) => category.games.expand(
         (game) => game.parts.map((part) => part.targetTimePerQuestion),
       ),

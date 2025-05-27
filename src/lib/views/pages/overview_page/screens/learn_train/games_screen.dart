@@ -8,15 +8,18 @@ import "package:numly/views/pages/overview_page/screens/components/favorite_divi
 import "package:numly/views/pages/overview_page/screens/learn_train/components/game_item.dart";
 
 class GamesScreen extends ConsumerWidget {
+  /// The id of the category to display games.
+  /// Assumed to be a valid category for type.
   final String categoryId;
-  final List<Category> categories;
-  final Set<Game> allGamesForType;
+
+  final Map<CategoryId, Category> categoriesForType;
+  final Map<GameId, Game> gamesForType;
 
   const GamesScreen({
     super.key,
     required this.categoryId,
-    required this.categories,
-    required this.allGamesForType,
+    required this.categoriesForType,
+    required this.gamesForType,
   });
 
   @override
@@ -33,7 +36,7 @@ class GamesScreen extends ConsumerWidget {
         );
       }
 
-      games = allGamesForType
+      games = gamesForType.values
           .where((game) => favoriteGameIds.contains(game.id))
           .toList();
 
@@ -43,9 +46,7 @@ class GamesScreen extends ConsumerWidget {
         );
       }
     } else {
-      final category =
-          categories.where((category) => category.id == categoryId).first;
-      games = category.games;
+      games = categoriesForType[categoryId]!.games;
     }
 
     final items = games.map((game) {

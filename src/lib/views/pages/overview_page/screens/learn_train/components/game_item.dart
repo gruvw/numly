@@ -64,7 +64,7 @@ class GameItem extends HookConsumerWidget {
 
       trailing = IconButton(
         onPressed: toggleForceShowHighScore,
-        icon: forceShowHighScore.value || !learnGameIds.contains(game.id)
+        icon: forceShowHighScore.value || !learnGames.containsKey(game.id)
             ? highScoreText
             : levelIcon,
       );
@@ -77,7 +77,6 @@ class GameItem extends HookConsumerWidget {
       trailing: trailing,
       onLongPress: toggleForceShowHighScore,
       onTap: () {
-        // TODO launch game
         context.goRelative(game.gameIdSuffix!);
       },
     );

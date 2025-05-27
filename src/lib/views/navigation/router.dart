@@ -47,6 +47,67 @@ final bottomNavigatorKeys = Routes.overviewBottomNavigationRoutes
     .map((_) => GlobalKey<NavigatorState>())
     .toList();
 
+GoRoute _categorizedRoute({
+  required OverviewNavigationRoute route,
+  required Set<String> categoryIds,
+  required List<Category> categories,
+  required Set<Game> allGamesForType,
+}) {
+  return GoRoute(
+    path: route.path,
+    builder: (context, state) {
+      return CategoriesScreen(
+        allGamesForType: allGamesForType,
+        categories: categories,
+      );
+    },
+    routes: [
+      GoRoute(
+        path: Routes.categoryRoute.path,
+        redirect: (context, state) {
+          final categoryId = state.pathParameters[CategoryRoute.pathParameter];
+
+          if (!categoryIds.contains(categoryId) &&
+              categoryId != CategoryRoute.favoritesCategory) {
+            // category does not exist
+            return route.path;
+          }
+
+          return null;
+        },
+        pageBuilder: (context, state) {
+          final categoryId = state.pathParameters[CategoryRoute.pathParameter]!;
+
+          return _slidingSubroute(
+            state: state,
+            child: GamesScreen(
+              categoryId: categoryId,
+              categories: categories,
+              allGamesForType: allGamesForType,
+            ),
+          );
+        },
+        routes: [
+          GoRoute(
+            path: Routes.playRoute.path,
+            parentNavigatorKey: rootNavigatorKey,
+            builder: (context, state) {
+              final categoryId =
+                  state.pathParameters[CategoryRoute.pathParameter]!;
+              final gameIdSuffix =
+                  state.pathParameters[PlayRoute.pathParameter]!;
+
+              return PlayPage(
+                gameId: Category.subId(categoryId, gameIdSuffix),
+              );
+            },
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
 final _bottomNavigationBranches =
     Routes.overviewBottomNavigationRoutes.mapIndexed((index, route) {
   return StatefulShellBranch(
@@ -54,100 +115,17 @@ final _bottomNavigationBranches =
     navigatorKey: bottomNavigatorKeys[index],
     routes: [
       switch (route) {
-        // TODO fuse learn and train
-        OverviewNavigationRoute.learn => GoRoute(
-            path: route.path,
-            builder: (context, state) {
-              return CategoriesScreen(
-                allGamesForType: learnGames,
-                categories: learnCategories,
-              );
-            },
-            routes: [
-              GoRoute(
-                path: Routes.categoryRoute.path,
-                redirect: (context, state) {
-                  final categoryId =
-                      state.pathParameters[CategoryRoute.pathParameter];
-
-                  if (!learnCategoryIds.contains(categoryId) &&
-                      categoryId != CategoryRoute.favoritesCategory) {
-                    // category does not exist
-                    return route.path;
-                  }
-
-                  return null;
-                },
-                pageBuilder: (context, state) {
-                  final categoryId =
-                      state.pathParameters[CategoryRoute.pathParameter]!;
-
-                  return _slidingSubroute(
-                    state: state,
-                    child: GamesScreen(
-                      categoryId: categoryId,
-                      categories: learnCategories,
-                      allGamesForType: learnGames,
-                    ),
-                  );
-                },
-                routes: [
-                  GoRoute(
-                    path: Routes.playRoute.path,
-                    parentNavigatorKey: rootNavigatorKey,
-                    builder: (context, state) {
-                      final categoryId =
-                          state.pathParameters[CategoryRoute.pathParameter]!;
-                      final gameIdSuffix =
-                          state.pathParameters[PlayRoute.pathParameter]!;
-
-                      return PlayPage(
-                        gameId: Category.subId(categoryId, gameIdSuffix),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ],
+        OverviewNavigationRoute.learn => _categorizedRoute(
+            route: route,
+            categoryIds: learnCategoryIds,
+            categories: learnCategories,
+            allGamesForType: learnGames,
           ),
-        OverviewNavigationRoute.train => GoRoute(
-            path: route.path,
-            builder: (context, state) {
-              return CategoriesScreen(
-                allGamesForType: trainGames,
-                categories: trainCategories,
-              );
-            },
-            routes: [
-              GoRoute(
-                path: Routes.categoryRoute.path,
-                redirect: (context, state) {
-                  final categoryId =
-                      state.pathParameters[CategoryRoute.pathParameter];
-
-                  if (!trainCategoryIds.contains(categoryId) &&
-                      categoryId != CategoryRoute.favoritesCategory) {
-                    // category does not exist
-                    return route.path;
-                  }
-
-                  return null;
-                },
-                pageBuilder: (context, state) {
-                  final categoryId =
-                      state.pathParameters[CategoryRoute.pathParameter]!;
-
-                  return _slidingSubroute(
-                    state: state,
-                    child: GamesScreen(
-                      categoryId: categoryId,
-                      categories: trainCategories,
-                      allGamesForType: trainGames,
-                    ),
-                  );
-                },
-              ),
-            ],
+        OverviewNavigationRoute.train => _categorizedRoute(
+            route: route,
+            categoryIds: trainCategoryIds,
+            categories: trainCategories,
+            allGamesForType: trainGames,
           ),
         OverviewNavigationRoute.custom => GoRoute(
             path: route.path,

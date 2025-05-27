@@ -17,6 +17,8 @@ class PlayPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final game = allGames.where((game) => game.id == gameId).first;
+
     final appBar = AppBar(
       title: Text(
         Values.applicationTitle,
@@ -29,6 +31,11 @@ class PlayPage extends HookWidget {
 
     final content = Column(
       children: [
+        Spacer(),
+        Text(
+          game.title,
+          style: TextStyle(color: Styles.backgroundColor),
+        ),
         Spacer(),
         NumberInput(numberController: numberController),
         Gap(Styles.standardSpacing * 4),

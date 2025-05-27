@@ -59,6 +59,7 @@
 - [X] Games and categories trailing widgets (highscores and completion)
 - [ ] Test UI
     - [ ] Making mistakes should not be "red = bad" type, encourage making mistakes and promote learning, same with sound (no big error sound)
+    - [ ] Retry test button ?
 - [X] Last game played quick play (replay) button
 - [ ] Zen (endless) mode / Practice mode (no test length, no time limit) for every test (add a flag button, transforms into a finish test button once enabled)
 - [ ] Result page

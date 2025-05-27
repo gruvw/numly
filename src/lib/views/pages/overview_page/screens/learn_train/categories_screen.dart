@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:go_router/go_router.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
 import "package:numly/models/game/game.dart";
 import "package:numly/state/persistence/providers.dart";
@@ -9,13 +8,11 @@ import "package:numly/views/pages/overview_page/screens/components/favorite_divi
 import "package:numly/views/pages/overview_page/screens/learn_train/components/category_item.dart";
 
 class CategoriesScreen extends ConsumerWidget {
-  final CategoryRoute categoryRoute;
   final Set<Game> allGamesForType;
   final List<Category> categories;
 
   const CategoriesScreen({
     super.key,
-    required this.categoryRoute,
     required this.allGamesForType,
     required this.categories,
   });
@@ -31,16 +28,13 @@ class CategoriesScreen extends ConsumerWidget {
     );
 
     final items = categories.map((category) {
-      return CategoryItem(
-        categoryRoute: categoryRoute,
-        category: category,
-      );
+      return CategoryItem(category: category);
     }).toList();
 
     return FavoriteDividedListView(
       favoritesAmount: favoriteGamesLengthForType,
       onFavoritesTap: () {
-        context.go(categoryRoute.favoritesCategoryPath);
+        context.goRelative(CategoryRoute.favoritesCategory);
       },
       children: items,
     );

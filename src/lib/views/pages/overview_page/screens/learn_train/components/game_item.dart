@@ -6,6 +6,7 @@ import "package:numly/models/game/learn/learn.dart";
 import "package:numly/state/persistence/providers.dart";
 import "package:numly/static/styles.dart";
 import "package:numly/static/values.dart";
+import "package:numly/utils/language.dart";
 import "package:numly/views/pages/overview_page/screens/components/list_item.dart";
 
 class GameItem extends HookConsumerWidget {
@@ -77,6 +78,7 @@ class GameItem extends HookConsumerWidget {
       onLongPress: toggleForceShowHighScore,
       onTap: () {
         // TODO launch game
+        context.goRelative(game.gameIdSuffix!);
       },
     );
   }

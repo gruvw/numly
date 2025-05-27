@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:numly/static/styles.dart";
-import "package:numly/views/pages/test_page/components/input/number_formatter.dart";
+import "package:numly/views/pages/play_page/components/input/number_formatter.dart";
 
 class NumberInput extends StatelessWidget {
   final TextEditingController numberController;

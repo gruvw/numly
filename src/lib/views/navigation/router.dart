@@ -1,6 +1,7 @@
 import "package:collection/collection.dart";
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
+import "package:numly/models/game/game.dart";
 import "package:numly/models/game/learn/learn.dart";
 import "package:numly/models/game/train/train.dart";
 import "package:numly/views/navigation/routes.dart";
@@ -8,15 +9,19 @@ import "package:numly/views/pages/overview_page/overview_page.dart";
 import "package:numly/views/pages/overview_page/screens/custom_screen/custom_screen.dart";
 import "package:numly/views/pages/overview_page/screens/learn_train/categories_screen.dart";
 import "package:numly/views/pages/overview_page/screens/learn_train/games_screen.dart";
+import "package:numly/views/pages/play_page/play_page.dart";
+
+final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
+  navigatorKey: rootNavigatorKey,
   initialLocation: Routes.initial.path,
   errorBuilder: (context, state) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.go(Routes.initial.path);
     });
 
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Text("Routing error, redirecting..."),
       ),
@@ -49,21 +54,21 @@ final _bottomNavigationBranches =
     navigatorKey: bottomNavigatorKeys[index],
     routes: [
       switch (route) {
+        // TODO fuse learn and train
         OverviewNavigationRoute.learn => GoRoute(
             path: route.path,
             builder: (context, state) {
               return CategoriesScreen(
-                categoryRoute: CategoryRoute.levels,
                 allGamesForType: learnGames,
                 categories: learnCategories,
               );
             },
             routes: [
               GoRoute(
-                path: CategoryRoute.levels.path,
+                path: Routes.categoryRoute.path,
                 redirect: (context, state) {
                   final categoryId =
-                      state.pathParameters[CategoryRoute.categoryParameter];
+                      state.pathParameters[CategoryRoute.pathParameter];
 
                   if (!learnCategoryIds.contains(categoryId) &&
                       categoryId != CategoryRoute.favoritesCategory) {
@@ -75,20 +80,33 @@ final _bottomNavigationBranches =
                 },
                 pageBuilder: (context, state) {
                   final categoryId =
-                      state.pathParameters[CategoryRoute.categoryParameter]!;
-                  final category = learnCategories
-                      .where((category) => category.id == categoryId)
-                      .first;
+                      state.pathParameters[CategoryRoute.pathParameter]!;
 
                   return _slidingSubroute(
                     state: state,
                     child: GamesScreen(
                       categoryId: categoryId,
-                      category: category,
+                      categories: learnCategories,
                       allGamesForType: learnGames,
                     ),
                   );
                 },
+                routes: [
+                  GoRoute(
+                    path: Routes.playRoute.path,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (context, state) {
+                      final categoryId =
+                          state.pathParameters[CategoryRoute.pathParameter]!;
+                      final gameIdSuffix =
+                          state.pathParameters[PlayRoute.pathParameter]!;
+
+                      return PlayPage(
+                        gameId: Category.subId(categoryId, gameIdSuffix),
+                      );
+                    },
+                  ),
+                ],
               ),
             ],
           ),
@@ -96,17 +114,16 @@ final _bottomNavigationBranches =
             path: route.path,
             builder: (context, state) {
               return CategoriesScreen(
-                categoryRoute: CategoryRoute.trainings,
                 allGamesForType: trainGames,
                 categories: trainCategories,
               );
             },
             routes: [
               GoRoute(
-                path: CategoryRoute.trainings.path,
+                path: Routes.categoryRoute.path,
                 redirect: (context, state) {
                   final categoryId =
-                      state.pathParameters[CategoryRoute.categoryParameter];
+                      state.pathParameters[CategoryRoute.pathParameter];
 
                   if (!trainCategoryIds.contains(categoryId) &&
                       categoryId != CategoryRoute.favoritesCategory) {
@@ -118,16 +135,13 @@ final _bottomNavigationBranches =
                 },
                 pageBuilder: (context, state) {
                   final categoryId =
-                      state.pathParameters[CategoryRoute.categoryParameter]!;
-                  final category = trainCategories
-                      .where((category) => category.id == categoryId)
-                      .first;
+                      state.pathParameters[CategoryRoute.pathParameter]!;
 
                   return _slidingSubroute(
                     state: state,
                     child: GamesScreen(
                       categoryId: categoryId,
-                      category: category,
+                      categories: trainCategories,
                       allGamesForType: trainGames,
                     ),
                   );

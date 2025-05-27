@@ -9,13 +9,13 @@ import "package:numly/views/pages/overview_page/screens/learn_train/components/g
 
 class GamesScreen extends ConsumerWidget {
   final String categoryId;
-  final Category category;
+  final List<Category> categories;
   final Set<Game> allGamesForType;
 
   const GamesScreen({
     super.key,
     required this.categoryId,
-    required this.category,
+    required this.categories,
     required this.allGamesForType,
   });
 
@@ -43,6 +43,8 @@ class GamesScreen extends ConsumerWidget {
         );
       }
     } else {
+      final category =
+          categories.where((category) => category.id == categoryId).first;
       games = category.games;
     }
 

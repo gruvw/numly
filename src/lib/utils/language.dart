@@ -1,6 +1,7 @@
 import "dart:math";
 
 import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
 
 extension RemoveAll on String {
   String removeAll(Pattern pattern) => replaceAll(pattern, "");
@@ -39,4 +40,8 @@ extension RandomListPick<T> on List<T> {
   T pick(Random random) {
     return this[random.nextInt(length)];
   }
+}
+
+extension RelativeRoute on BuildContext {
+  void goRelative(String relativeLocation) => go("./$relativeLocation");
 }

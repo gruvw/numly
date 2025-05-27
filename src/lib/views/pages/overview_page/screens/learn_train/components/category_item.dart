@@ -1,22 +1,18 @@
 import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
-import "package:go_router/go_router.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
 import "package:numly/models/game/game.dart";
 import "package:numly/models/game/learn/learn.dart";
 import "package:numly/state/persistence/providers.dart";
 import "package:numly/static/styles.dart";
 import "package:numly/utils/language.dart";
-import "package:numly/views/navigation/routes.dart";
 import "package:numly/views/pages/overview_page/screens/components/list_item.dart";
 
 class CategoryItem extends HookConsumerWidget {
-  final CategoryRoute categoryRoute;
   final Category category;
 
   const CategoryItem({
     super.key,
-    required this.categoryRoute,
     required this.category,
   });
 
@@ -71,9 +67,7 @@ class CategoryItem extends HookConsumerWidget {
       title: category.title,
       subtitle: category.subtitle,
       trailing: trailing,
-      onTap: () => context.go(
-        categoryRoute.categoryPath(category.id),
-      ),
+      onTap: () => context.goRelative(category.id),
     );
   }
 }

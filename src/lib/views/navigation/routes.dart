@@ -5,7 +5,9 @@ class Routes {
   static final initial = OverviewNavigationRoute.learn;
 
   static final overviewBottomNavigationRoutes = OverviewNavigationRoute.values;
-  static final categoryRoutes = CategoryRoute.values;
+  static final categoryRoute = CategoryRoute();
+
+  static final playRoute = PlayRoute();
 }
 
 abstract class Route {
@@ -25,23 +27,17 @@ enum OverviewNavigationRoute implements Route {
   const OverviewNavigationRoute(this.path, this.icon);
 }
 
-enum CategoryRoute implements Route {
-  levels(OverviewNavigationRoute.learn),
-  trainings(OverviewNavigationRoute.train);
-
-  static const categoryParameter = "category";
+class CategoryRoute implements Route {
+  static const pathParameter = "category";
   static const favoritesCategory = "favorites";
 
   @override
-  final String path = ":$categoryParameter";
+  final String path = ":$pathParameter";
+}
 
-  final OverviewNavigationRoute navigationRoute;
+class PlayRoute implements Route {
+  static const pathParameter = "play";
 
-  const CategoryRoute(this.navigationRoute);
-
-  String get favoritesCategoryPath => categoryPath(favoritesCategory);
-
-  String categoryPath(String category) {
-    return "${navigationRoute.path}/$category";
-  }
+  @override
+  final String path = ":$pathParameter";
 }

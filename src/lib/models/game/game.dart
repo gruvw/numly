@@ -1,7 +1,13 @@
+import "dart:collection";
+
+import "package:numly/models/game/learn/learn.dart";
+import "package:numly/models/game/train/train.dart";
 import "package:numly/models/test/test.dart";
 
 typedef CategoryId = String;
 typedef GameId = String;
+
+final _categoryGameSeparator = "/";
 
 class Category {
   final CategoryId id;
@@ -10,7 +16,7 @@ class Category {
   final List<Game> games;
 
   static String subId(CategoryId categoryId, String gameIdSuffix) {
-    return "$categoryId/$gameIdSuffix";
+    return "$categoryId$_categoryGameSeparator$gameIdSuffix";
   }
 
   Category({
@@ -27,6 +33,11 @@ class Game {
   final String subtitle;
   final List<TestPart> parts;
 
+  String? get gameIdSuffix {
+    final split = id.split(_categoryGameSeparator);
+    return split.elementAtOrNull(1);
+  }
+
   Game.parts({
     required this.id,
     required this.title,
@@ -41,3 +52,5 @@ class Game {
     required TestPart part,
   }) : parts = [part];
 }
+
+final allGames = LinkedHashSet.of(learnGames.followedBy(trainGames));

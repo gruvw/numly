@@ -23,8 +23,8 @@ class OverviewPage extends ConsumerWidget {
     final subNavigatorKey = bottomNavigatorKeys[navigationShell.currentIndex];
 
     // Workaround to know if the current subroute is not at its root
-    final isSubrouteDeep = router.routerDelegate.state.path ==
-        ":${CategoryRoute.categoryParameter}";
+    final isSubrouteDeep =
+        router.routerDelegate.state.path == ":${CategoryRoute.pathParameter}";
 
     final appBar = AppBar(
       title: Text(
@@ -42,7 +42,7 @@ class OverviewPage extends ConsumerWidget {
         if (lastGameId != null)
           IconButton(
             onPressed: () {
-              // TODO Play last game
+              // TODO launch last game
             },
             tooltip: "Replay",
             icon: Icon(Symbols.forward_media),

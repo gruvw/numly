@@ -59,11 +59,15 @@
 - [X] Games and categories trailing widgets (highscores and completion)
 - [ ] Test UI
     - [ ] Making mistakes should not be "red = bad" type, encourage making mistakes and promote learning, same with sound (no big error sound)
-- [ ] Last game played quick play (replay) button
+- [X] Last game played quick play (replay) button
 - [ ] Zen (endless) mode / Practice mode (no test length, no time limit) for every test (add a flag button, transforms into a finish test button once enabled)
 - [ ] Result page
     - [ ] Test duration (20 questions, as fast as possible)
-    - [ ] Best scores (persistence)
+    - [ ] Play again (same test)
+    - [ ] Go to next level
+    - [ ] Previous high score
+    - [ ] How much time was needed to pass the level
+    - [ ] Level succeded or not
     - [ ] Analytics (difficult questions, average, slowest, fastest, ...)
     - [ ] Share test result
     - [ ] Share exact test for friends to try it

@@ -73,4 +73,16 @@ class Preference<T> extends AsyncNotifier<T> {
           ),
         );
   }
+
+  Preference<E> map<E>(
+    E Function(T) map,
+    T Function(E) reverse,
+  ) {
+    return Preference<E>(
+      configKey: configKey,
+      defaultValue: map(defaultValue),
+      serialize: (value) => serialize(reverse(value)),
+      parse: (source) => map(parse(source)),
+    );
+  }
 }

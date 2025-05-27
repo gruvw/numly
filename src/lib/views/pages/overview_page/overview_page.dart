@@ -1,12 +1,14 @@
 import "package:flutter/material.dart";
-import "package:flutter_hooks/flutter_hooks.dart";
 import "package:go_router/go_router.dart";
+import "package:hooks_riverpod/hooks_riverpod.dart";
+import "package:material_symbols_icons/symbols.dart";
+import "package:numly/state/persistence/preferences/providers.dart";
 import "package:numly/static/styles.dart";
 import "package:numly/utils/language.dart";
 import "package:numly/views/navigation/router.dart";
 import "package:numly/views/navigation/routes.dart";
 
-class OverviewPage extends HookWidget {
+class OverviewPage extends ConsumerWidget {
   final StatefulNavigationShell navigationShell;
 
   const OverviewPage({
@@ -15,7 +17,9 @@ class OverviewPage extends HookWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final lastGameId = ref.watch(preferenceLastGameIdProvider).valueOrNull;
+
     final subNavigatorKey = bottomNavigatorKeys[navigationShell.currentIndex];
 
     // Workaround to know if the current subroute is not at its root
@@ -34,6 +38,16 @@ class OverviewPage extends HookWidget {
               color: Styles.backgroundColor,
             )
           : null,
+      actions: [
+        if (lastGameId != null)
+          IconButton(
+            onPressed: () {
+              // TODO Play last game
+            },
+            tooltip: "Replay",
+            icon: Icon(Symbols.forward_media),
+          ),
+      ],
       backgroundColor: Styles.foregroundColor,
       foregroundColor: Styles.backgroundColor,
     );

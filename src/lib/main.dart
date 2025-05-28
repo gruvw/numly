@@ -10,6 +10,7 @@ void main() {
   // preserve the splash screen for initialization
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
+  // set browser URL when pushing routes
   GoRouter.optionURLReflectsImperativeAPIs = true;
 
   runApp(

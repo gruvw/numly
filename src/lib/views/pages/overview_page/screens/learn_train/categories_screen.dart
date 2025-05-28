@@ -19,7 +19,7 @@ class CategoriesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final favoriteGameIds = ref.watch(favoriteGameIdsProvider).valueOrNull;
+    final favoriteGameIds = ref.watch(favoriteGameIdsProvider).value;
 
     final favoriteGamesForTypeLength = favoriteGameIds?.nmap(
       (favoriteGameIds) => gamesForType.keys

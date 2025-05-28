@@ -7,7 +7,7 @@ class CustomScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final trainingLength = ref.watch(kvsTrainingLengthProvider).valueOrNull;
+    final trainingLength = ref.watch(kvsTrainingLengthProvider).value;
 
     final trainingLengthText =
         trainingLength == null ? "LOADING" : trainingLength.toString();

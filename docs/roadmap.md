@@ -28,7 +28,7 @@
     - [X] Support n-th root
 - [X] Question resolution / answer and submit
     - [X] Force reduced fractions (or scalar if possible 4/2 = 2), maybe show note on wrong result if correct but not reduced
-- [ ] Levels system
+- [X] Levels system
     - [X] Split per types
     - [X] Per-defined settings with each level
     - [X] Small level description ("single digit additions")
@@ -37,6 +37,7 @@
     - [X] Learn page
     - [X] Train page
         - [X] Common mixed tests display
+        - [ ] Select prefered training length
     - [X] Favorites sections (save tests that you like)
     - [X] Long click on game should display high score
     - [ ] Custom page (create)
@@ -58,12 +59,15 @@
 - [X] Factorize common UI code to levels and trainings
 - [X] Games and categories trailing widgets (highscores and completion)
 - [ ] Test UI
+    - [ ] Design UI
+    - [ ] Implement test state
+    - [ ] Implement test UI
     - [ ] Making mistakes should not be "red = bad" type, encourage making mistakes and promote learning, same with sound (no big error sound)
-    - [ ] Restart test button ?
+    - [ ] Restart test button
 - [X] Last game played quick play (replay) button
-- [ ] Zen (endless) mode / Practice mode (no test length, no time limit) for every test (add a flag button, transforms into a finish test button once enabled)
+- [ ] Endless mode / Practice mode (no test length, no time limit) for every test (add a flag button, transforms into a finish test button once enabled)
 - [ ] Result page
-    - [ ] Test duration (20 questions, as fast as possible)
+    - [ ] Test duration / time (20 questions, as fast as possible)
     - [ ] Play again (same test)
     - [ ] Go to next level
     - [ ] Previous high score
@@ -89,6 +93,7 @@
     - [ ] Reset all high scores
     - [ ] Reset high score for a particular test
     - [ ] Show next operation (display next operation in small text, tetris next piece like)
+    - [ ] Disable test restart button
     - [ ] Export data (export results, export settings, ...)
     - [ ] Import data
 - [ ] Layout

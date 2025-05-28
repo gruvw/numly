@@ -21,4 +21,5 @@ abstract class Styles {
   static const iconProgress = Symbols.timeline;
   static const iconCompleted = Symbols.check_circle;
   static const iconRepeat = Symbols.forward_media;
+  static const iconEndless = Symbols.flag;
 }

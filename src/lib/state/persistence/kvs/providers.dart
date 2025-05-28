@@ -32,3 +32,11 @@ final kvsLastGameIdProvider =
     (data) => data ?? "",
   );
 });
+
+final kvsEndlessModeProvider =
+    AsyncNotifierProvider<KvsNotifier<bool>, bool>(() {
+  return KvsNotifier.boolean(
+    configKey: "endless_mode",
+    defaultValue: false,
+  );
+});

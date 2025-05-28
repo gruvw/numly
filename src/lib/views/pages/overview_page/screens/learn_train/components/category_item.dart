@@ -20,7 +20,7 @@ class CategoryItem extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final forceShowProgress = useState(false);
 
-    final completedLevelIds = ref.watch(completedLevelIdsProvider).valueOrNull;
+    final completedLevelIds = ref.watch(completedLevelIdsProvider).value;
 
     final completedLevelsAmount = completedLevelIds?.nmap(
       (completedLevelIds) => completedLevelIds

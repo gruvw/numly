@@ -26,6 +26,8 @@ class PlayPage extends HookConsumerWidget {
       return null;
     });
 
+    final endlessMode = ref.watch(kvsEndlessModeProvider).value;
+
     // TODO custom games retrieval
     final game = allGames[gameId]!;
 
@@ -34,12 +36,26 @@ class PlayPage extends HookConsumerWidget {
         Values.applicationTitle,
       ),
       actions: [
+        if (endlessMode != null)
+          IconButton(
+            onPressed: () {
+              ref.read(kvsEndlessModeProvider.notifier).set(!endlessMode);
+            },
+            tooltip: "Endless",
+            icon: Icon(
+              Styles.iconEndless,
+              fill: endlessMode ? 1 : 0,
+            ),
+          ),
         IconButton(
-          onPressed: () {
-            // TODO restart current game
-          },
+          onPressed: endlessMode == true
+              ? null
+              : () {
+                  // TODO restart current game
+                },
           tooltip: "Restart",
           icon: Icon(Styles.iconRepeat),
+          disabledColor: Styles.colorIgnored,
         ),
       ],
       backgroundColor: Styles.foregroundColor,

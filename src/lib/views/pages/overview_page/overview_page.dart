@@ -19,7 +19,7 @@ class OverviewPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final lastGameId = ref.watch(kvsLastGameIdProvider).valueOrNull;
+    final lastGameId = ref.watch(kvsLastGameIdProvider).value;
 
     final subNavigatorKey = bottomNavigatorKeys[navigationShell.currentIndex];
 

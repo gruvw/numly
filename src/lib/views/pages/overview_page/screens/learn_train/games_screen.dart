@@ -24,7 +24,7 @@ class GamesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final favoriteGameIds = ref.watch(favoriteGameIdsProvider).valueOrNull;
+    final favoriteGameIds = ref.watch(favoriteGameIdsProvider).value;
 
     late final List<Game> games;
     if (categoryId == CategoryRoute.favoritesCategory) {

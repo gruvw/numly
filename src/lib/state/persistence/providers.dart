@@ -5,6 +5,7 @@ import "package:numly/models/game/game.dart";
 import "package:numly/state/persistence/database/core/database.dart";
 import "package:numly/state/persistence/preferences/providers.dart";
 
+// cosntant provider, won't change (safe to use ref.read)
 final dbProvider = Provider<Database>(
   (ref) => Database.native(),
 );
@@ -12,7 +13,7 @@ final dbProvider = Provider<Database>(
 final highScoreForTrainingLengthProvider =
     StreamProvider.family<Score?, GameSetting>(
   (ref, gameSetting) {
-    final db = ref.watch(dbProvider);
+    final db = ref.read(dbProvider);
 
     return (db.select(db.highScoreTable)
           ..where(
@@ -40,7 +41,7 @@ final highScoreSelectedTrainingLengthProvider =
 
 final favoriteGameIdsProvider = StreamProvider<Set<GameId>>(
   (ref) {
-    final db = ref.watch(dbProvider);
+    final db = ref.read(dbProvider);
 
     return db
         .select(db.favoriteTable)
@@ -51,7 +52,7 @@ final favoriteGameIdsProvider = StreamProvider<Set<GameId>>(
 );
 
 final completedLevelIdsProvider = StreamProvider<Set<GameId>>((ref) {
-  final db = ref.watch(dbProvider);
+  final db = ref.read(dbProvider);
 
   return db
       .select(db.completedLevelsTable)

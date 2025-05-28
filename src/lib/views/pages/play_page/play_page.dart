@@ -1,13 +1,15 @@
 import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:gap/gap.dart";
+import "package:hooks_riverpod/hooks_riverpod.dart";
 import "package:numly/models/game/game.dart";
+import "package:numly/state/persistence/preferences/providers.dart";
 import "package:numly/static/styles.dart";
 import "package:numly/static/values.dart";
 import "package:numly/views/pages/play_page/components/input/number_input.dart";
 import "package:numly/views/pages/play_page/components/input/virtual_keyboard.dart";
 
-class PlayPage extends HookWidget {
+class PlayPage extends HookConsumerWidget {
   /// The id of the game to play.
   /// Assumed to be a valid game id.
   final GameId gameId;
@@ -18,7 +20,12 @@ class PlayPage extends HookWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    useEffect(() {
+      ref.read(preferenceLastGameIdProvider.notifier).set(gameId);
+      return null;
+    });
+
     // TODO custom games retrieval
     final game = allGames[gameId]!;
 
@@ -26,6 +33,15 @@ class PlayPage extends HookWidget {
       title: Text(
         Values.applicationTitle,
       ),
+      actions: [
+        IconButton(
+          onPressed: () {
+            // TODO restart current game
+          },
+          tooltip: "Restart",
+          icon: Icon(Styles.iconRepeat),
+        ),
+      ],
       backgroundColor: Styles.foregroundColor,
       foregroundColor: Styles.backgroundColor,
     );

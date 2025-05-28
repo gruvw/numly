@@ -4,12 +4,12 @@ import "package:numly/state/persistence/preferences/providers.dart";
 import "package:numly/state/persistence/providers.dart";
 import "package:numly/utils/language.dart";
 
-class Preference<T> extends AsyncNotifier<T> {
-  static Preference<bool> boolean({
+class PreferenceNotifier<T> extends AsyncNotifier<T> {
+  static PreferenceNotifier<bool> boolean({
     required String configKey,
     required bool defaultValue,
   }) {
-    return Preference(
+    return PreferenceNotifier(
       configKey: configKey,
       defaultValue: defaultValue,
       parse: (s) => bool.parse(s),
@@ -17,11 +17,11 @@ class Preference<T> extends AsyncNotifier<T> {
     );
   }
 
-  static Preference<int> integer({
+  static PreferenceNotifier<int> integer({
     required String configKey,
     required int defaultValue,
   }) {
-    return Preference(
+    return PreferenceNotifier(
       configKey: configKey,
       defaultValue: defaultValue,
       parse: (s) => int.parse(s),
@@ -29,11 +29,11 @@ class Preference<T> extends AsyncNotifier<T> {
     );
   }
 
-  static Preference<String> string({
+  static PreferenceNotifier<String> string({
     required String configKey,
     required String defaultValue,
   }) {
-    return Preference(
+    return PreferenceNotifier(
       configKey: configKey,
       defaultValue: defaultValue,
       serialize: (s) => s,
@@ -47,7 +47,9 @@ class Preference<T> extends AsyncNotifier<T> {
   final String Function(T value) serialize;
   final T Function(String source) parse;
 
-  Preference({
+  late final _db = ref.read(dbProvider);
+
+  PreferenceNotifier({
     required this.configKey,
     required this.defaultValue,
     required this.serialize,
@@ -65,8 +67,7 @@ class Preference<T> extends AsyncNotifier<T> {
   Future<void> set(T value) async {
     final data = serialize(value);
 
-    final db = ref.read(dbProvider);
-    await db.into(db.preferenceTable).insertOnConflictUpdate(
+    await _db.into(_db.preferenceTable).insertOnConflictUpdate(
           PreferenceTableCompanion.insert(
             key: configKey,
             value: data,
@@ -74,11 +75,18 @@ class Preference<T> extends AsyncNotifier<T> {
         );
   }
 
-  Preference<E> map<E>(
+  Future<void> reset() async {
+    final delete = (_db.delete(_db.preferenceTable))
+      ..where((preference) => preference.key.equals(configKey));
+
+    await delete.go();
+  }
+
+  PreferenceNotifier<E> map<E>(
     E Function(T) map,
     T Function(E) reverse,
   ) {
-    return Preference<E>(
+    return PreferenceNotifier<E>(
       configKey: configKey,
       defaultValue: map(defaultValue),
       serialize: (value) => serialize(reverse(value)),

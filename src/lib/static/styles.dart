@@ -20,4 +20,5 @@ abstract class Styles {
   static const iconNoData = Symbols.check_indeterminate_small;
   static const iconProgress = Symbols.timeline;
   static const iconCompleted = Symbols.check_circle;
+  static const iconRepeat = Symbols.forward_media;
 }

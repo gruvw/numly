@@ -15,10 +15,10 @@ final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
   navigatorKey: rootNavigatorKey,
-  initialLocation: Routes.initial.path,
+  initialLocation: AppRoutes.initial.path,
   errorBuilder: (context, state) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.go(Routes.initial.path);
+      context.go(AppRoutes.initial.path);
     });
 
     return Scaffold(
@@ -43,7 +43,7 @@ final router = GoRouter(
   ],
 );
 
-final bottomNavigatorKeys = Routes.overviewBottomNavigationRoutes
+final bottomNavigatorKeys = AppRoutes.overviewBottomNavigationRoutes
     .map((_) => GlobalKey<NavigatorState>())
     .toList();
 
@@ -62,7 +62,7 @@ GoRoute _categorizedRoute({
     },
     routes: [
       GoRoute(
-        path: Routes.categoryRoute.path,
+        path: AppRoutes.categoryRoute.path,
         redirect: (context, state) {
           final categoryId = state.pathParameters[CategoryRoute.pathParameter];
 
@@ -88,7 +88,7 @@ GoRoute _categorizedRoute({
         },
         routes: [
           GoRoute(
-            path: Routes.playRoute.path,
+            path: AppRoutes.playRoute.path,
             parentNavigatorKey: rootNavigatorKey,
             redirect: (context, state) {
               final categoryId =
@@ -121,7 +121,7 @@ GoRoute _categorizedRoute({
 }
 
 final _bottomNavigationBranches =
-    Routes.overviewBottomNavigationRoutes.mapIndexed((index, route) {
+    AppRoutes.overviewBottomNavigationRoutes.mapIndexed((index, route) {
   return StatefulShellBranch(
     initialLocation: route.path,
     navigatorKey: bottomNavigatorKeys[index],

@@ -1,7 +1,8 @@
-import "package:flutter/material.dart";
+import "package:flutter/material.dart" hide Route;
 import "package:go_router/go_router.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
-import "package:material_symbols_icons/symbols.dart";
+import "package:numly/models/game/learn/learn.dart";
+import "package:numly/models/game/train/train.dart";
 import "package:numly/state/persistence/preferences/providers.dart";
 import "package:numly/static/styles.dart";
 import "package:numly/utils/language.dart";
@@ -24,11 +25,12 @@ class OverviewPage extends ConsumerWidget {
 
     // Workaround to know if the current subroute is not at its root
     final isSubrouteDeep =
-        router.routerDelegate.state.path == ":${CategoryRoute.pathParameter}";
+        router.routerDelegate.state.path == AppRoutes.categoryRoute.path;
 
     final appBar = AppBar(
       title: Text(
-        Routes.overviewBottomNavigationRoutes[navigationShell.currentIndex].name
+        AppRoutes
+            .overviewBottomNavigationRoutes[navigationShell.currentIndex].name
             .capitalize(),
       ),
       leading: isSubrouteDeep
@@ -42,10 +44,23 @@ class OverviewPage extends ConsumerWidget {
         if (lastGameId != null)
           IconButton(
             onPressed: () {
-              // TODO launch last game
+              // TODO handle custom game replay
+              if (learnGames.containsKey(lastGameId)) {
+                context.push(
+                  OverviewNavigationRoute.learn.gamePath(lastGameId),
+                );
+              } else if (trainGames.containsKey(lastGameId)) {
+                context.push(
+                  OverviewNavigationRoute.train.gamePath(lastGameId),
+                );
+              } else {
+                // lastGameId not found, should never happen
+                // silently reset the persisted lastGameId
+                ref.read(preferenceLastGameIdProvider.notifier).reset();
+              }
             },
             tooltip: "Replay",
-            icon: Icon(Symbols.forward_media),
+            icon: Icon(Styles.iconRepeat),
           ),
       ],
       backgroundColor: Styles.foregroundColor,
@@ -65,7 +80,7 @@ class OverviewPage extends ConsumerWidget {
           initialLocation: true,
         );
       },
-      items: Routes.overviewBottomNavigationRoutes.map((route) {
+      items: AppRoutes.overviewBottomNavigationRoutes.map((route) {
         return BottomNavigationBarItem(
           icon: Icon(route.icon),
           label: route.name.capitalize(),

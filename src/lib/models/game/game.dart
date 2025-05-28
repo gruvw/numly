@@ -3,11 +3,10 @@ import "dart:collection";
 import "package:numly/models/game/learn/learn.dart";
 import "package:numly/models/game/train/train.dart";
 import "package:numly/models/test/test.dart";
+import "package:numly/views/navigation/routes.dart";
 
 typedef CategoryId = String;
 typedef GameId = String;
-
-final _categoryGameSeparator = "/";
 
 class Category {
   final CategoryId id;
@@ -16,7 +15,7 @@ class Category {
   final List<Game> games;
 
   static String subId(CategoryId categoryId, String gameIdSuffix) {
-    return "$categoryId$_categoryGameSeparator$gameIdSuffix";
+    return "$categoryId${AppRoute.separator}$gameIdSuffix";
   }
 
   Category({
@@ -34,7 +33,7 @@ class Game {
   final List<TestPart> parts;
 
   String? get gameIdSuffix {
-    final split = id.split(_categoryGameSeparator);
+    final split = id.split(AppRoute.separator);
     return split.elementAtOrNull(1);
   }
 

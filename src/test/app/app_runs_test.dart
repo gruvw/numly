@@ -13,7 +13,7 @@ void main() {
 
     expect(
       router.state.path,
-      Routes.initial.path,
+      AppRoutes.initial.path,
       reason: "application should be on initial route",
     );
   });

@@ -5,7 +5,8 @@ import "package:numly/state/persistence/providers.dart";
 
 final preferenceSourceProvider = StreamProvider.family<String?, String>(
   (ref, key) {
-    final db = ref.watch(dbProvider);
+    final db = ref.read(dbProvider);
+
     final query = (db.select(db.preferenceTable)
           ..where((t) => t.key.equals(key)))
         .map((row) => row.value);
@@ -15,16 +16,16 @@ final preferenceSourceProvider = StreamProvider.family<String?, String>(
 );
 
 final preferenceTrainingLengthProvider =
-    AsyncNotifierProvider<Preference<int>, int>(() {
-  return Preference.integer(
+    AsyncNotifierProvider<PreferenceNotifier<int>, int>(() {
+  return PreferenceNotifier.integer(
     configKey: "training_length",
     defaultValue: 20,
   );
 });
 
 final preferenceLastGameIdProvider =
-    AsyncNotifierProvider<Preference<String?>, GameId?>(() {
-  return Preference.string(
+    AsyncNotifierProvider<PreferenceNotifier<String?>, GameId?>(() {
+  return PreferenceNotifier.string(
     configKey: "last_game_id",
     defaultValue: "",
   ).map(

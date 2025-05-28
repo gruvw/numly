@@ -1,23 +1,27 @@
 import "package:flutter/widgets.dart";
 import "package:material_symbols_icons/symbols.dart";
+import "package:numly/models/game/game.dart";
 
-class Routes {
+sealed class AppRoutes {
   static final initial = OverviewNavigationRoute.learn;
 
   static final overviewBottomNavigationRoutes = OverviewNavigationRoute.values;
-  static final categoryRoute = CategoryRoute();
+  static final categoryRoute = CategoryRoute._();
 
-  static final playRoute = PlayRoute();
+  static final playRoute = PlayRoute._();
 }
 
-abstract class Route {
+sealed class AppRoute {
+  static const separator = "/";
+  static const parameter = ":";
+
   String get path;
 }
 
-enum OverviewNavigationRoute implements Route {
-  learn("/learn", Symbols.school),
-  train("/train", Symbols.assignment),
-  custom("/custom", Symbols.equalizer);
+enum OverviewNavigationRoute implements AppRoute {
+  learn("${AppRoute.separator}learn", Symbols.school),
+  train("${AppRoute.separator}train", Symbols.assignment),
+  custom("${AppRoute.separator}custom", Symbols.equalizer);
 
   @override
   final String path;
@@ -25,19 +29,27 @@ enum OverviewNavigationRoute implements Route {
   final IconData icon;
 
   const OverviewNavigationRoute(this.path, this.icon);
+
+  String gamePath(GameId gameId) {
+    return path + AppRoute.separator + gameId;
+  }
 }
 
-class CategoryRoute implements Route {
+class CategoryRoute implements AppRoute {
   static const pathParameter = "category";
   static const favoritesCategory = "favorites";
 
   @override
-  final String path = ":$pathParameter";
+  final String path = "${AppRoute.parameter}$pathParameter";
+
+  CategoryRoute._();
 }
 
-class PlayRoute implements Route {
+class PlayRoute implements AppRoute {
   static const pathParameter = "play";
 
   @override
-  final String path = ":$pathParameter";
+  final String path = "${AppRoute.parameter}$pathParameter";
+
+  PlayRoute._();
 }

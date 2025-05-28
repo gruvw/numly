@@ -21,7 +21,7 @@ class GameItem extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final forceShowHighScore = useState(false);
 
-    final db = ref.watch(dbProvider);
+    final db = ref.read(dbProvider);
     final favoriteGameIds = ref.watch(favoriteGameIdsProvider).valueOrNull;
     final highScore =
         ref.watch(highScoreSelectedTrainingLengthProvider(game.id)).valueOrNull;

@@ -9,13 +9,13 @@ class Queries {
   Future<void> toggleFavorite(String gameId) async {
     return _db.transaction(() async {
       final query = _db.select(_db.favoriteTable)
-        ..where((tbl) => tbl.gameId.equals(gameId));
+        ..where((t) => t.gameId.equals(gameId));
 
       final existingFavorite = await query.getSingleOrNull();
 
       if (existingFavorite != null) {
         await (_db.delete(_db.favoriteTable)
-              ..where((tbl) => tbl.gameId.equals(gameId)))
+              ..where((t) => t.gameId.equals(gameId)))
             .go();
       } else {
         await _db

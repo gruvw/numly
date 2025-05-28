@@ -5,14 +5,14 @@ import "package:numly/state/persistence/database/queries/queries.dart";
 import "package:numly/state/persistence/database/tables/completed_levels_table.dart";
 import "package:numly/state/persistence/database/tables/favorite_table.dart";
 import "package:numly/state/persistence/database/tables/high_score_table.dart";
-import "package:numly/state/persistence/database/tables/preference_table.dart";
+import "package:numly/state/persistence/database/tables/kvs_table.dart";
 import "package:numly/static/build_options.dart";
 import "package:numly/static/values.dart";
 
 @DriftDatabase(
   tables: [
     HighScoreTable,
-    PreferenceTable,
+    KvsTable,
     FavoriteTable,
     CompletedLevelsTable,
   ],

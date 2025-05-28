@@ -1,9 +1,9 @@
-import "package:flutter/material.dart" hide Route;
+import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
 import "package:numly/models/game/learn/learn.dart";
 import "package:numly/models/game/train/train.dart";
-import "package:numly/state/persistence/preferences/providers.dart";
+import "package:numly/state/persistence/kvs/providers.dart";
 import "package:numly/static/styles.dart";
 import "package:numly/utils/language.dart";
 import "package:numly/views/navigation/router.dart";
@@ -19,7 +19,7 @@ class OverviewPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final lastGameId = ref.watch(preferenceLastGameIdProvider).valueOrNull;
+    final lastGameId = ref.watch(kvsLastGameIdProvider).valueOrNull;
 
     final subNavigatorKey = bottomNavigatorKeys[navigationShell.currentIndex];
 
@@ -56,7 +56,7 @@ class OverviewPage extends ConsumerWidget {
               } else {
                 // lastGameId not found, should never happen
                 // silently reset the persisted lastGameId
-                ref.read(preferenceLastGameIdProvider.notifier).reset();
+                ref.read(kvsLastGameIdProvider.notifier).reset();
               }
             },
             tooltip: "Replay",

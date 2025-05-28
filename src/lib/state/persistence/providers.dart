@@ -3,7 +3,7 @@ import "package:hooks_riverpod/hooks_riverpod.dart";
 import "package:numly/models/data/score.dart";
 import "package:numly/models/game/game.dart";
 import "package:numly/state/persistence/database/core/database.dart";
-import "package:numly/state/persistence/preferences/providers.dart";
+import "package:numly/state/persistence/kvs/providers.dart";
 
 // cosntant provider, won't change (safe to use ref.read)
 final dbProvider = Provider<Database>(
@@ -29,7 +29,7 @@ final highScoreSelectedTrainingLengthProvider =
     FutureProvider.family<Score?, GameId>(
   (ref, gameId) async {
     final selectedTrainingLength =
-        await ref.watch(preferenceTrainingLengthProvider.future);
+        await ref.watch(kvsTrainingLengthProvider.future);
 
     return ref.watch(
       highScoreForTrainingLengthProvider(

@@ -3,7 +3,7 @@ import "package:flutter_hooks/flutter_hooks.dart";
 import "package:gap/gap.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
 import "package:numly/models/game/game.dart";
-import "package:numly/state/persistence/preferences/providers.dart";
+import "package:numly/state/persistence/kvs/providers.dart";
 import "package:numly/static/styles.dart";
 import "package:numly/static/values.dart";
 import "package:numly/views/pages/play_page/components/input/number_input.dart";
@@ -22,7 +22,7 @@ class PlayPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     useEffect(() {
-      ref.read(preferenceLastGameIdProvider.notifier).set(gameId);
+      ref.read(kvsLastGameIdProvider.notifier).set(gameId);
       return null;
     });
 

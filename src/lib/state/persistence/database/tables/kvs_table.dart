@@ -1,8 +1,8 @@
 import "package:drift/drift.dart";
 
-class PreferenceTable extends Table {
+class KvsTable extends Table {
   @override
-  String get tableName => "preference";
+  String get tableName => "kvs";
 
   @override
   Set<Column> get primaryKey => {key};

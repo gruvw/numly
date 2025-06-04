@@ -60,7 +60,7 @@
 - [X] Games and categories trailing widgets (highscores and completion)
 - [ ] Test UI
     - [ ] Design UI
-    - [ ] Implement test state
+    - [ ] Implement play state
     - [ ] Implement test UI
     - [ ] Making mistakes should not be "red = bad" type, encourage making mistakes and promote learning, same with sound (no big error sound)
     - [ ] Restart test button

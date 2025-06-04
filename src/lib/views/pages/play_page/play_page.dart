@@ -3,6 +3,8 @@ import "package:flutter_hooks/flutter_hooks.dart";
 import "package:gap/gap.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
 import "package:numly/models/game/game.dart";
+import "package:numly/models/game/learn/learn.dart";
+import "package:numly/models/test/test.dart";
 import "package:numly/state/persistence/kvs/providers.dart";
 import "package:numly/static/styles.dart";
 import "package:numly/static/values.dart";
@@ -26,10 +28,44 @@ class PlayPage extends HookConsumerWidget {
       return null;
     });
 
+    final game = allGames[gameId]!;
+
+    final test = useState<Test?>(null);
+    final testStart = useState(DateTime.now());
+    final questionIndex = useState(0);
+
+    setTest(int length) {
+      test.value = Test(parts: game.parts, length: length);
+      testStart.value = DateTime.now();
+      questionIndex.value = 0;
+    }
+
+    final trainingLength = ref.watch(kvsTrainingLengthProvider);
+    useEffect(
+      () {
+        if (test.value != null) {
+          return;
+        }
+
+        if (learnGames.containsKey(gameId)) {
+          setTest(learnTestLength);
+          return;
+        }
+
+        trainingLength.whenData((trainingLength) {
+          setTest(trainingLength);
+        });
+
+        return null;
+      },
+      [trainingLength],
+    );
+
     final endlessMode = ref.watch(kvsEndlessModeProvider).value;
 
+    final testValue = test.value;
+
     // TODO custom games retrieval
-    final game = allGames[gameId]!;
 
     final appBar = AppBar(
       title: Text(
@@ -48,11 +84,9 @@ class PlayPage extends HookConsumerWidget {
             ),
           ),
         IconButton(
-          onPressed: endlessMode == true
+          onPressed: testValue == null || endlessMode == true
               ? null
-              : () {
-                  // TODO restart current game
-                },
+              : () => setTest(testValue.length),
           tooltip: "Restart",
           icon: Icon(Styles.iconRepeat),
           disabledColor: Styles.colorIgnored,
@@ -69,6 +103,11 @@ class PlayPage extends HookConsumerWidget {
         Spacer(),
         Text(
           game.title,
+          style: TextStyle(color: Styles.backgroundColor),
+        ),
+        Spacer(),
+        Text(
+          "${testValue?.getQuestion(questionIndex.value).solutionText}",
           style: TextStyle(color: Styles.backgroundColor),
         ),
         Spacer(),

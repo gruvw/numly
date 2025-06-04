@@ -23,7 +23,7 @@ class Test {
   Test._(
     this._questions, {
     required this.targetDuration,
-  }) : assert(_questions.isNotEmpty, "test has no questions");
+  });
 
   factory Test({
     required List<TestPart> parts,
@@ -37,14 +37,14 @@ class Test {
     // generate questions given the proportions
     for (final part in parts) {
       final amount = (part.proportion * length / proportions).floor();
-      for (int i = 0; i < amount; i++) {
+      for (var i = 0; i < amount; i++) {
         questions.add(part.questionGenerator.generate());
         targetDuration += part.targetTimePerQuestion ?? Duration.zero;
       }
     }
 
     // generate missing questions from random parts
-    for (int i = questions.length; i < length; i++) {
+    while (questions.length < length) {
       final part = parts.pick(random);
       questions.add(part.questionGenerator.generate());
       targetDuration += part.targetTimePerQuestion ?? Duration.zero;
@@ -57,6 +57,8 @@ class Test {
       targetDuration: targetDuration,
     );
   }
+
+  int get length => _questions.length;
 
   Question getQuestion(int i) => _questions[i];
 }

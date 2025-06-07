@@ -29,20 +29,21 @@ class PlayPage extends HookConsumerWidget {
       return null;
     });
 
-    // TODO custom games retrieval
+    // TODO LATER (custom) games retrieval
     final game = allGames[gameId]!;
 
     final test = useState<Test?>(null);
-    // used for endless mode, must have the same length
-    final nextTest = useState<Test?>(null);
     final testStart = useState(DateTime.now());
-    final currentQuestionIndex = useState(0);
+    final answeredQuestionsCount = useState(0);
+
+    // used for endless mode, must have the same length as test
+    final nextTest = useState<Test?>(null);
 
     setTest(int length) {
       test.value = Test(parts: game.parts, length: length);
       nextTest.value = Test(parts: game.parts, length: length);
       testStart.value = DateTime.now();
-      currentQuestionIndex.value = 0;
+      answeredQuestionsCount.value = 0;
     }
 
     final trainingLength = ref.watch(kvsTrainingLengthProvider);
@@ -71,7 +72,7 @@ class PlayPage extends HookConsumerWidget {
     final numberController = useTextEditingController();
 
     final testValue = test.value;
-    final nextTestValue = test.value;
+    final nextTestValue = nextTest.value;
 
     final restartButton = IconButton(
       onPressed: testValue == null || endlessMode == true
@@ -87,9 +88,12 @@ class PlayPage extends HookConsumerWidget {
         Values.applicationTitle,
       ),
       actions: [
-        if (endlessMode != null)
+        if (endlessMode != null && testValue != null)
           IconButton(
             onPressed: () {
+              if (endlessMode) {
+                setTest(testValue.length);
+              }
               ref.read(kvsEndlessModeProvider.notifier).set(!endlessMode);
             },
             tooltip: "Endless",
@@ -115,7 +119,7 @@ class PlayPage extends HookConsumerWidget {
           TestArea(
             test: testValue,
             nextTest: nextTestValue,
-            answeredQuestionsCount: currentQuestionIndex.value,
+            answeredQuestionsCount: answeredQuestionsCount.value,
             isEndless: endlessMode,
           )
         else
@@ -125,7 +129,35 @@ class PlayPage extends HookConsumerWidget {
         Spacer(),
         NumberInput(numberController: numberController),
         Gap(Styles.standardSpacing * 4),
-        VirtualKeyboard(numberController: numberController),
+        VirtualKeyboard(
+          numberController: numberController,
+          onSubmit: (numberText) {
+            if (testValue == null ||
+                nextTestValue == null ||
+                endlessMode == null) {
+              return;
+            }
+
+            if (testValue
+                .getQuestion(answeredQuestionsCount.value % testValue.length)
+                .verify(numberText)
+                .correct) {
+              if ((answeredQuestionsCount.value % testValue.length) + 1 >=
+                  testValue.length) {
+                if (!endlessMode) {
+                  // TODO test finished
+                } else {
+                  test.value = nextTestValue;
+                  nextTest.value = Test(
+                    parts: game.parts,
+                    length: testValue.length,
+                  );
+                }
+              }
+              answeredQuestionsCount.value += 1;
+            }
+          },
+        ),
         Gap(Styles.standardSpacing * 4),
       ],
     );

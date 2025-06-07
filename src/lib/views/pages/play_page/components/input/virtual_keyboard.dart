@@ -1,3 +1,5 @@
+import "dart:math";
+
 import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:material_symbols_icons/symbols.dart";
@@ -8,10 +10,12 @@ import "package:numly/views/pages/play_page/components/input/virtual_key.dart";
 
 class VirtualKeyboard extends HookWidget {
   final TextEditingController numberController;
+  final Function(String numberText) onSubmit;
 
   const VirtualKeyboard({
     super.key,
     required this.numberController,
+    required this.onSubmit,
   });
 
   Widget _rowKeys(Iterable<Widget> keys) {
@@ -64,8 +68,8 @@ class VirtualKeyboard extends HookWidget {
 
     final backspaceKey = _iconKey(
       Symbols.keyboard_backspace,
-      () => numberController.text =
-          numberController.text.substring(0, numberController.text.length - 1),
+      () => numberController.text = numberController.text
+          .substring(0, max(0, numberController.text.length - 1)),
       () => numberController.text = "",
     );
 
@@ -77,7 +81,8 @@ class VirtualKeyboard extends HookWidget {
     // TODO enter on keyboard should submit
     final submitKey = _iconKey(Symbols.check, () {
       numberController.text = numberSubmitter(numberText);
-      // TODO submit press
+      onSubmit(numberController.text);
+      numberController.text = "";
     });
 
     final keys = [

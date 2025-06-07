@@ -4,7 +4,7 @@ import "package:flutter/material.dart";
 import "package:numly/models/game/game.dart";
 import "package:numly/models/game/learn/integer_addition.dart";
 
-const learnTestLength = 20;
+const learnTestLength = 3;
 
 @visibleForTesting
 final learnCategoriesList = [

@@ -10,6 +10,7 @@ import "package:numly/static/styles.dart";
 import "package:numly/static/values.dart";
 import "package:numly/views/pages/play_page/components/input/number_input.dart";
 import "package:numly/views/pages/play_page/components/input/virtual_keyboard.dart";
+import "package:numly/views/pages/play_page/components/test_area.dart";
 
 class PlayPage extends HookConsumerWidget {
   /// The id of the game to play.
@@ -28,16 +29,20 @@ class PlayPage extends HookConsumerWidget {
       return null;
     });
 
+    // TODO custom games retrieval
     final game = allGames[gameId]!;
 
     final test = useState<Test?>(null);
+    // used for endless mode, must have the same length
+    final nextTest = useState<Test?>(null);
     final testStart = useState(DateTime.now());
-    final questionIndex = useState(0);
+    final currentQuestionIndex = useState(0);
 
     setTest(int length) {
       test.value = Test(parts: game.parts, length: length);
+      nextTest.value = Test(parts: game.parts, length: length);
       testStart.value = DateTime.now();
-      questionIndex.value = 0;
+      currentQuestionIndex.value = 0;
     }
 
     final trainingLength = ref.watch(kvsTrainingLengthProvider);
@@ -63,9 +68,19 @@ class PlayPage extends HookConsumerWidget {
 
     final endlessMode = ref.watch(kvsEndlessModeProvider).value;
 
-    final testValue = test.value;
+    final numberController = useTextEditingController();
 
-    // TODO custom games retrieval
+    final testValue = test.value;
+    final nextTestValue = test.value;
+
+    final restartButton = IconButton(
+      onPressed: testValue == null || endlessMode == true
+          ? null
+          : () => setTest(testValue.length),
+      tooltip: "Restart",
+      icon: Icon(Styles.iconRepeat),
+      disabledColor: Styles.colorIgnored,
+    );
 
     final appBar = AppBar(
       title: Text(
@@ -83,33 +98,30 @@ class PlayPage extends HookConsumerWidget {
               fill: endlessMode ? 1 : 0,
             ),
           ),
-        IconButton(
-          onPressed: testValue == null || endlessMode == true
-              ? null
-              : () => setTest(testValue.length),
-          tooltip: "Restart",
-          icon: Icon(Styles.iconRepeat),
-          disabledColor: Styles.colorIgnored,
-        ),
+        restartButton,
       ],
       backgroundColor: Styles.foregroundColor,
       foregroundColor: Styles.backgroundColor,
     );
 
-    final numberController = useTextEditingController();
-
     final content = Column(
       children: [
-        Spacer(),
         Text(
           game.title,
-          style: TextStyle(color: Styles.backgroundColor),
+          style: TextStyle(color: Styles.foregroundColor),
         ),
         Spacer(),
-        Text(
-          "${testValue?.getQuestion(questionIndex.value).solutionText}",
-          style: TextStyle(color: Styles.backgroundColor),
-        ),
+        if (testValue != null && nextTestValue != null && endlessMode != null)
+          TestArea(
+            test: testValue,
+            nextTest: nextTestValue,
+            answeredQuestionsCount: currentQuestionIndex.value,
+            isEndless: endlessMode,
+          )
+        else
+          CircularProgressIndicator(
+            color: Styles.foregroundColor,
+          ),
         Spacer(),
         NumberInput(numberController: numberController),
         Gap(Styles.standardSpacing * 4),
@@ -119,7 +131,7 @@ class PlayPage extends HookConsumerWidget {
     );
 
     return Scaffold(
-      backgroundColor: Styles.foregroundColor,
+      backgroundColor: Styles.backgroundColor,
       appBar: appBar,
       body: Center(
         child: Container(

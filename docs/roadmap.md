@@ -17,13 +17,13 @@
         - [X] Only positive answers mode
     - [X] Support multiply
     - [X] Support divide
-        - [ ] Integer number results
-        - [ ] Decimal (finite) number results
+        - [X] Integer number results
+        - [X] Decimal (finite) number results
     - [ ] Support integer division
     - [ ] Support modulo (integer remainer)
     - [X] Support decimal number as inputs (1, 2 and 3 decimals)
     - [X] Support fractions as input number
-    - [ ] Support % as input number
+    - [X] Support % as input number
     - [X] Support power
     - [X] Support n-th root
 - [X] Question resolution / answer and submit
@@ -37,9 +37,10 @@
     - [X] Learn page
     - [X] Train page
         - [X] Common mixed tests display
-        - [ ] Select prefered training length
+        - [X] Select prefered training length
     - [X] Favorites sections (save tests that you like)
     - [X] Long click on game should display high score
+    - [X] Change number of questions per test in trainings (10, 20, 30, 50)
     - [ ] Custom page (create)
         - [ ] Custom presets
         - [ ] Simple presets creation mode
@@ -59,20 +60,22 @@
 - [X] Factorize common UI code to levels and trainings
 - [X] Games and categories trailing widgets (highscores and completion)
 - [ ] Test UI
-    - [ ] Design UI
-    - [ ] Implement play state
+    - [X] Design UI
+    - [X] Implement play state
+    - [X] Show next question (also in endless mode: rotate test with next test)
     - [ ] Implement test UI
     - [ ] Making mistakes should not be "red = bad" type, encourage making mistakes and promote learning, same with sound (no big error sound)
-    - [ ] Restart test button
+    - [X] Restart test button
 - [X] Last game played quick play (replay) button
-- [ ] Endless mode / Practice mode (no test length, no time limit) for every test (add a flag button, transforms into a finish test button once enabled)
+- [X] Endless mode / Practice mode (no test length, no time limit) for every test (add a flag button, transforms into a finish test button once enabled)
 - [ ] Result page
     - [ ] Test duration / time (20 questions, as fast as possible)
     - [ ] Play again (same test)
     - [ ] Go to next level
     - [ ] Previous high score
     - [ ] How much time was needed to pass the level
-    - [ ] Level succeded or not
+    - [ ] Level succeeded or not
+    - [ ] Number of errors
     - [ ] Analytics (difficult questions, average, slowest, fastest, ...)
     - [ ] Share test result
     - [ ] Share exact test for friends to try it
@@ -82,14 +85,13 @@
 - [X] Application icon
 - [X] Splash screen
 - [ ] Settings page
-    - [ ] Change number of questions per test in trainings (10, 20, 30, 50, 100)
     - [ ] Retry on error / Show correct result (toggle button)
     - [ ] Number of questions per test
     - [ ] Number ranges
     - [ ] Different ranges for each number (first, second number)
     - [ ] Persist current settings
     - [ ] Save custom settings presets
-    - [ ] Randomly invert sides of communtative expressions
+    - [ ] Randomly invert sides of commutative expressions
     - [ ] Reset all high scores
     - [ ] Reset high score for a particular test
     - [ ] Show next operation (display next operation in small text, tetris next piece like)
@@ -103,20 +105,20 @@
 - [ ] Translate app
 - [ ] Add bug report button
 - [ ] Add donate feature
-- [ ] Find a license for the project
+- [ ] Find an Open Source license for the project
 
 ### Extra
 
 - [ ] Gamification features
     - [ ] Levels to complete (completed badge)
-    - [ ] XP to aquire
+    - [ ] XP to acquire
     - [ ] Daily streaks
     - [ ] Leaderboards
     - [ ] Daily challenge
 - [ ] Synchronized tests, take the test together with friends
 - [ ] Pause (button) text at next operation (finish your question then pause test, without revealing next answer, max 2 times per test?)
 - [ ] Option to show the current time taken while taking the test
-- [ ] Algorithmic quetion generation mode (automatically adjust difficulty based on time and accuracy)
+- [ ] Algorithmic question generation mode (automatically adjust difficulty based on time and accuracy)
 - [ ] Data synchronisation across platforms (login/account)
 
 ## Non-Features (out of scope)

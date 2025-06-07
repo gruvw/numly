@@ -1,5 +1,6 @@
 import "package:hooks_riverpod/hooks_riverpod.dart";
 import "package:numly/models/game/game.dart";
+import "package:numly/models/test/training_length.dart";
 import "package:numly/state/persistence/kvs/kvs_notifier.dart";
 import "package:numly/state/persistence/providers.dart";
 
@@ -18,7 +19,7 @@ final kvsTrainingLengthProvider =
     AsyncNotifierProvider<KvsNotifier<int>, int>(() {
   return KvsNotifier.integer(
     configKey: "training_length",
-    defaultValue: 20,
+    defaultValue: TrainingLength.normal.length,
   );
 });
 

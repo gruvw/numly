@@ -49,14 +49,14 @@ class MinMaxQuestionGenerator implements QuestionGenerator {
         operation: operation,
         solutionType: solutionType,
       );
-    } while ((minSolution == null || question.solution >= minSolution) &&
-        (maxSolution == null || question.solution < maxSolution));
 
-    if (iterations >= 30) {
-      debugPrint(
-        "Warning - Took too long to generate min/max question $iterations iterations!",
-      );
-    }
+      if (iterations >= 30) {
+        debugPrint(
+          "Warning - Takes too long to generate min/max question $iterations iterations!",
+        );
+      }
+    } while (!((minSolution == null || question.solution >= minSolution) &&
+        (maxSolution == null || question.solution < maxSolution)));
 
     return question;
   }

@@ -1,8 +1,10 @@
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
+import "package:material_symbols_icons/symbols.dart";
 import "package:numly/models/game/learn/learn.dart";
 import "package:numly/models/game/train/train.dart";
+import "package:numly/models/test/training_length.dart";
 import "package:numly/state/persistence/kvs/providers.dart";
 import "package:numly/static/styles.dart";
 import "package:numly/utils/language.dart";
@@ -20,6 +22,7 @@ class OverviewPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final lastGameId = ref.watch(kvsLastGameIdProvider).value;
+    final trainingLength = ref.watch(kvsTrainingLengthProvider).value;
 
     final subNavigatorKey = bottomNavigatorKeys[navigationShell.currentIndex];
 
@@ -61,6 +64,29 @@ class OverviewPage extends ConsumerWidget {
             },
             tooltip: "Replay",
             icon: Icon(Styles.iconRepeat),
+          ),
+        if (navigationShell.currentIndex == OverviewNavigationRoute.train.index)
+          PopupMenuButton(
+            tooltip: "Test length",
+            icon: Icon(Symbols.quiz),
+            color: Styles.backgroundColor,
+            itemBuilder: (context) {
+              return TrainingLength.values.map((trainLength) {
+                return PopupMenuItem(
+                  onTap: () => ref
+                      .read(kvsTrainingLengthProvider.notifier)
+                      .set(trainLength.length),
+                  child: Text(
+                    "${trainLength.name.capitalize()} (${trainLength.length})",
+                    style: TextStyle(
+                      decoration: trainLength.length == trainingLength
+                          ? TextDecoration.underline
+                          : TextDecoration.none,
+                    ),
+                  ),
+                );
+              }).toList();
+            },
           ),
       ],
       backgroundColor: Styles.foregroundColor,

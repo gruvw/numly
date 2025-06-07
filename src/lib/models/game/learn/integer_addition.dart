@@ -25,7 +25,7 @@ final integerAddition = Category(
           operation: Operation.addition,
           solutionType: SolutionType.decimal,
         ),
-        targetTimePerQuestion: t2,
+        targetTimePerQuestion: t1,
       ),
     ),
     Game.part(

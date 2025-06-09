@@ -11,6 +11,7 @@ import "package:numly/static/values.dart";
 import "package:numly/views/pages/play_page/components/input/number_input.dart";
 import "package:numly/views/pages/play_page/components/input/virtual_keyboard.dart";
 import "package:numly/views/pages/play_page/components/test_area.dart";
+import "package:numly/views/pages/play_page/result_screen.dart";
 
 class PlayPage extends HookConsumerWidget {
   /// The id of the game to play.
@@ -34,6 +35,7 @@ class PlayPage extends HookConsumerWidget {
 
     final test = useState<Test?>(null);
     final testStart = useState(DateTime.now());
+    final testEnd = useState<DateTime?>(null);
     final answeredQuestionsCount = useState(0);
 
     // used for endless mode, must have the same length as test
@@ -73,6 +75,7 @@ class PlayPage extends HookConsumerWidget {
 
     final testValue = test.value;
     final nextTestValue = nextTest.value;
+    final testEndValue = testEnd.value;
 
     final restartButton = IconButton(
       onPressed: testValue == null || endlessMode == true
@@ -108,7 +111,7 @@ class PlayPage extends HookConsumerWidget {
       foregroundColor: Styles.backgroundColor,
     );
 
-    final content = Column(
+    final testContent = Column(
       children: [
         Text(
           game.title,
@@ -145,7 +148,8 @@ class PlayPage extends HookConsumerWidget {
               if ((answeredQuestionsCount.value % testValue.length) + 1 >=
                   testValue.length) {
                 if (!endlessMode) {
-                  // TODO test finished
+                  // test finished
+                  testEnd.value = DateTime.now();
                 } else {
                   test.value = nextTestValue;
                   nextTest.value = Test(
@@ -161,6 +165,12 @@ class PlayPage extends HookConsumerWidget {
         Gap(Styles.standardSpacing * 4),
       ],
     );
+
+    final content = testEndValue == null
+        ? testContent
+        : ResultScreen(
+            testDuration: testEndValue.difference(testStart.value),
+          );
 
     return Scaffold(
       backgroundColor: Styles.backgroundColor,

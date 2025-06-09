@@ -45,6 +45,7 @@ class PlayPage extends HookConsumerWidget {
       test.value = Test(parts: game.parts, length: length);
       nextTest.value = Test(parts: game.parts, length: length);
       testStart.value = DateTime.now();
+      testEnd.value = null;
       answeredQuestionsCount.value = 0;
     }
 
@@ -91,7 +92,7 @@ class PlayPage extends HookConsumerWidget {
         Values.applicationTitle,
       ),
       actions: [
-        if (endlessMode != null && testValue != null)
+        if (endlessMode != null && testValue != null && testEndValue == null)
           IconButton(
             onPressed: () {
               if (endlessMode) {

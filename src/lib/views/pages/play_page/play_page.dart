@@ -26,7 +26,9 @@ class PlayPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     useEffect(() {
-      ref.read(kvsLastGameIdProvider.notifier).set(gameId);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ref.read(kvsLastGameIdProvider.notifier).set(gameId);
+      });
       return null;
     });
 

@@ -79,9 +79,9 @@ class OverviewPage extends ConsumerWidget {
                   child: Text(
                     "${trainLength.name.capitalize()} (${trainLength.length})",
                     style: TextStyle(
-                      decoration: trainLength.length == trainingLength
-                          ? TextDecoration.underline
-                          : TextDecoration.none,
+                      fontWeight: trainLength.length == trainingLength
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                     ),
                   ),
                 );

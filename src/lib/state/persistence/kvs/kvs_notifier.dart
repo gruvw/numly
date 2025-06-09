@@ -44,7 +44,12 @@ class KvsNotifier<T> extends AsyncNotifier<T> {
   final String key;
   final T defaultValue;
 
+  /// The serialization function used to convert the value to text for storage.
+  /// Note - This function should be pure and idempotent.
   final String Function(T value) serialize;
+
+  /// The parsing function used to convert the stored text to the (typed) value.
+  /// Note - This function should be pure and idempotent.
   final T Function(String source) parse;
 
   late final _db = ref.read(dbProvider);
@@ -64,9 +69,17 @@ class KvsNotifier<T> extends AsyncNotifier<T> {
     return value ?? defaultValue;
   }
 
-  Future<void> set(T value) async {
-    final data = serialize(value);
+  /// Assigns a new value to the key in the store, with (opt-out) immediate effect on the notifier's state.
+  /// Note - if the state is immediately updated, it could de-synchronize the store and the notifier's state.
+  Future<void> set(
+    T value, {
+    bool immediate = true,
+  }) async {
+    if (immediate) {
+      state = AsyncValue.data(value);
+    }
 
+    final data = serialize(value);
     await _db.into(_db.kvsTable).insertOnConflictUpdate(
           KvsTableCompanion.insert(
             key: key,

@@ -39,6 +39,8 @@ class PlayPage extends HookConsumerWidget {
     final testStart = useState(DateTime.now());
     final testEnd = useState<DateTime?>(null);
     final answeredQuestionsCount = useState(0);
+    final mistaksesCount = useState(0);
+    final lastAnswerSubmitted = useState<String?>(null);
 
     // used for endless mode, must have the same length as test
     final nextTest = useState<Test?>(null);
@@ -49,6 +51,8 @@ class PlayPage extends HookConsumerWidget {
       testStart.value = DateTime.now();
       testEnd.value = null;
       answeredQuestionsCount.value = 0;
+      mistaksesCount.value = 0;
+      lastAnswerSubmitted.value = null;
     }
 
     final trainingLength = ref.watch(kvsTrainingLengthProvider);
@@ -137,16 +141,18 @@ class PlayPage extends HookConsumerWidget {
         Gap(Styles.standardSpacing * 4),
         VirtualKeyboard(
           numberController: numberController,
-          onSubmit: (numberText) {
+          onSubmit: (numberTextAnswer) {
             if (testValue == null ||
                 nextTestValue == null ||
                 endlessMode == null) {
               return;
             }
 
+            lastAnswerSubmitted.value = numberTextAnswer;
+
             if (testValue
                 .getQuestion(answeredQuestionsCount.value % testValue.length)
-                .verify(numberText)
+                .verify(numberTextAnswer)
                 .correct) {
               if ((answeredQuestionsCount.value % testValue.length) + 1 >=
                   testValue.length) {
@@ -162,6 +168,8 @@ class PlayPage extends HookConsumerWidget {
                 }
               }
               answeredQuestionsCount.value += 1;
+            } else {
+              mistaksesCount.value += 1;
             }
           },
         ),
@@ -173,6 +181,8 @@ class PlayPage extends HookConsumerWidget {
         ? testContent
         : ResultScreen(
             testDuration: testEndValue.difference(testStart.value),
+            mistakesCount: mistaksesCount.value,
+            answeredQuestionsCount: answeredQuestionsCount.value,
           );
 
     return Scaffold(

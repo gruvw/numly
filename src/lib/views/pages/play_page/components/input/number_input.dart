@@ -1,13 +1,18 @@
 import "package:flutter/material.dart";
+import "package:material_symbols_icons/symbols.dart";
+import "package:numly/models/test/question.dart";
 import "package:numly/static/styles.dart";
+import "package:numly/utils/language.dart";
 import "package:numly/views/pages/play_page/components/input/number_formatter.dart";
 
 class NumberInput extends StatelessWidget {
   final TextEditingController numberController;
+  final SolutionType? solutionType;
 
   const NumberInput({
     super.key,
     required this.numberController,
+    required this.solutionType,
   });
 
   @override
@@ -35,7 +40,20 @@ class NumberInput extends StatelessWidget {
         focusedBorder: InputBorder.none,
         enabledBorder: InputBorder.none,
         disabledBorder: InputBorder.none,
-        contentPadding: EdgeInsets.all(Styles.standardSpacing * 2),
+        prefixIcon: solutionType?.nmap((solutionType) {
+          return Tooltip(
+            message: "Solution Type",
+            child: Icon(
+              color: Styles.foregroundColor,
+              switch (solutionType) {
+                SolutionType.decimal => Symbols.speed_1_25,
+                SolutionType.fractional => Symbols.timelapse,
+                SolutionType.percent => Symbols.percent,
+              },
+            ),
+          );
+        }),
+        prefixIconConstraints: BoxConstraints.tightFor(),
       ),
     );
 

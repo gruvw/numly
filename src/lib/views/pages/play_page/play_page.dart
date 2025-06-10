@@ -137,7 +137,11 @@ class PlayPage extends HookConsumerWidget {
             color: Styles.foregroundColor,
           ),
         Spacer(),
-        NumberInput(numberController: numberController),
+        NumberInput(
+          numberController: numberController,
+          solutionType:
+              testValue?.getQuestion(answeredQuestionsCount.value).solutionType,
+        ),
         Gap(Styles.standardSpacing * 4),
         VirtualKeyboard(
           numberController: numberController,

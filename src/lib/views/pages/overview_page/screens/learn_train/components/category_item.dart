@@ -39,7 +39,7 @@ class CategoryItem extends HookConsumerWidget {
             fontSize: 14,
             color: categoryCompleted
                 ? Styles.colorSuccess
-                : Styles.foregroundColor,
+                : Styles.colorForeground,
           ),
         );
 

@@ -40,7 +40,7 @@ class OverviewPage extends ConsumerWidget {
           ? IconButton(
               icon: const Icon(Styles.iconPrevious),
               onPressed: () => subNavigatorKey.currentState?.maybePop(),
-              color: Styles.backgroundColor,
+              color: Styles.colorBackground,
             )
           : null,
       actions: [
@@ -69,7 +69,7 @@ class OverviewPage extends ConsumerWidget {
           PopupMenuButton(
             tooltip: "Test length",
             icon: Icon(Symbols.quiz),
-            color: Styles.backgroundColor,
+            color: Styles.colorBackground,
             itemBuilder: (context) {
               return TrainingLength.values.map((trainLength) {
                 return PopupMenuItem(
@@ -89,15 +89,15 @@ class OverviewPage extends ConsumerWidget {
             },
           ),
       ],
-      backgroundColor: Styles.foregroundColor,
-      foregroundColor: Styles.backgroundColor,
+      backgroundColor: Styles.colorForeground,
+      foregroundColor: Styles.colorBackground,
     );
 
     final bottomNavigationBar = BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       currentIndex: navigationShell.currentIndex,
-      backgroundColor: Styles.foregroundColor,
-      selectedItemColor: Styles.backgroundColor,
+      backgroundColor: Styles.colorForeground,
+      selectedItemColor: Styles.colorBackground,
       unselectedItemColor: Styles.colorIgnored,
       onTap: (index) {
         navigationShell.goBranch(
@@ -122,7 +122,7 @@ class OverviewPage extends ConsumerWidget {
         }
       },
       child: Scaffold(
-        backgroundColor: Styles.backgroundColor,
+        backgroundColor: Styles.colorBackground,
         appBar: appBar,
         body: navigationShell,
         bottomNavigationBar: bottomNavigationBar,

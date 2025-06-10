@@ -30,10 +30,10 @@ class VirtualKey extends StatelessWidget {
       onLongPress: onLongPress,
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(),
-        backgroundColor: Styles.foregroundColor,
-        disabledBackgroundColor: Styles.foregroundColor.lighten(0.3),
-        foregroundColor: Styles.backgroundColor,
-        disabledForegroundColor: Styles.backgroundColor.darken(0.2),
+        backgroundColor: Styles.colorForeground,
+        disabledBackgroundColor: Styles.colorForeground.lighten(0.3),
+        foregroundColor: Styles.colorBackground,
+        disabledForegroundColor: Styles.colorBackground.darken(0.2),
       ),
       child: content,
     );

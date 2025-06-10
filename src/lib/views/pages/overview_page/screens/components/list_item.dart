@@ -36,7 +36,7 @@ class ListItem extends StatelessWidget {
     return Material(
       child: ListTile(
         title: Text(title),
-        tileColor: Styles.backgroundColor,
+        tileColor: Styles.colorBackground,
         subtitle: subtitle?.nmap((subtitle) => Text(subtitle)),
         leading: leading,
         trailing: trailing,

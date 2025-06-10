@@ -17,7 +17,7 @@ class FavoriteDividedListView extends StatelessWidget {
 
   Column _itemBuilder(Widget item) {
     final divider = Divider(
-      color: Styles.foregroundColor,
+      color: Styles.colorForeground,
     );
 
     return Column(

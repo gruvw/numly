@@ -26,6 +26,7 @@
     - [X] Support % as input number
     - [X] Support power
     - [X] Support n-th root
+    - [ ] Randomly invert sides of commutative expressions (avoid imbalance when two different number generators provided)
 - [X] Question resolution / answer and submit
     - [X] Force reduced fractions (or scalar if possible 4/2 = 2), maybe show note on wrong result if correct but not reduced
 - [X] Levels system
@@ -69,13 +70,13 @@
 - [X] Last game played quick play (replay) button
 - [X] Endless mode / Practice mode (no test length, no time limit) for every test (add a flag button, transforms into a finish test button once enabled)
 - [ ] Result page
-    - [ ] Test duration / time (20 questions, as fast as possible)
-    - [ ] Play again (same test)
+    - [X] Test duration / time (20 questions, as fast as possible)
+    - [X] Play again (same test)
     - [ ] Go to next level
     - [ ] Previous high score
     - [ ] How much time was needed to pass the level
     - [ ] Level succeeded or not
-    - [ ] Number of errors
+    - [X] Number of errors
     - [ ] Analytics (difficult questions, average, slowest, fastest, ...)
     - [ ] Share test result
     - [ ] Share exact test for friends to try it
@@ -91,13 +92,13 @@
     - [ ] Different ranges for each number (first, second number)
     - [ ] Persist current settings
     - [ ] Save custom settings presets
-    - [ ] Randomly invert sides of commutative expressions
     - [ ] Reset all high scores
     - [ ] Reset high score for a particular test
     - [ ] Show next operation (display next operation in small text, tetris next piece like)
     - [ ] Disable test restart button
     - [ ] Export data (export results, export settings, ...)
     - [ ] Import data
+    - [ ] Adjust the amount of mistake streaks before showing the answer (2, 3, 5, never)
 - [ ] Layout
     - [ ] Tablet / Web layout
     - [ ] Small screens

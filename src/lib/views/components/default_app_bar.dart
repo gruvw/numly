@@ -7,7 +7,7 @@ PreferredSizeWidget defaultAppBar() {
     title: Text(
       Values.applicationTitle,
     ),
-    backgroundColor: Styles.foregroundColor,
-    foregroundColor: Styles.backgroundColor,
+    backgroundColor: Styles.colorForeground,
+    foregroundColor: Styles.colorBackground,
   );
 }

@@ -2,10 +2,11 @@ import "package:flutter/material.dart";
 import "package:material_symbols_icons/symbols.dart";
 
 abstract class Styles {
-  static const backgroundColor = Colors.white;
-  static const foregroundColor = Colors.black;
+  static const colorBackground = Colors.white;
+  static const colorForeground = Colors.black;
 
   static const colorDanger = Colors.red;
+  static const colorWarning = Colors.orange;
   static const colorSuccess = Colors.green;
   static const colorIgnored = Colors.grey;
 

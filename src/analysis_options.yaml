@@ -9,3 +9,6 @@ linter:
     require_trailing_commas: true
     always_use_package_imports: true
     directives_ordering: true
+
+formatter:
+  trailing_commas: preserve

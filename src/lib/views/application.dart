@@ -19,8 +19,8 @@ class Application extends StatelessWidget {
       title: Values.applicationTitle,
       theme: ThemeData(
         fontFamily: Styles.fontFamily,
-        scaffoldBackgroundColor: Styles.backgroundColor,
-        primaryColor: Styles.foregroundColor,
+        scaffoldBackgroundColor: Styles.colorBackground,
+        primaryColor: Styles.colorForeground,
       ),
       routerConfig: router,
     );

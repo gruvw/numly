@@ -31,7 +31,7 @@ class GamesScreen extends ConsumerWidget {
       if (favoriteGameIds == null) {
         return Center(
           child: CircularProgressIndicator(
-            color: Styles.foregroundColor,
+            color: Styles.colorForeground,
           ),
         );
       }

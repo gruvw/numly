@@ -45,7 +45,7 @@ class VirtualKeyboard extends HookWidget {
       onLongPress: onLongPress,
       child: Icon(
         icon,
-        color: Styles.backgroundColor,
+        color: Styles.colorBackground,
       ),
     );
   }
@@ -81,8 +81,11 @@ class VirtualKeyboard extends HookWidget {
     // TODO enter on keyboard should submit
     final submitKey = _iconKey(Symbols.check, () {
       numberController.text = numberSubmitter(numberText);
-      onSubmit(numberController.text);
-      numberController.text = "";
+
+      if (numberController.text.isNotEmpty) {
+        onSubmit(numberController.text);
+        numberController.text = "";
+      }
     });
 
     final keys = [
@@ -104,7 +107,7 @@ class VirtualKeyboard extends HookWidget {
     );
 
     return Container(
-      color: Styles.backgroundColor,
+      color: Styles.colorBackground,
       padding: EdgeInsets.all(Styles.standardSpacing),
       child: keypad,
     );

@@ -40,6 +40,8 @@ class PlayPage extends HookConsumerWidget {
     final testEnd = useState<DateTime?>(null);
     final answeredQuestionsCount = useState(0);
     final mistaksesCount = useState(0);
+    // TODO reset streaks and show answer after x (=2) wrong attempts
+    final mistakseStreak = useState(0);
     final lastAnswerSubmitted = useState<String?>(null);
 
     // used for endless mode, must have the same length as test
@@ -53,6 +55,7 @@ class PlayPage extends HookConsumerWidget {
       answeredQuestionsCount.value = 0;
       mistaksesCount.value = 0;
       lastAnswerSubmitted.value = null;
+      mistakseStreak.value = 0;
     }
 
     final trainingLength = ref.watch(kvsTrainingLengthProvider);
@@ -114,15 +117,15 @@ class PlayPage extends HookConsumerWidget {
           ),
         restartButton,
       ],
-      backgroundColor: Styles.foregroundColor,
-      foregroundColor: Styles.backgroundColor,
+      backgroundColor: Styles.colorForeground,
+      foregroundColor: Styles.colorBackground,
     );
 
     final testContent = Column(
       children: [
         Text(
           game.title,
-          style: TextStyle(color: Styles.foregroundColor),
+          style: TextStyle(color: Styles.colorForeground),
         ),
         Spacer(),
         if (testValue != null && nextTestValue != null && endlessMode != null)
@@ -134,13 +137,15 @@ class PlayPage extends HookConsumerWidget {
           )
         else
           CircularProgressIndicator(
-            color: Styles.foregroundColor,
+            color: Styles.colorForeground,
           ),
         Spacer(),
         NumberInput(
           numberController: numberController,
           solutionType:
               testValue?.getQuestion(answeredQuestionsCount.value).solutionType,
+          mistakeStreak: mistakseStreak.value,
+          lastSubmittedAnswer: lastAnswerSubmitted.value,
         ),
         Gap(Styles.standardSpacing * 4),
         VirtualKeyboard(
@@ -172,8 +177,10 @@ class PlayPage extends HookConsumerWidget {
                 }
               }
               answeredQuestionsCount.value += 1;
+              mistakseStreak.value = 0;
             } else {
               mistaksesCount.value += 1;
+              mistakseStreak.value += 1;
             }
           },
         ),
@@ -190,7 +197,7 @@ class PlayPage extends HookConsumerWidget {
           );
 
     return Scaffold(
-      backgroundColor: Styles.backgroundColor,
+      backgroundColor: Styles.colorBackground,
       appBar: appBar,
       body: Center(
         child: Container(

@@ -23,14 +23,14 @@ class RationalNumber implements Comparable<RationalNumber> {
   RationalNumber._reduced({
     required this.numerator,
     required this.denominator,
-  })  : assert(
-          denominator >= i1,
-          "denominator ($denominator) must be larger than 1",
-        ),
-        assert(
-          _gcd(numerator.abs(), denominator) == i1,
-          "numerator ($numerator) and denominator ($denominator) must be coprime",
-        );
+  }) : assert(
+         denominator >= i1,
+         "denominator ($denominator) must be larger than 1",
+       ),
+       assert(
+         _gcd(numerator.abs(), denominator) == i1,
+         "numerator ($numerator) and denominator ($denominator) must be coprime",
+       );
 
   factory RationalNumber(
     BigInt numerator, [
@@ -147,8 +147,9 @@ class RationalNumber implements Comparable<RationalNumber> {
     return d == i1;
   }();
 
-  late final intFracString =
-      isInteger ? numerator.toString() : "$numerator/$denominator";
+  late final intFracString = isInteger
+      ? numerator.toString()
+      : "$numerator/$denominator";
   late final intDecFracString = () {
     if (isInteger) {
       return numerator.toString();
@@ -256,8 +257,9 @@ class RationalNumber implements Comparable<RationalNumber> {
 
   @override
   int compareTo(RationalNumber other) {
-    return (numerator * other.denominator)
-        .compareTo(other.numerator * denominator);
+    return (numerator * other.denominator).compareTo(
+      other.numerator * denominator,
+    );
   }
 
   bool operator <(RationalNumber other) => compareTo(other) < 0;

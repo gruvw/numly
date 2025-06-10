@@ -2,11 +2,7 @@ import "package:numly/logic/input_processing.dart";
 import "package:numly/models/math/rational_number.dart";
 import "package:numly/models/test/operation.dart";
 
-enum SolutionType {
-  decimal,
-  fractional,
-  percent;
-}
+enum SolutionType { decimal, fractional, percent }
 
 class Question {
   final RationalNumber number1;
@@ -73,9 +69,7 @@ class Result {
     required this.message,
   });
 
-  Result.correct(this.solution)
-      : correct = true,
-        message = null;
+  Result.correct(this.solution) : correct = true, message = null;
 
   Result.wrong(
     this.solution, {

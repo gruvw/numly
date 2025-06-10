@@ -11,4 +11,5 @@ linter:
     directives_ordering: true
 
 formatter:
+  # page_width: 100
   trailing_commas: preserve

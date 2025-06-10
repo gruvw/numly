@@ -14,10 +14,12 @@ class QuestionDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return switch (question.operation) {
       Operation.addition => Text("${question.number1} + ${question.number2}"),
-      Operation.subtraction =>
-        Text("${question.number1} - ${question.number2}"),
-      Operation.multiplication =>
-        Text("${question.number1} × ${question.number2}"),
+      Operation.subtraction => Text(
+        "${question.number1} - ${question.number2}",
+      ),
+      Operation.multiplication => Text(
+        "${question.number1} × ${question.number2}",
+      ),
       Operation.division => Text("${question.number1} / ${question.number2}"),
       _ => throw UnsupportedError("Operation not yet supported"),
     };

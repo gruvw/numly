@@ -9,8 +9,9 @@ class CustomScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final trainingLength = ref.watch(kvsTrainingLengthProvider).value;
 
-    final trainingLengthText =
-        trainingLength == null ? "LOADING" : trainingLength.toString();
+    final trainingLengthText = trainingLength == null
+        ? "LOADING"
+        : trainingLength.toString();
 
     return Center(
       child: InkWell(

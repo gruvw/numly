@@ -14,9 +14,9 @@ class Queries {
       final existingFavorite = await query.getSingleOrNull();
 
       if (existingFavorite != null) {
-        await (_db.delete(_db.favoriteTable)
-              ..where((t) => t.gameId.equals(gameId)))
-            .go();
+        await (_db.delete(
+          _db.favoriteTable,
+        )..where((t) => t.gameId.equals(gameId))).go();
       } else {
         await _db
             .into(_db.favoriteTable)

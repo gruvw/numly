@@ -33,7 +33,8 @@ class OverviewPage extends ConsumerWidget {
     final appBar = AppBar(
       title: Text(
         AppRoutes
-            .overviewBottomNavigationRoutes[navigationShell.currentIndex].name
+            .overviewBottomNavigationRoutes[navigationShell.currentIndex]
+            .name
             .capitalize(),
       ),
       leading: isSubrouteDeep

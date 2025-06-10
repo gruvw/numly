@@ -23,8 +23,9 @@ class GameItem extends HookConsumerWidget {
 
     final db = ref.read(dbProvider);
     final favoriteGameIds = ref.watch(favoriteGameIdsProvider).value;
-    final highScore =
-        ref.watch(highScoreSelectedTrainingLengthProvider(game.id)).value;
+    final highScore = ref
+        .watch(highScoreSelectedTrainingLengthProvider(game.id))
+        .value;
     final completedLevelIds = ref.watch(completedLevelIdsProvider).value;
 
     toggleForceShowHighScore() =>

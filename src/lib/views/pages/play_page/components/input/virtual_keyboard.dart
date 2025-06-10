@@ -60,7 +60,8 @@ class VirtualKeyboard extends HookWidget {
     final numberText = numberController.text;
 
     final numberDisabled = numberText.endsWith(Keys.percent);
-    final symbolDisabled = numberText.contains(Keys.decimal) ||
+    final symbolDisabled =
+        numberText.contains(Keys.decimal) ||
         numberText.contains(Keys.fraction) ||
         numberText.contains(Keys.percent);
     final emptyDisabled = numberText.isEmpty;
@@ -68,8 +69,10 @@ class VirtualKeyboard extends HookWidget {
 
     final backspaceKey = _iconKey(
       Symbols.keyboard_backspace,
-      () => numberController.text = numberController.text
-          .substring(0, max(0, numberController.text.length - 1)),
+      () => numberController.text = numberController.text.substring(
+        0,
+        max(0, numberController.text.length - 1),
+      ),
       () => numberController.text = "",
     );
 

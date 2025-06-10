@@ -14,14 +14,23 @@ class $KvsTableTable extends i2.KvsTable
   static const i0.VerificationMeta _keyMeta = const i0.VerificationMeta('key');
   @override
   late final i0.GeneratedColumn<String> key = i0.GeneratedColumn<String>(
-      'key', aliasedName, false,
-      type: i0.DriftSqlType.string, requiredDuringInsert: true);
-  static const i0.VerificationMeta _valueMeta =
-      const i0.VerificationMeta('value');
+    'key',
+    aliasedName,
+    false,
+    type: i0.DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const i0.VerificationMeta _valueMeta = const i0.VerificationMeta(
+    'value',
+  );
   @override
   late final i0.GeneratedColumn<String> value = i0.GeneratedColumn<String>(
-      'value', aliasedName, false,
-      type: i0.DriftSqlType.string, requiredDuringInsert: true);
+    'value',
+    aliasedName,
+    false,
+    type: i0.DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   @override
   List<i0.GeneratedColumn> get $columns => [key, value];
   @override
@@ -31,19 +40,24 @@ class $KvsTableTable extends i2.KvsTable
   static const String $name = 'kvs';
   @override
   i0.VerificationContext validateIntegrity(
-      i0.Insertable<i1.KvsTableData> instance,
-      {bool isInserting = false}) {
+    i0.Insertable<i1.KvsTableData> instance, {
+    bool isInserting = false,
+  }) {
     final context = i0.VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('key')) {
       context.handle(
-          _keyMeta, key.isAcceptableOrUnknown(data['key']!, _keyMeta));
+        _keyMeta,
+        key.isAcceptableOrUnknown(data['key']!, _keyMeta),
+      );
     } else if (isInserting) {
       context.missing(_keyMeta);
     }
     if (data.containsKey('value')) {
       context.handle(
-          _valueMeta, value.isAcceptableOrUnknown(data['value']!, _valueMeta));
+        _valueMeta,
+        value.isAcceptableOrUnknown(data['value']!, _valueMeta),
+      );
     } else if (isInserting) {
       context.missing(_valueMeta);
     }
@@ -56,10 +70,14 @@ class $KvsTableTable extends i2.KvsTable
   i1.KvsTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return i1.KvsTableData(
-      key: attachedDatabase.typeMapping
-          .read(i0.DriftSqlType.string, data['${effectivePrefix}key'])!,
-      value: attachedDatabase.typeMapping
-          .read(i0.DriftSqlType.string, data['${effectivePrefix}value'])!,
+      key: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}key'],
+      )!,
+      value: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}value'],
+      )!,
     );
   }
 
@@ -82,8 +100,10 @@ class KvsTableData extends i0.DataClass
     return map;
   }
 
-  factory KvsTableData.fromJson(Map<String, dynamic> json,
-      {i0.ValueSerializer? serializer}) {
+  factory KvsTableData.fromJson(
+    Map<String, dynamic> json, {
+    i0.ValueSerializer? serializer,
+  }) {
     serializer ??= i0.driftRuntimeOptions.defaultSerializer;
     return KvsTableData(
       key: serializer.fromJson<String>(json['key']),
@@ -100,9 +120,9 @@ class KvsTableData extends i0.DataClass
   }
 
   i1.KvsTableData copyWith({String? key, String? value}) => i1.KvsTableData(
-        key: key ?? this.key,
-        value: value ?? this.value,
-      );
+    key: key ?? this.key,
+    value: value ?? this.value,
+  );
   KvsTableData copyWithCompanion(i1.KvsTableCompanion data) {
     return KvsTableData(
       key: data.key.present ? data.key.value : this.key,
@@ -142,8 +162,8 @@ class KvsTableCompanion extends i0.UpdateCompanion<i1.KvsTableData> {
     required String key,
     required String value,
     this.rowid = const i0.Value.absent(),
-  })  : key = i0.Value(key),
-        value = i0.Value(value);
+  }) : key = i0.Value(key),
+       value = i0.Value(value);
   static i0.Insertable<i1.KvsTableData> custom({
     i0.Expression<String>? key,
     i0.Expression<String>? value,
@@ -156,8 +176,11 @@ class KvsTableCompanion extends i0.UpdateCompanion<i1.KvsTableData> {
     });
   }
 
-  i1.KvsTableCompanion copyWith(
-      {i0.Value<String>? key, i0.Value<String>? value, i0.Value<int>? rowid}) {
+  i1.KvsTableCompanion copyWith({
+    i0.Value<String>? key,
+    i0.Value<String>? value,
+    i0.Value<int>? rowid,
+  }) {
     return i1.KvsTableCompanion(
       key: key ?? this.key,
       value: value ?? this.value,

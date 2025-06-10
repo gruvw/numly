@@ -27,9 +27,9 @@ class ListItem extends StatelessWidget {
     required this.title,
     this.onTap,
     this.onLongPress,
-  })  : leading = Icon(Styles.iconFavorite),
-        trailing = Icon(Styles.iconNext),
-        subtitle = null;
+  }) : leading = Icon(Styles.iconFavorite),
+       trailing = Icon(Styles.iconNext),
+       subtitle = null;
 
   @override
   Widget build(BuildContext context) {

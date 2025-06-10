@@ -13,24 +13,39 @@ class $HighScoreTableTable extends i3.HighScoreTable
   final i0.GeneratedDatabase attachedDatabase;
   final String? _alias;
   $HighScoreTableTable(this.attachedDatabase, [this._alias]);
-  static const i0.VerificationMeta _gameIdMeta =
-      const i0.VerificationMeta('gameId');
+  static const i0.VerificationMeta _gameIdMeta = const i0.VerificationMeta(
+    'gameId',
+  );
   @override
   late final i0.GeneratedColumn<String> gameId = i0.GeneratedColumn<String>(
-      'game_id', aliasedName, false,
-      type: i0.DriftSqlType.string, requiredDuringInsert: true);
-  static const i0.VerificationMeta _lengthMeta =
-      const i0.VerificationMeta('length');
+    'game_id',
+    aliasedName,
+    false,
+    type: i0.DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const i0.VerificationMeta _lengthMeta = const i0.VerificationMeta(
+    'length',
+  );
   @override
   late final i0.GeneratedColumn<int> length = i0.GeneratedColumn<int>(
-      'length', aliasedName, false,
-      type: i0.DriftSqlType.int, requiredDuringInsert: true);
-  static const i0.VerificationMeta _durationMsMeta =
-      const i0.VerificationMeta('durationMs');
+    'length',
+    aliasedName,
+    false,
+    type: i0.DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const i0.VerificationMeta _durationMsMeta = const i0.VerificationMeta(
+    'durationMs',
+  );
   @override
   late final i0.GeneratedColumn<int> durationMs = i0.GeneratedColumn<int>(
-      'duration_ms', aliasedName, false,
-      type: i0.DriftSqlType.int, requiredDuringInsert: true);
+    'duration_ms',
+    aliasedName,
+    false,
+    type: i0.DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
   @override
   List<i0.GeneratedColumn> get $columns => [gameId, length, durationMs];
   @override
@@ -39,27 +54,33 @@ class $HighScoreTableTable extends i3.HighScoreTable
   String get actualTableName => $name;
   static const String $name = 'high_score';
   @override
-  i0.VerificationContext validateIntegrity(i0.Insertable<i1.Score> instance,
-      {bool isInserting = false}) {
+  i0.VerificationContext validateIntegrity(
+    i0.Insertable<i1.Score> instance, {
+    bool isInserting = false,
+  }) {
     final context = i0.VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('game_id')) {
-      context.handle(_gameIdMeta,
-          gameId.isAcceptableOrUnknown(data['game_id']!, _gameIdMeta));
+      context.handle(
+        _gameIdMeta,
+        gameId.isAcceptableOrUnknown(data['game_id']!, _gameIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_gameIdMeta);
     }
     if (data.containsKey('length')) {
-      context.handle(_lengthMeta,
-          length.isAcceptableOrUnknown(data['length']!, _lengthMeta));
+      context.handle(
+        _lengthMeta,
+        length.isAcceptableOrUnknown(data['length']!, _lengthMeta),
+      );
     } else if (isInserting) {
       context.missing(_lengthMeta);
     }
     if (data.containsKey('duration_ms')) {
       context.handle(
-          _durationMsMeta,
-          durationMs.isAcceptableOrUnknown(
-              data['duration_ms']!, _durationMsMeta));
+        _durationMsMeta,
+        durationMs.isAcceptableOrUnknown(data['duration_ms']!, _durationMsMeta),
+      );
     } else if (isInserting) {
       context.missing(_durationMsMeta);
     }
@@ -72,12 +93,18 @@ class $HighScoreTableTable extends i3.HighScoreTable
   i1.Score map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return i1.Score.fromData(
-      gameId: attachedDatabase.typeMapping
-          .read(i0.DriftSqlType.string, data['${effectivePrefix}game_id'])!,
-      length: attachedDatabase.typeMapping
-          .read(i0.DriftSqlType.int, data['${effectivePrefix}length'])!,
-      durationMs: attachedDatabase.typeMapping
-          .read(i0.DriftSqlType.int, data['${effectivePrefix}duration_ms'])!,
+      gameId: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}game_id'],
+      )!,
+      length: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.int,
+        data['${effectivePrefix}length'],
+      )!,
+      durationMs: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.int,
+        data['${effectivePrefix}duration_ms'],
+      )!,
     );
   }
 
@@ -103,9 +130,9 @@ class HighScoreTableCompanion extends i0.UpdateCompanion<i1.Score> {
     required int length,
     required int durationMs,
     this.rowid = const i0.Value.absent(),
-  })  : gameId = i0.Value(gameId),
-        length = i0.Value(length),
-        durationMs = i0.Value(durationMs);
+  }) : gameId = i0.Value(gameId),
+       length = i0.Value(length),
+       durationMs = i0.Value(durationMs);
   static i0.Insertable<i1.Score> custom({
     i0.Expression<String>? gameId,
     i0.Expression<int>? length,
@@ -120,11 +147,12 @@ class HighScoreTableCompanion extends i0.UpdateCompanion<i1.Score> {
     });
   }
 
-  i2.HighScoreTableCompanion copyWith(
-      {i0.Value<String>? gameId,
-      i0.Value<int>? length,
-      i0.Value<int>? durationMs,
-      i0.Value<int>? rowid}) {
+  i2.HighScoreTableCompanion copyWith({
+    i0.Value<String>? gameId,
+    i0.Value<int>? length,
+    i0.Value<int>? durationMs,
+    i0.Value<int>? rowid,
+  }) {
     return i2.HighScoreTableCompanion(
       gameId: gameId ?? this.gameId,
       length: length ?? this.length,

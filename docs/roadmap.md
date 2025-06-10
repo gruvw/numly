@@ -65,7 +65,8 @@
     - [X] Implement play state
     - [X] Show next question (also in endless mode: rotate test with next test)
     - [ ] Implement test UI
-    - [ ] Making mistakes should not be "red = bad" type, encourage making mistakes and promote learning, same with sound (no big error sound)
+    - [X] Making mistakes should not be "red = bad" type, encourage making mistakes and promote learning, same with sound (no big error sound)
+    - [X] Display mistakes and show previous answer with mistake streak
     - [X] Restart test button
 - [X] Last game played quick play (replay) button
 - [X] Endless mode / Practice mode (no test length, no time limit) for every test (add a flag button, transforms into a finish test button once enabled)

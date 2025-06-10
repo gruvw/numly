@@ -12,12 +12,17 @@ class $CompletedLevelsTableTable extends i2.CompletedLevelsTable
   final i0.GeneratedDatabase attachedDatabase;
   final String? _alias;
   $CompletedLevelsTableTable(this.attachedDatabase, [this._alias]);
-  static const i0.VerificationMeta _gameIdMeta =
-      const i0.VerificationMeta('gameId');
+  static const i0.VerificationMeta _gameIdMeta = const i0.VerificationMeta(
+    'gameId',
+  );
   @override
   late final i0.GeneratedColumn<String> gameId = i0.GeneratedColumn<String>(
-      'game_id', aliasedName, false,
-      type: i0.DriftSqlType.string, requiredDuringInsert: true);
+    'game_id',
+    aliasedName,
+    false,
+    type: i0.DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   @override
   List<i0.GeneratedColumn> get $columns => [gameId];
   @override
@@ -27,13 +32,16 @@ class $CompletedLevelsTableTable extends i2.CompletedLevelsTable
   static const String $name = 'completed_levels';
   @override
   i0.VerificationContext validateIntegrity(
-      i0.Insertable<i1.CompletedLevelsTableData> instance,
-      {bool isInserting = false}) {
+    i0.Insertable<i1.CompletedLevelsTableData> instance, {
+    bool isInserting = false,
+  }) {
     final context = i0.VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('game_id')) {
-      context.handle(_gameIdMeta,
-          gameId.isAcceptableOrUnknown(data['game_id']!, _gameIdMeta));
+      context.handle(
+        _gameIdMeta,
+        gameId.isAcceptableOrUnknown(data['game_id']!, _gameIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_gameIdMeta);
     }
@@ -43,12 +51,16 @@ class $CompletedLevelsTableTable extends i2.CompletedLevelsTable
   @override
   Set<i0.GeneratedColumn> get $primaryKey => {gameId};
   @override
-  i1.CompletedLevelsTableData map(Map<String, dynamic> data,
-      {String? tablePrefix}) {
+  i1.CompletedLevelsTableData map(
+    Map<String, dynamic> data, {
+    String? tablePrefix,
+  }) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return i1.CompletedLevelsTableData(
-      gameId: attachedDatabase.typeMapping
-          .read(i0.DriftSqlType.string, data['${effectivePrefix}game_id'])!,
+      gameId: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}game_id'],
+      )!,
     );
   }
 
@@ -69,8 +81,10 @@ class CompletedLevelsTableData extends i0.DataClass
     return map;
   }
 
-  factory CompletedLevelsTableData.fromJson(Map<String, dynamic> json,
-      {i0.ValueSerializer? serializer}) {
+  factory CompletedLevelsTableData.fromJson(
+    Map<String, dynamic> json, {
+    i0.ValueSerializer? serializer,
+  }) {
     serializer ??= i0.driftRuntimeOptions.defaultSerializer;
     return CompletedLevelsTableData(
       gameId: serializer.fromJson<String>(json['gameId']),
@@ -89,7 +103,8 @@ class CompletedLevelsTableData extends i0.DataClass
         gameId: gameId ?? this.gameId,
       );
   CompletedLevelsTableData copyWithCompanion(
-      i1.CompletedLevelsTableCompanion data) {
+    i1.CompletedLevelsTableCompanion data,
+  ) {
     return CompletedLevelsTableData(
       gameId: data.gameId.present ? data.gameId.value : this.gameId,
     );
@@ -133,8 +148,10 @@ class CompletedLevelsTableCompanion
     });
   }
 
-  i1.CompletedLevelsTableCompanion copyWith(
-      {i0.Value<String>? gameId, i0.Value<int>? rowid}) {
+  i1.CompletedLevelsTableCompanion copyWith({
+    i0.Value<String>? gameId,
+    i0.Value<int>? rowid,
+  }) {
     return i1.CompletedLevelsTableCompanion(
       gameId: gameId ?? this.gameId,
       rowid: rowid ?? this.rowid,

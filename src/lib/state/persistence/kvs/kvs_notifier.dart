@@ -80,7 +80,9 @@ class KvsNotifier<T> extends AsyncNotifier<T> {
     }
 
     final data = serialize(value);
-    await _db.into(_db.kvsTable).insertOnConflictUpdate(
+    await _db
+        .into(_db.kvsTable)
+        .insertOnConflictUpdate(
           KvsTableCompanion.insert(
             key: key,
             value: data,

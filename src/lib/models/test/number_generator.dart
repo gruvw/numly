@@ -25,10 +25,10 @@ class UniformPoolNumberGenerator implements NumberGenerator {
   final List<NumberGenerator> pool;
 
   UniformPoolNumberGenerator({required this.pool})
-      : assert(
-          pool.isNotEmpty,
-          "pool must contain at least one generator",
-        );
+    : assert(
+        pool.isNotEmpty,
+        "pool must contain at least one generator",
+      );
 
   @override
   RationalNumber generate() {
@@ -53,14 +53,14 @@ class MinMaxDecimalNumberGenerator implements NumberGenerator {
     this.minimum = 0,
     required this.maximum,
     required this.decimals,
-  })  : assert(
-          minimum <= maximum,
-          "`minimum` should be smaller than or equal to `maximum`.",
-        ),
-        assert(
-          decimals >= 0,
-          "`decimals` should be positive or zero.",
-        );
+  }) : assert(
+         minimum <= maximum,
+         "`minimum` should be smaller than or equal to `maximum`.",
+       ),
+       assert(
+         decimals >= 0,
+         "`decimals` should be positive or zero.",
+       );
 
   @override
   RationalNumber generate() {
@@ -103,14 +103,14 @@ class MinMaxFractionalNumberGenerator implements NumberGenerator {
     required this.numeratorMaximum,
     this.denominatorMinimum = 0,
     required this.denominatorMaximum,
-  })  : assert(
-          numeratorMinimum <= numeratorMaximum,
-          "`numeratorMinimum` should be smaller than or equal to `numeratorMaximum`.",
-        ),
-        assert(
-          denominatorMinimum <= denominatorMaximum,
-          "`denominatorMinimum` should be smaller than or equal to `denominatorMaximum`.",
-        );
+  }) : assert(
+         numeratorMinimum <= numeratorMaximum,
+         "`numeratorMinimum` should be smaller than or equal to `numeratorMaximum`.",
+       ),
+       assert(
+         denominatorMinimum <= denominatorMaximum,
+         "`denominatorMinimum` should be smaller than or equal to `denominatorMaximum`.",
+       );
 
   @override
   RationalNumber generate() {

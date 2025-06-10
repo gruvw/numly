@@ -12,19 +12,25 @@ import 'package:numly/state/persistence/database/tables/completed_levels_table.d
 
 abstract class $Database extends i0.GeneratedDatabase {
   $Database(i0.QueryExecutor e) : super(e);
-  late final i1.$HighScoreTableTable highScoreTable =
-      i1.$HighScoreTableTable(this);
+  late final i1.$HighScoreTableTable highScoreTable = i1.$HighScoreTableTable(
+    this,
+  );
   late final i2.$KvsTableTable kvsTable = i2.$KvsTableTable(this);
-  late final i3.$FavoriteTableTable favoriteTable =
-      i3.$FavoriteTableTable(this);
-  late final i4.$CompletedLevelsTableTable completedLevelsTable =
-      i4.$CompletedLevelsTableTable(this);
+  late final i3.$FavoriteTableTable favoriteTable = i3.$FavoriteTableTable(
+    this,
+  );
+  late final i4.$CompletedLevelsTableTable completedLevelsTable = i4
+      .$CompletedLevelsTableTable(this);
   @override
   Iterable<i0.TableInfo<i0.Table, Object?>> get allTables =>
       allSchemaEntities.whereType<i0.TableInfo<i0.Table, Object?>>();
   @override
-  List<i0.DatabaseSchemaEntity> get allSchemaEntities =>
-      [highScoreTable, kvsTable, favoriteTable, completedLevelsTable];
+  List<i0.DatabaseSchemaEntity> get allSchemaEntities => [
+    highScoreTable,
+    kvsTable,
+    favoriteTable,
+    completedLevelsTable,
+  ];
   @override
   i0.DriftDatabaseOptions get options =>
       const i0.DriftDatabaseOptions(storeDateTimeAsText: true);

@@ -120,33 +120,36 @@ GoRoute _categorizedRoute({
   );
 }
 
-final _bottomNavigationBranches =
-    AppRoutes.overviewBottomNavigationRoutes.mapIndexed((index, route) {
-  return StatefulShellBranch(
-    initialLocation: route.path,
-    navigatorKey: bottomNavigatorKeys[index],
-    routes: [
-      switch (route) {
-        OverviewNavigationRoute.learn => _categorizedRoute(
-            route: route,
-            categoriesForType: learnCategories,
-            gamesForType: learnGames,
-          ),
-        OverviewNavigationRoute.train => _categorizedRoute(
-            route: route,
-            categoriesForType: trainCategories,
-            gamesForType: trainGames,
-          ),
-        OverviewNavigationRoute.custom => GoRoute(
-            path: route.path,
-            builder: (context, state) {
-              return CustomScreen();
-            },
-          ),
-      },
-    ],
-  );
-});
+final _bottomNavigationBranches = AppRoutes.overviewBottomNavigationRoutes
+    .mapIndexed((
+      index,
+      route,
+    ) {
+      return StatefulShellBranch(
+        initialLocation: route.path,
+        navigatorKey: bottomNavigatorKeys[index],
+        routes: [
+          switch (route) {
+            OverviewNavigationRoute.learn => _categorizedRoute(
+              route: route,
+              categoriesForType: learnCategories,
+              gamesForType: learnGames,
+            ),
+            OverviewNavigationRoute.train => _categorizedRoute(
+              route: route,
+              categoriesForType: trainCategories,
+              gamesForType: trainGames,
+            ),
+            OverviewNavigationRoute.custom => GoRoute(
+              path: route.path,
+              builder: (context, state) {
+                return CustomScreen();
+              },
+            ),
+          },
+        ],
+      );
+    });
 
 CustomTransitionPage<dynamic> _slidingSubroute({
   required GoRouterState state,

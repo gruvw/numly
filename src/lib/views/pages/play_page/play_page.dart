@@ -30,7 +30,7 @@ class PlayPage extends HookConsumerWidget {
         ref.read(kvsLastGameIdProvider.notifier).set(gameId);
       });
       return null;
-    });
+    }, []);
 
     // TODO LATER (custom) games retrieval
     final game = allGames[gameId]!;
@@ -142,8 +142,9 @@ class PlayPage extends HookConsumerWidget {
         Spacer(),
         NumberInput(
           numberController: numberController,
-          solutionType:
-              testValue?.getQuestion(answeredQuestionsCount.value).solutionType,
+          solutionType: testValue
+              ?.getQuestion(answeredQuestionsCount.value)
+              .solutionType,
           mistakeStreak: mistakseStreak.value,
           lastSubmittedAnswer: lastAnswerSubmitted.value,
         ),

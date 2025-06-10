@@ -12,32 +12,32 @@ final dbProvider = Provider<Database>(
 
 final highScoreForTrainingLengthProvider =
     StreamProvider.family<Score?, GameSetting>(
-  (ref, gameSetting) {
-    final db = ref.read(dbProvider);
+      (ref, gameSetting) {
+        final db = ref.read(dbProvider);
 
-    return (db.select(db.highScoreTable)
-          ..where(
-            (t) =>
-                t.gameId.equals(gameSetting.gameId) &
-                t.length.equals(gameSetting.length),
-          ))
-        .watchSingleOrNull();
-  },
-);
+        return (db.select(db.highScoreTable)..where(
+              (t) =>
+                  t.gameId.equals(gameSetting.gameId) &
+                  t.length.equals(gameSetting.length),
+            ))
+            .watchSingleOrNull();
+      },
+    );
 
 final highScoreSelectedTrainingLengthProvider =
     FutureProvider.family<Score?, GameId>(
-  (ref, gameId) async {
-    final selectedTrainingLength =
-        await ref.watch(kvsTrainingLengthProvider.future);
+      (ref, gameId) async {
+        final selectedTrainingLength = await ref.watch(
+          kvsTrainingLengthProvider.future,
+        );
 
-    return ref.watch(
-      highScoreForTrainingLengthProvider(
-        (gameId: gameId, length: selectedTrainingLength),
-      ).future,
+        return ref.watch(
+          highScoreForTrainingLengthProvider(
+            (gameId: gameId, length: selectedTrainingLength),
+          ).future,
+        );
+      },
     );
-  },
-);
 
 final favoriteGameIdsProvider = StreamProvider<Set<GameId>>(
   (ref) {

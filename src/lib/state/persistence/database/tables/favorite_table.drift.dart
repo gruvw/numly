@@ -12,12 +12,17 @@ class $FavoriteTableTable extends i2.FavoriteTable
   final i0.GeneratedDatabase attachedDatabase;
   final String? _alias;
   $FavoriteTableTable(this.attachedDatabase, [this._alias]);
-  static const i0.VerificationMeta _gameIdMeta =
-      const i0.VerificationMeta('gameId');
+  static const i0.VerificationMeta _gameIdMeta = const i0.VerificationMeta(
+    'gameId',
+  );
   @override
   late final i0.GeneratedColumn<String> gameId = i0.GeneratedColumn<String>(
-      'game_id', aliasedName, false,
-      type: i0.DriftSqlType.string, requiredDuringInsert: true);
+    'game_id',
+    aliasedName,
+    false,
+    type: i0.DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   @override
   List<i0.GeneratedColumn> get $columns => [gameId];
   @override
@@ -27,13 +32,16 @@ class $FavoriteTableTable extends i2.FavoriteTable
   static const String $name = 'favorite';
   @override
   i0.VerificationContext validateIntegrity(
-      i0.Insertable<i1.FavoriteTableData> instance,
-      {bool isInserting = false}) {
+    i0.Insertable<i1.FavoriteTableData> instance, {
+    bool isInserting = false,
+  }) {
     final context = i0.VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('game_id')) {
-      context.handle(_gameIdMeta,
-          gameId.isAcceptableOrUnknown(data['game_id']!, _gameIdMeta));
+      context.handle(
+        _gameIdMeta,
+        gameId.isAcceptableOrUnknown(data['game_id']!, _gameIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_gameIdMeta);
     }
@@ -46,8 +54,10 @@ class $FavoriteTableTable extends i2.FavoriteTable
   i1.FavoriteTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return i1.FavoriteTableData(
-      gameId: attachedDatabase.typeMapping
-          .read(i0.DriftSqlType.string, data['${effectivePrefix}game_id'])!,
+      gameId: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}game_id'],
+      )!,
     );
   }
 
@@ -68,8 +78,10 @@ class FavoriteTableData extends i0.DataClass
     return map;
   }
 
-  factory FavoriteTableData.fromJson(Map<String, dynamic> json,
-      {i0.ValueSerializer? serializer}) {
+  factory FavoriteTableData.fromJson(
+    Map<String, dynamic> json, {
+    i0.ValueSerializer? serializer,
+  }) {
     serializer ??= i0.driftRuntimeOptions.defaultSerializer;
     return FavoriteTableData(
       gameId: serializer.fromJson<String>(json['gameId']),
@@ -84,8 +96,8 @@ class FavoriteTableData extends i0.DataClass
   }
 
   i1.FavoriteTableData copyWith({String? gameId}) => i1.FavoriteTableData(
-        gameId: gameId ?? this.gameId,
-      );
+    gameId: gameId ?? this.gameId,
+  );
   FavoriteTableData copyWithCompanion(i1.FavoriteTableCompanion data) {
     return FavoriteTableData(
       gameId: data.gameId.present ? data.gameId.value : this.gameId,
@@ -129,8 +141,10 @@ class FavoriteTableCompanion extends i0.UpdateCompanion<i1.FavoriteTableData> {
     });
   }
 
-  i1.FavoriteTableCompanion copyWith(
-      {i0.Value<String>? gameId, i0.Value<int>? rowid}) {
+  i1.FavoriteTableCompanion copyWith({
+    i0.Value<String>? gameId,
+    i0.Value<int>? rowid,
+  }) {
     return i1.FavoriteTableCompanion(
       gameId: gameId ?? this.gameId,
       rowid: rowid ?? this.rowid,

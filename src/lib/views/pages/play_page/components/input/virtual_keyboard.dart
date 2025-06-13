@@ -51,10 +51,7 @@ class VirtualKeyboard extends HookWidget {
       disabled: disabled,
       onPressed: onPressed,
       onLongPress: onLongPress,
-      child: Icon(
-        icon,
-        color: Styles.colorBackground,
-      ),
+      child: Icon(icon),
     );
   }
 

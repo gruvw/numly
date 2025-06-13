@@ -27,7 +27,7 @@ class VirtualKey extends StatelessWidget {
 
     final button = ElevatedButton(
       onPressed: disabled ? null : onPressed,
-      onLongPress: onLongPress,
+      onLongPress: disabled ? null : onLongPress,
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(),
         backgroundColor: Styles.colorForeground,

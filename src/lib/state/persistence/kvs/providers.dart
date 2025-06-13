@@ -1,6 +1,7 @@
 import "package:hooks_riverpod/hooks_riverpod.dart";
+import "package:numly/models/data/mistake_streak.dart";
+import "package:numly/models/data/training_length.dart";
 import "package:numly/models/game/game.dart";
-import "package:numly/models/test/training_length.dart";
 import "package:numly/state/persistence/kvs/kvs_notifier.dart";
 import "package:numly/state/persistence/providers.dart";
 
@@ -24,6 +25,16 @@ final kvsTrainingLengthProvider = AsyncNotifierProvider<KvsNotifier<int>, int>(
     );
   },
 );
+
+final kvsMaxMistakeStreakProvider =
+    AsyncNotifierProvider<KvsNotifier<int>, int>(
+      () {
+        return KvsNotifier.integer(
+          configKey: "max_mistake_streak",
+          defaultValue: MaxMistakeStreak.retry.amount,
+        );
+      },
+    );
 
 final kvsLastGameIdProvider =
     AsyncNotifierProvider<KvsNotifier<String?>, GameId?>(() {

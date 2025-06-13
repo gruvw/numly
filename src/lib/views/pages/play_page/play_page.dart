@@ -39,9 +39,9 @@ class PlayPage extends HookConsumerWidget {
     final testStart = useState(DateTime.now());
     final testEnd = useState<DateTime?>(null);
     final answeredQuestionsCount = useState(0);
-    final mistaksesCount = useState(0);
+    final mistakesCount = useState(0);
     // TODO reset streaks and show answer after x (=2) wrong attempts
-    final mistakseStreak = useState(0);
+    final mistakeStreak = useState(0);
     final lastAnswerSubmitted = useState<String?>(null);
 
     // used for endless mode, must have the same length as test
@@ -53,9 +53,9 @@ class PlayPage extends HookConsumerWidget {
       testStart.value = DateTime.now();
       testEnd.value = null;
       answeredQuestionsCount.value = 0;
-      mistaksesCount.value = 0;
+      mistakesCount.value = 0;
       lastAnswerSubmitted.value = null;
-      mistakseStreak.value = 0;
+      mistakeStreak.value = 0;
     }
 
     final trainingLength = ref.watch(kvsTrainingLengthProvider);
@@ -78,6 +78,7 @@ class PlayPage extends HookConsumerWidget {
       },
       [trainingLength],
     );
+    final maxMistakeStreak = ref.watch(kvsMaxMistakeStreakProvider).value;
 
     final endlessMode = ref.watch(kvsEndlessModeProvider).value;
 
@@ -86,6 +87,14 @@ class PlayPage extends HookConsumerWidget {
     final testValue = test.value;
     final nextTestValue = nextTest.value;
     final testEndValue = testEnd.value;
+
+    nextQuestion() {
+      answeredQuestionsCount.value += 1;
+      mistakeStreak.value = 0;
+    }
+
+    final displayCorrectAnswer =
+        maxMistakeStreak != null && mistakeStreak.value >= maxMistakeStreak;
 
     final restartButton = IconButton(
       onPressed: testValue == null || endlessMode == true
@@ -140,18 +149,29 @@ class PlayPage extends HookConsumerWidget {
             color: Styles.colorForeground,
           ),
         Spacer(),
-        NumberInput(
-          numberController: numberController,
-          solutionType: testValue
-              ?.getQuestion(answeredQuestionsCount.value)
-              .solutionType,
-          mistakeStreak: mistakseStreak.value,
-          lastSubmittedAnswer: lastAnswerSubmitted.value,
-        ),
+        if (testValue != null)
+          NumberInput(
+            numberController: numberController,
+            currentQuestion: testValue.getQuestion(
+              answeredQuestionsCount.value,
+            ),
+            mistakeStreak: mistakeStreak.value,
+            lastSubmittedAnswer: lastAnswerSubmitted.value,
+            displayCorrectAnswer: displayCorrectAnswer,
+          ),
         Gap(Styles.standardSpacing * 4),
         VirtualKeyboard(
           numberController: numberController,
+          submitOnly: displayCorrectAnswer,
           onSubmit: (numberTextAnswer) {
+            if (numberTextAnswer.isEmpty) {
+              if (displayCorrectAnswer) {
+                // question was not answered (correct answer displayed)
+                nextQuestion();
+              }
+              return;
+            }
+
             if (testValue == null ||
                 nextTestValue == null ||
                 endlessMode == null) {
@@ -177,11 +197,10 @@ class PlayPage extends HookConsumerWidget {
                   );
                 }
               }
-              answeredQuestionsCount.value += 1;
-              mistakseStreak.value = 0;
+              nextQuestion();
             } else {
-              mistaksesCount.value += 1;
-              mistakseStreak.value += 1;
+              mistakesCount.value += 1;
+              mistakeStreak.value += 1;
             }
           },
         ),
@@ -193,7 +212,7 @@ class PlayPage extends HookConsumerWidget {
         ? testContent
         : ResultScreen(
             testDuration: testEndValue.difference(testStart.value),
-            mistakesCount: mistaksesCount.value,
+            mistakesCount: mistakesCount.value,
             answeredQuestionsCount: answeredQuestionsCount.value,
           );
 

@@ -66,6 +66,7 @@
     - [X] Show next question (also in endless mode: rotate test with next test)
     - [ ] Implement test UI
     - [X] Making mistakes should not be "red = bad" type, encourage making mistakes and promote learning, same with sound (no big error sound)
+    - [X] Display correct answer after X mistake streak
     - [X] Display mistakes and show previous answer with mistake streak
     - [X] Restart test button
 - [X] Last game played quick play (replay) button
@@ -81,13 +82,14 @@
     - [ ] Analytics (difficult questions, average, slowest, fastest, ...)
     - [ ] Share test result
     - [ ] Share exact test for friends to try it
+    - [ ] Partial test indicator (one question was not answered correctly, answer shown after reaching max mistake streak)
 - [ ] Level design (train and learn basic levels)
-    - [ ] Currency change (dollars, euro, chf, pounds, japanese yen)
+    - [ ] Currency change (dollars, euro, CHF, pounds, Japanese yen)
     - [ ] Date / Age computation (1900, 2025)
 - [X] Application icon
 - [X] Splash screen
 - [ ] Settings page
-    - [ ] Retry on error / Show correct result (toggle button)
+    - [ ] Maximum mistake streak (1, 2, 3, 5, unlimited)
     - [ ] Number of questions per test
     - [ ] Number ranges
     - [ ] Different ranges for each number (first, second number)
@@ -95,7 +97,7 @@
     - [ ] Save custom settings presets
     - [ ] Reset all high scores
     - [ ] Reset high score for a particular test
-    - [ ] Show next operation (display next operation in small text, tetris next piece like)
+    - [ ] Show next operation (display next operation in small text, Tetris next piece like)
     - [ ] Disable test restart button
     - [ ] Export data (export results, export settings, ...)
     - [ ] Import data

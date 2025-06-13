@@ -10,11 +10,13 @@ import "package:numly/views/pages/play_page/components/input/virtual_key.dart";
 
 class VirtualKeyboard extends HookWidget {
   final TextEditingController numberController;
+  final bool submitOnly;
   final Function(String numberText) onSubmit;
 
   const VirtualKeyboard({
     super.key,
     required this.numberController,
+    required this.submitOnly,
     required this.onSubmit,
   });
 
@@ -25,7 +27,7 @@ class VirtualKeyboard extends HookWidget {
     );
   }
 
-  Widget _textKey(String text, [bool disabled = false]) {
+  Widget _textKey(String text, {bool disabled = false}) {
     return VirtualKey(
       disabled: disabled,
       onPressed: () {
@@ -35,12 +37,18 @@ class VirtualKeyboard extends HookWidget {
     );
   }
 
+  Widget _textKeys(Iterable<String> texts, {bool disabled = false}) {
+    return _rowKeys(texts.map((t) => _textKey(t, disabled: disabled)));
+  }
+
   Widget _iconKey(
     IconData icon,
-    VoidCallback onPressed, [
+    VoidCallback onPressed, {
     VoidCallback? onLongPress,
-  ]) {
+    bool disabled = false,
+  }) {
     return VirtualKey(
+      disabled: disabled,
       onPressed: onPressed,
       onLongPress: onLongPress,
       child: Icon(
@@ -50,57 +58,59 @@ class VirtualKeyboard extends HookWidget {
     );
   }
 
-  Widget _textKeys(Iterable<String> texts, [bool disabled = false]) {
-    return _rowKeys(texts.map((t) => _textKey(t, disabled)));
-  }
-
   @override
   Widget build(BuildContext context) {
     useListenable(numberController);
     final numberText = numberController.text;
 
-    final numberDisabled = numberText.endsWith(Keys.percent);
+    final emptyDisabled = numberText.isEmpty;
+    final numberDisabled = numberText.endsWith(Keys.percent) || submitOnly;
     final symbolDisabled =
         numberText.contains(Keys.decimal) ||
         numberText.contains(Keys.fraction) ||
-        numberText.contains(Keys.percent);
-    final emptyDisabled = numberText.isEmpty;
-    final fractionDisabled = numberText.endsWith(Keys.fraction);
+        numberText.contains(Keys.percent) ||
+        submitOnly;
+    final zeroDivisionDisabled = numberText.endsWith(Keys.fraction);
 
     final backspaceKey = _iconKey(
       Symbols.keyboard_backspace,
-      () => numberController.text = numberController.text.substring(
-        0,
-        max(0, numberController.text.length - 1),
-      ),
-      () => numberController.text = "",
+      () {
+        numberController.text = numberController.text.substring(
+          0,
+          max(0, numberController.text.length - 1),
+        );
+      },
+      onLongPress: () => numberController.text = "",
+      disabled: emptyDisabled || submitOnly,
+    );
+
+    // TODO enter on keyboard should submit
+    final submitKey = _iconKey(
+      Symbols.check,
+      () {
+        numberController.text = numberSubmitter(numberText);
+
+        onSubmit(numberController.text);
+        numberController.text = "";
+      },
+      disabled: emptyDisabled && !submitOnly,
     );
 
     final zeroKey = _textKey(
       Keys.zero,
-      numberDisabled || emptyDisabled || fractionDisabled,
+      disabled: numberDisabled || emptyDisabled || zeroDivisionDisabled,
     );
-
-    // TODO enter on keyboard should submit
-    final submitKey = _iconKey(Symbols.check, () {
-      numberController.text = numberSubmitter(numberText);
-
-      if (numberController.text.isNotEmpty) {
-        onSubmit(numberController.text);
-        numberController.text = "";
-      }
-    });
 
     final keys = [
       _rowKeys([
-        _textKey(Keys.negative),
-        _textKey(Keys.decimal, symbolDisabled),
-        _textKey(Keys.fraction, symbolDisabled || emptyDisabled),
-        _textKey(Keys.percent, symbolDisabled || emptyDisabled),
+        _textKey(Keys.negative, disabled: submitOnly),
+        _textKey(Keys.decimal, disabled: symbolDisabled),
+        _textKey(Keys.fraction, disabled: symbolDisabled || emptyDisabled),
+        _textKey(Keys.percent, disabled: symbolDisabled || emptyDisabled),
       ]),
-      _textKeys(Keys.numbersRow1, numberDisabled),
-      _textKeys(Keys.numbersRow2, numberDisabled),
-      _textKeys(Keys.numbersRow3, numberDisabled),
+      _textKeys(Keys.numbersRow1, disabled: numberDisabled),
+      _textKeys(Keys.numbersRow2, disabled: numberDisabled),
+      _textKeys(Keys.numbersRow3, disabled: numberDisabled),
       _rowKeys([backspaceKey, zeroKey, submitKey]),
     ];
 

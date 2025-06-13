@@ -2,43 +2,44 @@ import "package:flutter/material.dart";
 import "package:material_symbols_icons/symbols.dart";
 import "package:numly/models/test/question.dart";
 import "package:numly/static/styles.dart";
-import "package:numly/utils/language.dart";
 import "package:numly/utils/widget_symmetric_padding.dart";
+import "package:numly/views/pages/play_page/components/input/empty_formatter.dart";
 import "package:numly/views/pages/play_page/components/input/number_formatter.dart";
 
 class NumberInput extends StatelessWidget {
   final TextEditingController numberController;
-  final SolutionType? solutionType;
+  final Question currentQuestion;
   final int mistakeStreak;
   final String? lastSubmittedAnswer;
+  final bool displayCorrectAnswer;
 
   const NumberInput({
     super.key,
     required this.numberController,
-    required this.solutionType,
+    required this.currentQuestion,
     required this.mistakeStreak,
     required this.lastSubmittedAnswer,
+    required this.displayCorrectAnswer,
   });
 
   @override
   Widget build(BuildContext context) {
-    final displayMistake = mistakeStreak > 0;
+    final didMistake = mistakeStreak > 0;
 
-    final solutionTypeIndicator =
-        solutionType?.nmap((solutionType) {
-          return Tooltip(
-            message: "Solution Type",
-            child: Icon(color: Styles.colorForeground, switch (solutionType) {
-              SolutionType.decimal => Symbols.speed_1_25,
-              SolutionType.fractional => Symbols.timelapse,
-              SolutionType.percent => Symbols.percent,
-            }),
-          );
-        }) ??
-        SizedBox();
+    final solutionTypeIndicator = Tooltip(
+      message: "Solution Type",
+      child: Icon(
+        color: Styles.colorForeground,
+        switch (currentQuestion.solutionType) {
+          SolutionType.decimal => Symbols.speed_1_25,
+          SolutionType.fractional => Symbols.timelapse,
+          SolutionType.percent => Symbols.percent,
+        },
+      ),
+    );
 
     // display last answer on mistake
-    final mistakeIndicator = displayMistake
+    final mistakeIndicator = didMistake
         ? Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
@@ -68,7 +69,11 @@ class NumberInput extends StatelessWidget {
         decimal: true,
       ),
       enableSuggestions: false,
-      inputFormatters: [NumberFormatter()],
+      inputFormatters: [
+        NumberFormatter(),
+        // disallow input if showing correct answer
+        if (displayCorrectAnswer) EmptyFormatter(),
+      ],
       textAlign: TextAlign.center,
       style: TextStyle(
         color: Styles.colorForeground,
@@ -79,8 +84,16 @@ class NumberInput extends StatelessWidget {
         focusedBorder: InputBorder.none,
         enabledBorder: InputBorder.none,
         disabledBorder: InputBorder.none,
-        hintText: displayMistake ? lastSubmittedAnswer : null,
-        hintStyle: TextStyle(color: Styles.colorWarning),
+        hintText: didMistake
+            ? (displayCorrectAnswer
+                  ? currentQuestion.solutionText
+                  : lastSubmittedAnswer)
+            : null,
+        hintStyle: TextStyle(
+          color: displayCorrectAnswer
+              ? Styles.colorSuccess
+              : Styles.colorWarning,
+        ),
       ),
     );
 
@@ -98,7 +111,7 @@ class NumberInput extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           WidgetSymmetricPadding(
-            paddingWidget: displayMistake
+            paddingWidget: didMistake
                 ? mistakeIndicator
                 : solutionTypeIndicator,
             child: Padding(

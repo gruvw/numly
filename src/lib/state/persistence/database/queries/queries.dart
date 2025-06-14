@@ -1,6 +1,7 @@
 import "package:drift/drift.dart";
 import "package:numly/models/data/score.dart";
 import "package:numly/state/persistence/database/core/database.dart";
+import "package:numly/state/persistence/database/tables/completed_levels_table.drift.dart";
 import "package:numly/state/persistence/database/tables/favorite_table.drift.dart";
 import "package:numly/state/persistence/database/tables/high_score_table.drift.dart";
 
@@ -29,8 +30,18 @@ class Queries {
   }
 
   /// Register the new test score and return the highest score for the same game and test length.
-  Future<Score> registerScore(Score score) async {
+  /// If [targetDuration] is non-zero, it will mark the level (score game id) as completed if the score duration is less than the [targetDuration].
+  Future<Score> registerScore(Score score, Duration targetDuration) async {
     return _db.transaction(() async {
+      if (targetDuration > Duration.zero && score.duration < targetDuration) {
+        await _db
+            .into(_db.completedLevelsTable)
+            .insertOnConflictUpdate(
+              CompletedLevelsTableCompanion.insert(
+                gameId: score.gameId,
+              ),
+            );
+      }
       final query = _db.select(_db.highScoreTable)
         ..where(
           (t) => t.gameId.equals(score.gameId) & t.length.equals(score.length),

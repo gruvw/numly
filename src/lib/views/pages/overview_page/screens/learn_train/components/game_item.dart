@@ -54,7 +54,11 @@ class GameItem extends HookConsumerWidget {
 
     late final Widget trailing;
     if (highScore == null || completedLevelIds == null) {
-      trailing = Icon(Styles.iconNoData);
+      trailing = IconButton(
+        onPressed: null,
+        disabledColor: Styles.colorForeground,
+        icon: Icon(Styles.iconNoData),
+      );
     } else {
       final levelCompleted = completedLevelIds.contains(game.id);
 

@@ -41,6 +41,7 @@ class ResultScreen extends HookConsumerWidget {
               length: doneQuestionsCount,
               duration: testDuration,
             ),
+            targetDuration,
           );
     });
     final highScore = useFuture(scoreRegistration).data;

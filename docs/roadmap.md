@@ -75,9 +75,9 @@
     - [X] Test duration / time (20 questions, as fast as possible)
     - [X] Play again (same test)
     - [ ] Go to next level
-    - [ ] Previous high score
-    - [ ] How much time was needed to pass the level
-    - [ ] Level succeeded or not
+    - [X] High score
+    - [X] How much time was needed to pass the level
+    - [X] Level succeeded or not
     - [X] Number of errors
     - [X] Partial test indicator (one question was not answered correctly, answer shown after reaching max mistake streak)
     - [X] Accuracy

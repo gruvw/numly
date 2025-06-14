@@ -90,6 +90,9 @@ class KvsNotifier<T> extends AsyncNotifier<T> {
         );
   }
 
+  /// Resets the value to its default.
+  /// Effectively removes the key from the store.
+  /// The effect is not immediately reflected on the notifier.
   Future<void> reset() async {
     final delete = (_db.delete(_db.kvsTable))..where((t) => t.key.equals(key));
 

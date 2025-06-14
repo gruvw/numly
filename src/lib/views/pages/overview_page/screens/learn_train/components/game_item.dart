@@ -19,13 +19,24 @@ class GameItem extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isLevel = learnGames.containsKey(game.id);
+
     final forceShowHighScore = useState(false);
 
     final db = ref.read(dbProvider);
     final favoriteGameIds = ref.watch(favoriteGameIdsProvider).value;
-    final highScore = ref
+    final highScoreTrain = ref
         .watch(highScoreSelectedTrainingLengthProvider(game.id))
         .value;
+    final highScoreLearn = ref
+        .watch(
+          highScoreForTrainingLengthProvider((
+            gameId: game.id,
+            length: learnTestLength,
+          )),
+        )
+        .value;
+    final highScore = isLevel ? highScoreLearn : highScoreTrain;
     final completedLevelIds = ref.watch(completedLevelIdsProvider).value;
 
     toggleForceShowHighScore() =>
@@ -65,9 +76,7 @@ class GameItem extends HookConsumerWidget {
 
       trailing = IconButton(
         onPressed: toggleForceShowHighScore,
-        icon: forceShowHighScore.value || !learnGames.containsKey(game.id)
-            ? highScoreText
-            : levelIcon,
+        icon: forceShowHighScore.value || !isLevel ? highScoreText : levelIcon,
       );
     }
 

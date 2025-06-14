@@ -161,33 +161,17 @@ class PlayPage extends HookConsumerWidget {
           numberController: numberController,
           submitOnly: displayCorrectAnswer,
           onSubmit: (numberTextAnswer) {
-            nextQuestion() {
-              doneQuestionsCount.value += 1;
-              mistakeStreak.value = 0;
-            }
-
-            if (numberTextAnswer.isEmpty) {
-              if (displayCorrectAnswer) {
-                // question was not answered (correct answer displayed)
-                failedQuestionsCount.value += 1;
-                nextQuestion();
-              }
-              return;
-            }
-
             if (testValue == null ||
                 nextTestValue == null ||
                 endlessMode == null) {
               return;
             }
 
-            lastAnswerSubmitted.value = numberTextAnswer;
+            nextQuestion() {
+              doneQuestionsCount.value += 1;
+              mistakeStreak.value = 0;
 
-            if (testValue
-                .getQuestion(doneQuestionsCount.value % testValue.length)
-                .verify(numberTextAnswer)
-                .correct) {
-              if ((doneQuestionsCount.value % testValue.length) + 1 >=
+              if (((doneQuestionsCount.value - 1) % testValue.length) + 1 >=
                   testValue.length) {
                 if (!endlessMode) {
                   // test finished
@@ -200,6 +184,23 @@ class PlayPage extends HookConsumerWidget {
                   );
                 }
               }
+            }
+
+            if (numberTextAnswer.isEmpty) {
+              if (displayCorrectAnswer) {
+                // question was not answered (correct answer displayed)
+                failedQuestionsCount.value += 1;
+                nextQuestion();
+              }
+              return;
+            }
+
+            lastAnswerSubmitted.value = numberTextAnswer;
+
+            if (testValue
+                .getQuestion(doneQuestionsCount.value % testValue.length)
+                .verify(numberTextAnswer)
+                .correct) {
               nextQuestion();
             } else {
               mistakesCount.value += 1;
@@ -211,10 +212,12 @@ class PlayPage extends HookConsumerWidget {
       ],
     );
 
-    final content = testEndValue == null
+    final content = testEndValue == null || testValue == null
         ? testContent
         : ResultScreen(
+            game: game,
             testDuration: testEndValue.difference(testStart.value),
+            targetDuration: testValue.targetDuration,
             mistakesCount: mistakesCount.value,
             doneQuestionsCount: doneQuestionsCount.value,
             failedQuestionsCount: failedQuestionsCount.value,

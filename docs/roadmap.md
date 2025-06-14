@@ -79,11 +79,11 @@
     - [ ] How much time was needed to pass the level
     - [ ] Level succeeded or not
     - [X] Number of errors
+    - [X] Partial test indicator (one question was not answered correctly, answer shown after reaching max mistake streak)
+    - [X] Accuracy
     - [ ] Analytics (difficult questions, average, slowest, fastest, ...)
     - [ ] Share test result
     - [ ] Share exact test for friends to try it
-    - [X] Partial test indicator (one question was not answered correctly, answer shown after reaching max mistake streak)
-    - [ ] Accuracy
 - [ ] Level design (train and learn basic levels)
     - [ ] Currency change (dollars, euro, CHF, pounds, Japanese yen)
     - [ ] Date / Age computation (1900, 2025)
@@ -111,6 +111,10 @@
 - [ ] Add bug report button
 - [ ] Add donate feature
 - [ ] Find an Open Source license for the project
+- [ ] Write a few tests for the app
+    - [ ] Basic end to end tests
+    - [ ] Unit tests for math library
+    - [ ] Unit tests for number formatter / input
 
 ### Extra
 
@@ -152,3 +156,4 @@
 
 - Go-maths
 - Complete Music Trainer
+- MonkeyType

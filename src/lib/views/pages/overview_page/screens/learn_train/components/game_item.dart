@@ -50,7 +50,7 @@ class GameItem extends HookConsumerWidget {
       final highScoreSeconds =
           highScore.duration.inMilliseconds / Duration.millisecondsPerSecond;
       final highScoreText = Text(
-        "${highScoreSeconds.toStringAsPrecision(Values.highScorePrecision)}s",
+        "${highScoreSeconds.toStringAsFixed(Values.highScoreDecimals)}s",
         style: TextStyle(
           color: levelCompleted ? Styles.colorSuccess : Styles.colorForeground,
         ),

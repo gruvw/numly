@@ -45,7 +45,9 @@ String numberFormatter(String text) {
   }
 
   // trim leading zeros (before and after fraction), leading fraction, and leading percent
-  result = result.removeAll(RegExp(r"^0+|(?<=\/)0|^/+|^%+"));
+  result = result.removeAll(
+    RegExp(r"(?<=^0)[0\/%]+|^0+(?=[1-9]+)|(?<=\/)0|^/+|^%+"),
+  );
 
   // apply sign
   if (isNeg) {

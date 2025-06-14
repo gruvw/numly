@@ -68,6 +68,7 @@ class VirtualKeyboard extends HookWidget {
         numberText.contains(Keys.percent) ||
         submitOnly;
     final zeroDivisionDisabled = numberText.endsWith(Keys.fraction);
+    final zeroValueDisabled = numberText.contains(RegExp(r"^-?0$"));
 
     final backspaceKey = _iconKey(
       Symbols.keyboard_backspace,
@@ -95,15 +96,21 @@ class VirtualKeyboard extends HookWidget {
 
     final zeroKey = _textKey(
       Keys.zero,
-      disabled: numberDisabled || emptyDisabled || zeroDivisionDisabled,
+      disabled: numberDisabled || zeroDivisionDisabled || zeroValueDisabled,
     );
 
     final keys = [
       _rowKeys([
         _textKey(Keys.negative, disabled: submitOnly),
         _textKey(Keys.decimal, disabled: symbolDisabled),
-        _textKey(Keys.fraction, disabled: symbolDisabled || emptyDisabled),
-        _textKey(Keys.percent, disabled: symbolDisabled || emptyDisabled),
+        _textKey(
+          Keys.fraction,
+          disabled: symbolDisabled || emptyDisabled || zeroValueDisabled,
+        ),
+        _textKey(
+          Keys.percent,
+          disabled: symbolDisabled || emptyDisabled || zeroValueDisabled,
+        ),
       ]),
       _textKeys(Keys.numbersRow1, disabled: numberDisabled),
       _textKeys(Keys.numbersRow2, disabled: numberDisabled),

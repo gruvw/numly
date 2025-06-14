@@ -82,7 +82,8 @@
     - [ ] Analytics (difficult questions, average, slowest, fastest, ...)
     - [ ] Share test result
     - [ ] Share exact test for friends to try it
-    - [ ] Partial test indicator (one question was not answered correctly, answer shown after reaching max mistake streak)
+    - [X] Partial test indicator (one question was not answered correctly, answer shown after reaching max mistake streak)
+    - [ ] Accuracy
 - [ ] Level design (train and learn basic levels)
     - [ ] Currency change (dollars, euro, CHF, pounds, Japanese yen)
     - [ ] Date / Age computation (1900, 2025)

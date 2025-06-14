@@ -38,11 +38,12 @@ class PlayPage extends HookConsumerWidget {
     final test = useState<Test?>(null);
     final testStart = useState(DateTime.now());
     final testEnd = useState<DateTime?>(null);
-    final answeredQuestionsCount = useState(0);
+    final doneQuestionsCount = useState(0);
     final mistakesCount = useState(0);
     // TODO reset streaks and show answer after x (=2) wrong attempts
     final mistakeStreak = useState(0);
     final lastAnswerSubmitted = useState<String?>(null);
+    final failedQuestionsCount = useState(0);
 
     // used for endless mode, must have the same length as test
     final nextTest = useState<Test?>(null);
@@ -52,10 +53,11 @@ class PlayPage extends HookConsumerWidget {
       nextTest.value = Test(parts: game.parts, length: length);
       testStart.value = DateTime.now();
       testEnd.value = null;
-      answeredQuestionsCount.value = 0;
+      doneQuestionsCount.value = 0;
       mistakesCount.value = 0;
       lastAnswerSubmitted.value = null;
       mistakeStreak.value = 0;
+      failedQuestionsCount.value = 0;
     }
 
     final trainingLength = ref.watch(kvsTrainingLengthProvider);
@@ -87,11 +89,6 @@ class PlayPage extends HookConsumerWidget {
     final testValue = test.value;
     final nextTestValue = nextTest.value;
     final testEndValue = testEnd.value;
-
-    nextQuestion() {
-      answeredQuestionsCount.value += 1;
-      mistakeStreak.value = 0;
-    }
 
     final displayCorrectAnswer =
         maxMistakeStreak != null && mistakeStreak.value >= maxMistakeStreak;
@@ -141,7 +138,7 @@ class PlayPage extends HookConsumerWidget {
           TestArea(
             test: testValue,
             nextTest: nextTestValue,
-            answeredQuestionsCount: answeredQuestionsCount.value,
+            doneQuestionsCount: doneQuestionsCount.value,
             isEndless: endlessMode,
           )
         else
@@ -149,11 +146,11 @@ class PlayPage extends HookConsumerWidget {
             color: Styles.colorForeground,
           ),
         Spacer(),
-        if (testValue != null)
+        if (testValue != null && doneQuestionsCount.value < testValue.length)
           NumberInput(
             numberController: numberController,
             currentQuestion: testValue.getQuestion(
-              answeredQuestionsCount.value,
+              doneQuestionsCount.value,
             ),
             mistakeStreak: mistakeStreak.value,
             lastSubmittedAnswer: lastAnswerSubmitted.value,
@@ -164,9 +161,15 @@ class PlayPage extends HookConsumerWidget {
           numberController: numberController,
           submitOnly: displayCorrectAnswer,
           onSubmit: (numberTextAnswer) {
+            nextQuestion() {
+              doneQuestionsCount.value += 1;
+              mistakeStreak.value = 0;
+            }
+
             if (numberTextAnswer.isEmpty) {
               if (displayCorrectAnswer) {
                 // question was not answered (correct answer displayed)
+                failedQuestionsCount.value += 1;
                 nextQuestion();
               }
               return;
@@ -181,10 +184,10 @@ class PlayPage extends HookConsumerWidget {
             lastAnswerSubmitted.value = numberTextAnswer;
 
             if (testValue
-                .getQuestion(answeredQuestionsCount.value % testValue.length)
+                .getQuestion(doneQuestionsCount.value % testValue.length)
                 .verify(numberTextAnswer)
                 .correct) {
-              if ((answeredQuestionsCount.value % testValue.length) + 1 >=
+              if ((doneQuestionsCount.value % testValue.length) + 1 >=
                   testValue.length) {
                 if (!endlessMode) {
                   // test finished
@@ -213,7 +216,8 @@ class PlayPage extends HookConsumerWidget {
         : ResultScreen(
             testDuration: testEndValue.difference(testStart.value),
             mistakesCount: mistakesCount.value,
-            answeredQuestionsCount: answeredQuestionsCount.value,
+            doneQuestionsCount: doneQuestionsCount.value,
+            failedQuestionsCount: failedQuestionsCount.value,
           );
 
     return Scaffold(

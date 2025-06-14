@@ -23,7 +23,7 @@ class Test {
   Test._(
     this._questions, {
     required this.targetDuration,
-  });
+  }) : assert(_questions.isNotEmpty, "test must have at least one question");
 
   factory Test({
     required List<TestPart> parts,

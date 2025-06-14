@@ -5,20 +5,20 @@ import "package:numly/views/pages/play_page/components/question_display.dart";
 class TestArea extends StatelessWidget {
   final Test test;
   final Test nextTest;
-  final int answeredQuestionsCount;
+  final int doneQuestionsCount;
   final bool isEndless;
 
   const TestArea({
     super.key,
     required this.test,
     required this.nextTest,
-    required this.answeredQuestionsCount,
+    required this.doneQuestionsCount,
     required this.isEndless,
   });
 
   @override
   Widget build(BuildContext context) {
-    final currentQuestionIndex = answeredQuestionsCount % test.length;
+    final currentQuestionIndex = doneQuestionsCount % test.length;
     final currentQuestion = test.getQuestion(currentQuestionIndex);
     final nextQuestion = currentQuestionIndex + 1 < test.length
         ? test.getQuestion(currentQuestionIndex + 1)
@@ -29,7 +29,7 @@ class TestArea extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("$answeredQuestionsCount/${isEndless ? "∞" : test.length}"),
+            Text("$doneQuestionsCount/${isEndless ? "∞" : test.length}"),
             nextQuestion == null
                 ? Text("---")
                 : QuestionDisplay(question: nextQuestion),

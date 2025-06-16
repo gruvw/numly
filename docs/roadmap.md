@@ -107,7 +107,19 @@
     - [ ] Tablet / Web layout
     - [ ] Small screens
 - [ ] Sound
+- [X] Internationalization and localization
 - [ ] Translate app
+    - [ ] English
+    - [ ] French
+    - [ ] Spanish
+    - [ ] Mandarin Chinese
+    - [ ] Standard Arabic
+    - [ ] Portuguese
+    - [ ] Hindi
+    - [ ] Russian
+    - [ ] Japanese
+    - [ ] Italian
+    - [ ] German
 - [ ] Add bug report button
 - [ ] Add donate feature
 - [ ] Find an Open Source license for the project

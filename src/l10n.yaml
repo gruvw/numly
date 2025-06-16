@@ -1,0 +1,11 @@
+# Flutter i18n documentation: https://docs.flutter.dev/ui/accessibility-and-internationalization/internationalization
+# generation cmd: flutter gen-l10n
+
+nullable-getter: false
+use-named-parameters: true
+
+arb-dir: lib/i18n/l10n/arb
+template-arb-file: numly_en.arb
+
+output-dir: lib/i18n/l10n/gen-l10n
+output-localization-file: numly_localizations.dart

@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_native_splash/flutter_native_splash.dart";
+import "package:numly/i18n/l10n/gen-l10n/numly_localizations.dart";
 import "package:numly/static/styles.dart";
 import "package:numly/static/values.dart";
 import "package:numly/views/navigation/router.dart";
@@ -22,6 +23,8 @@ class Application extends StatelessWidget {
         scaffoldBackgroundColor: Styles.colorBackground,
         primaryColor: Styles.colorForeground,
       ),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: router,
     );
   }

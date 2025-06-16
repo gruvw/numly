@@ -30,6 +30,11 @@ dependencies:
   path_provider: ^2.1.5
   flutter_native_splash: ^2.4.6
 
+  # i18n
+  intl: any
+  flutter_localizations:
+    sdk: flutter
+
 dev_dependencies:
   # testing
   test: ^1.25.15
@@ -56,7 +61,6 @@ dev_dependencies:
 
 flutter:
   generate: true
-  uses-material-design: true
 
 flutter_launcher_icons:
   image_path: assets/logo/numly.png

@@ -1,8 +1,9 @@
 import "package:flutter/material.dart";
 import "package:material_symbols_icons/symbols.dart";
+import "package:numly/i18n/utils/hardcoded_string.dart";
 import "package:numly/models/test/question.dart";
 import "package:numly/static/styles.dart";
-import "package:numly/utils/widget_symmetric_padding.dart";
+import "package:numly/views/components/widget_symmetric_padding.dart";
 import "package:numly/views/pages/play_page/components/input/empty_formatter.dart";
 import "package:numly/views/pages/play_page/components/input/number_formatter.dart";
 
@@ -27,7 +28,7 @@ class NumberInput extends StatelessWidget {
     final didMistake = mistakeStreak > 0;
 
     final solutionTypeIndicator = Tooltip(
-      message: "Solution Type",
+      message: "Solution Type".hardcoded,
       child: Icon(
         color: Styles.colorForeground,
         switch (currentQuestion.solutionType) {

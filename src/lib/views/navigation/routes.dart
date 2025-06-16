@@ -1,5 +1,6 @@
 import "package:flutter/widgets.dart";
 import "package:material_symbols_icons/symbols.dart";
+import "package:numly/i18n/utils/hardcoded_string.dart";
 import "package:numly/models/game/game.dart";
 
 sealed class AppRoutes {
@@ -32,6 +33,14 @@ enum OverviewNavigationRoute implements AppRoute {
 
   String gamePath(GameId gameId) {
     return path + AppRoute.separator + gameId;
+  }
+
+  String name(BuildContext context) {
+    return switch (this) {
+      learn => "Learn".hardcoded,
+      train => "Train".hardcoded,
+      custom => "Custom".hardcoded,
+    };
   }
 }
 

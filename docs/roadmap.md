@@ -109,7 +109,7 @@
 - [ ] Sound
 - [X] Internationalization and localization
 - [ ] Translate app
-    - [ ] English
+    - [ ] English (base)
     - [ ] French
     - [ ] Spanish
     - [ ] Mandarin Chinese

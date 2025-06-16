@@ -1,5 +1,5 @@
+import "package:numly/logic/math.dart";
 import "package:numly/static/math/numbers.dart";
-import "package:numly/utils/math.dart";
 
 // https://github.com/dart-lang/sdk/issues/46180
 BigInt _gcd(BigInt a, BigInt b) {

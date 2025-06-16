@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:numly/i18n/utils/hardcoded_string.dart";
 import "package:numly/static/styles.dart";
 import "package:numly/views/pages/overview_page/screens/components/list_item.dart";
 
@@ -31,7 +32,7 @@ class FavoriteDividedListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final favoritesItem = ListItem.favorites(
-      title: "Favorites ($favoritesAmount)",
+      title: "Favorites ($favoritesAmount)".hardcoded,
       onTap: onFavoritesTap,
     );
 

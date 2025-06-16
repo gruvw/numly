@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
 import "package:material_symbols_icons/symbols.dart";
+import "package:numly/i18n/utils/context_locale.dart";
+import "package:numly/i18n/utils/hardcoded_string.dart";
 import "package:numly/models/data/training_length.dart";
 import "package:numly/models/game/learn/learn.dart";
 import "package:numly/models/game/train/train.dart";
@@ -32,9 +34,8 @@ class OverviewPage extends ConsumerWidget {
 
     final appBar = AppBar(
       title: Text(
-        AppRoutes
-            .overviewBottomNavigationRoutes[navigationShell.currentIndex]
-            .name
+        AppRoutes.overviewBottomNavigationRoutes[navigationShell.currentIndex]
+            .name(context)
             .capitalize(),
       ),
       leading: isSubrouteDeep
@@ -63,12 +64,12 @@ class OverviewPage extends ConsumerWidget {
                 ref.read(kvsLastGameIdProvider.notifier).reset();
               }
             },
-            tooltip: "Replay",
+            tooltip: "Replay".hardcoded,
             icon: Icon(Styles.iconRepeat),
           ),
         if (navigationShell.currentIndex == OverviewNavigationRoute.train.index)
           PopupMenuButton(
-            tooltip: "Test length",
+            tooltip: "Test length".hardcoded,
             icon: Icon(Symbols.quiz),
             color: Styles.colorBackground,
             itemBuilder: (context) {
@@ -78,7 +79,7 @@ class OverviewPage extends ConsumerWidget {
                       .read(kvsTrainingLengthProvider.notifier)
                       .set(trainLength.length),
                   child: Text(
-                    "${trainLength.name.capitalize()} (${trainLength.length})",
+                    "${trainLength.name(context.l10n).capitalize()} (${trainLength.length})",
                     style: TextStyle(
                       fontWeight: trainLength.length == trainingLength
                           ? FontWeight.bold
@@ -110,7 +111,7 @@ class OverviewPage extends ConsumerWidget {
       items: AppRoutes.overviewBottomNavigationRoutes.map((route) {
         return BottomNavigationBarItem(
           icon: Icon(route.icon),
-          label: route.name.capitalize(),
+          label: route.name(context).capitalize(),
         );
       }).toList(),
     );

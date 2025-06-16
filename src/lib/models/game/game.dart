@@ -1,5 +1,6 @@
 import "dart:collection";
 
+import "package:numly/i18n/utils/locale_string.dart";
 import "package:numly/models/game/learn/learn.dart";
 import "package:numly/models/game/train/train.dart";
 import "package:numly/models/test/test.dart";
@@ -10,8 +11,8 @@ typedef GameId = String;
 
 class Category {
   final CategoryId id;
-  final String title;
-  final String subtitle;
+  final LocaleString title;
+  final LocaleString subtitle;
   final List<Game> games;
 
   static String subId(CategoryId categoryId, String gameIdSuffix) {
@@ -28,8 +29,8 @@ class Category {
 
 class Game {
   final GameId id;
-  final String title;
-  final String subtitle;
+  final LocaleString title;
+  final LocaleString subtitle;
   final List<TestPart> parts;
 
   String? get gameIdSuffix {

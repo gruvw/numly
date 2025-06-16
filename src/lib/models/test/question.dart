@@ -1,3 +1,5 @@
+import "package:numly/i18n/l10n/gen-l10n/numly_localizations.dart";
+import "package:numly/i18n/utils/hardcoded_string.dart";
 import "package:numly/logic/input_processing.dart";
 import "package:numly/models/math/rational_number.dart";
 import "package:numly/models/test/operation.dart";
@@ -38,12 +40,12 @@ class Question {
     );
   }
 
-  Result verify(String answerText) {
+  Result verify(String answerText, AppLocalizations l10n) {
     answerText = numberSubmitter(answerText);
     final answer = RationalNumber.tryParse(answerText);
 
     if (answer == null) {
-      return _wrongResult("Your answer is not a valid number.");
+      return _wrongResult("Your answer is not a valid number.".hardcoded);
     }
 
     if (answerText == solutionText) {
@@ -51,7 +53,7 @@ class Question {
     }
 
     if (solution.equals(answer)) {
-      return _wrongResult("Mathematically correct but wrong format.");
+      return _wrongResult("Mathematically correct but wrong format.".hardcoded);
     }
 
     return _wrongResult();

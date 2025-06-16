@@ -1,3 +1,4 @@
+import "package:numly/i18n/utils/hardcoded_string.dart";
 import "package:numly/models/game/game.dart";
 import "package:numly/models/test/operation.dart";
 import "package:numly/models/test/question.dart";
@@ -11,13 +12,13 @@ const _id = "integer-addition";
 
 final integerAddition = Category(
   id: _id,
-  title: "Integer Addition",
-  subtitle: "Adding integer numbers",
+  title: (l) => "Integer Addition".hardcoded,
+  subtitle: (l) => "Adding integer numbers".hardcoded,
   games: [
     Game.part(
       id: Category.subId(_id, "small-result"),
-      title: "Small result",
-      subtitle: "Addition with result <10",
+      title: (l) => "Small result".hardcoded,
+      subtitle: (l) => "Addition with result <10".hardcoded,
       part: TestPart(
         questionGenerator: MinMaxQuestionGenerator(
           numberGenerator: int0to10,
@@ -30,8 +31,8 @@ final integerAddition = Category(
     ),
     Game.part(
       id: Category.subId(_id, "small-numbers"),
-      title: "Small numbers",
-      subtitle: "Adding numbers <10",
+      title: (l) => "Small numbers".hardcoded,
+      subtitle: (l) => "Adding numbers <10".hardcoded,
       part: TestPart(
         questionGenerator: MinMaxQuestionGenerator(
           numberGenerator: int0to10,

@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
+import "package:numly/i18n/utils/hardcoded_string.dart";
 import "package:numly/models/data/score.dart";
 import "package:numly/models/game/game.dart";
 import "package:numly/state/persistence/providers.dart";
@@ -48,16 +49,20 @@ class ResultScreen extends HookConsumerWidget {
 
     return Column(
       children: [
-        Text("duration: $testDuration"),
-        Text("target duration: $targetDuration"),
-        Text("level success: ${testDuration < targetDuration}"),
-        if (highScore != null) Text("high score: ${highScore.duration}"),
-        Text("mistakes: $mistakesCount (/$doneQuestionsCount questions)"),
+        Text("duration: $testDuration".hardcoded),
+        Text("target duration: $targetDuration".hardcoded),
+        Text("level success: ${testDuration < targetDuration}".hardcoded),
+        if (highScore != null)
+          Text("high score: ${highScore.duration}".hardcoded),
         Text(
-          "accuracy: ${((doneQuestionsCount - mistakesCount) / doneQuestionsCount * 100).toStringAsFixed(1)}%",
+          "mistakes: $mistakesCount (/$doneQuestionsCount questions)".hardcoded,
         ),
-        Text("failed: $failedQuestionsCount"),
-        Text("test invalid: $invalidTest"),
+        Text(
+          "accuracy: ${((doneQuestionsCount - mistakesCount) / doneQuestionsCount * 100).toStringAsFixed(1)}%"
+              .hardcoded,
+        ),
+        Text("failed: $failedQuestionsCount".hardcoded),
+        Text("test invalid: $invalidTest".hardcoded),
       ],
     );
   }

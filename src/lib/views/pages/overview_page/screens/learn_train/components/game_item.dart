@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
+import "package:numly/i18n/utils/context_locale.dart";
 import "package:numly/models/game/game.dart";
 import "package:numly/models/game/learn/learn.dart";
 import "package:numly/state/persistence/providers.dart";
@@ -85,9 +86,9 @@ class GameItem extends HookConsumerWidget {
     }
 
     return ListItem(
-      title: game.title,
+      title: game.title(context.l10n),
       leading: leading,
-      subtitle: game.subtitle,
+      subtitle: game.subtitle(context.l10n),
       trailing: trailing,
       onLongPress: toggleForceShowHighScore,
       onTap: () {

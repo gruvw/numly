@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
+import "package:numly/i18n/utils/hardcoded_string.dart";
 import "package:numly/models/game/game.dart";
 import "package:numly/state/persistence/providers.dart";
 import "package:numly/static/styles.dart";
@@ -42,7 +43,7 @@ class GamesScreen extends ConsumerWidget {
 
       if (games.isEmpty) {
         return Center(
-          child: Text("No favorite games."),
+          child: Text("No favorite games.".hardcoded),
         );
       }
     } else {

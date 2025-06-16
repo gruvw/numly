@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
+import "package:numly/i18n/utils/context_locale.dart";
 import "package:numly/models/game/game.dart";
 import "package:numly/models/game/learn/learn.dart";
 import "package:numly/state/persistence/providers.dart";
@@ -64,8 +65,8 @@ class CategoryItem extends HookConsumerWidget {
         : Icon(Styles.iconNext);
 
     return ListItem(
-      title: category.title,
-      subtitle: category.subtitle,
+      title: category.title(context.l10n),
+      subtitle: category.subtitle(context.l10n),
       trailing: trailing,
       onTap: () => context.goRelative(category.id),
     );

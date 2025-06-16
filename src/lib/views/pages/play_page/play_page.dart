@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:gap/gap.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
+import "package:numly/i18n/utils/context_locale.dart";
+import "package:numly/i18n/utils/hardcoded_string.dart";
 import "package:numly/models/game/game.dart";
 import "package:numly/models/game/learn/learn.dart";
 import "package:numly/models/test/test.dart";
@@ -97,7 +99,7 @@ class PlayPage extends HookConsumerWidget {
       onPressed: testValue == null || endlessMode == true
           ? null
           : () => setTest(testValue.length),
-      tooltip: "Restart",
+      tooltip: "Restart".hardcoded,
       icon: Icon(Styles.iconRepeat),
       disabledColor: Styles.colorIgnored,
     );
@@ -115,7 +117,7 @@ class PlayPage extends HookConsumerWidget {
               }
               ref.read(kvsEndlessModeProvider.notifier).set(!endlessMode);
             },
-            tooltip: "Endless",
+            tooltip: "Endless".hardcoded,
             icon: Icon(
               Styles.iconEndless,
               fill: endlessMode ? 1 : 0,
@@ -130,7 +132,7 @@ class PlayPage extends HookConsumerWidget {
     final testContent = Column(
       children: [
         Text(
-          game.title,
+          game.title(context.l10n),
           style: TextStyle(color: Styles.colorForeground),
         ),
         Spacer(),
@@ -199,7 +201,7 @@ class PlayPage extends HookConsumerWidget {
 
             if (testValue
                 .getQuestion(doneQuestionsCount.value % testValue.length)
-                .verify(numberTextAnswer)
+                .verify(numberTextAnswer, context.l10n)
                 .correct) {
               nextQuestion();
             } else {

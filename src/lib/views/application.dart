@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter_native_splash/flutter_native_splash.dart";
 import "package:numly/i18n/l10n/gen-l10n/numly_localizations.dart";
-import "package:numly/i18n/utils/context_locale.dart";
 import "package:numly/static/styles.dart";
+import "package:numly/static/values.dart";
 import "package:numly/views/navigation/router.dart";
 
 class Application extends StatelessWidget {
@@ -17,7 +17,7 @@ class Application extends StatelessWidget {
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: context.l10n.applicationTitle,
+      title: Values.applicationTitle,
       theme: ThemeData(
         fontFamily: Styles.fontFamily,
         scaffoldBackgroundColor: Styles.colorBackground,

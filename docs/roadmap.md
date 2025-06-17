@@ -109,8 +109,8 @@
 - [ ] Sound
 - [X] Internationalization and localization
 - [ ] Translate app
-    - [ ] English (base)
-    - [ ] French
+    - [X] English (base)
+    - [X] French
     - [ ] Spanish
     - [ ] Mandarin Chinese
     - [ ] Standard Arabic

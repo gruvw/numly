@@ -1,7 +1,7 @@
 import "package:collection/collection.dart";
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
-import "package:numly/i18n/utils/hardcoded_string.dart";
+import "package:numly/i18n/utils/context_locale.dart";
 import "package:numly/models/game/game.dart";
 import "package:numly/models/game/learn/learn.dart";
 import "package:numly/models/game/train/train.dart";
@@ -24,7 +24,7 @@ final router = GoRouter(
 
     return Scaffold(
       body: Center(
-        child: Text("Routing error, redirecting...".hardcoded),
+        child: Text(context.l10n.routingErrorMessage),
       ),
     );
   },

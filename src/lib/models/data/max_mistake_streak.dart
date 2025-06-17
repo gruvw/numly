@@ -1,5 +1,4 @@
 import "package:numly/i18n/l10n/gen-l10n/numly_localizations.dart";
-import "package:numly/i18n/utils/hardcoded_string.dart";
 
 enum MaxMistakeStreak {
   strict(1),
@@ -14,11 +13,11 @@ enum MaxMistakeStreak {
 
   String name(AppLocalizations l10n) {
     return switch (this) {
-      strict => "Strict".hardcoded,
-      retry => "Retry".hardcoded,
-      resilient => "Resilient".hardcoded,
-      persistent => "Persistent".hardcoded,
-      unlimited => "Unlimited".hardcoded,
+      strict => l10n.mistakeStreakStrict,
+      retry => l10n.mistakeStreakRetry,
+      resilient => l10n.mistakeStreakResilient,
+      persistent => l10n.mistakeStreakPersistent,
+      unlimited => l10n.mistakeStreakUnlimited,
     };
   }
 }

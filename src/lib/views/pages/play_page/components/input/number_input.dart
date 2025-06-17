@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:material_symbols_icons/symbols.dart";
-import "package:numly/i18n/utils/hardcoded_string.dart";
+import "package:numly/i18n/utils/context_locale.dart";
 import "package:numly/models/test/question.dart";
 import "package:numly/static/styles.dart";
 import "package:numly/views/components/widget_symmetric_padding.dart";
@@ -28,7 +28,7 @@ class NumberInput extends StatelessWidget {
     final didMistake = mistakeStreak > 0;
 
     final solutionTypeIndicator = Tooltip(
-      message: "Solution Type".hardcoded,
+      message: context.l10n.solutionTypeHint,
       child: Icon(
         color: Styles.colorForeground,
         switch (currentQuestion.solutionType) {

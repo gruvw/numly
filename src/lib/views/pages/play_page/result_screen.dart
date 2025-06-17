@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
-import "package:numly/i18n/utils/hardcoded_string.dart";
+import "package:numly/i18n/utils/unlocalized_string.dart";
 import "package:numly/models/data/score.dart";
 import "package:numly/models/game/game.dart";
 import "package:numly/state/persistence/providers.dart";
@@ -49,20 +49,21 @@ class ResultScreen extends HookConsumerWidget {
 
     return Column(
       children: [
-        Text("duration: $testDuration".hardcoded),
-        Text("target duration: $targetDuration".hardcoded),
-        Text("level success: ${testDuration < targetDuration}".hardcoded),
+        Text("duration: $testDuration".unlocalized),
+        Text("target duration: $targetDuration".unlocalized),
+        Text("level success: ${testDuration < targetDuration}".unlocalized),
         if (highScore != null)
-          Text("high score: ${highScore.duration}".hardcoded),
+          Text("high score: ${highScore.duration}".unlocalized),
         Text(
-          "mistakes: $mistakesCount (/$doneQuestionsCount questions)".hardcoded,
+          "mistakes: $mistakesCount (/$doneQuestionsCount questions)"
+              .unlocalized,
         ),
         Text(
           "accuracy: ${((doneQuestionsCount - mistakesCount) / doneQuestionsCount * 100).toStringAsFixed(1)}%"
-              .hardcoded,
+              .unlocalized,
         ),
-        Text("failed: $failedQuestionsCount".hardcoded),
-        Text("test invalid: $invalidTest".hardcoded),
+        Text("failed: $failedQuestionsCount".unlocalized),
+        Text("test invalid: $invalidTest".unlocalized),
       ],
     );
   }

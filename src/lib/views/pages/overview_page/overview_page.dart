@@ -3,7 +3,6 @@ import "package:go_router/go_router.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
 import "package:material_symbols_icons/symbols.dart";
 import "package:numly/i18n/utils/context_locale.dart";
-import "package:numly/i18n/utils/hardcoded_string.dart";
 import "package:numly/models/data/training_length.dart";
 import "package:numly/models/game/learn/learn.dart";
 import "package:numly/models/game/train/train.dart";
@@ -64,12 +63,12 @@ class OverviewPage extends ConsumerWidget {
                 ref.read(kvsLastGameIdProvider.notifier).reset();
               }
             },
-            tooltip: "Replay".hardcoded,
+            tooltip: context.l10n.replayHint,
             icon: Icon(Styles.iconRepeat),
           ),
         if (navigationShell.currentIndex == OverviewNavigationRoute.train.index)
           PopupMenuButton(
-            tooltip: "Test length".hardcoded,
+            tooltip: context.l10n.testLengthHint,
             icon: Icon(Symbols.quiz),
             color: Styles.colorBackground,
             itemBuilder: (context) {

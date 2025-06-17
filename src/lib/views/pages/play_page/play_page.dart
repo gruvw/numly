@@ -3,13 +3,11 @@ import "package:flutter_hooks/flutter_hooks.dart";
 import "package:gap/gap.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
 import "package:numly/i18n/utils/context_locale.dart";
-import "package:numly/i18n/utils/hardcoded_string.dart";
 import "package:numly/models/game/game.dart";
 import "package:numly/models/game/learn/learn.dart";
 import "package:numly/models/test/test.dart";
 import "package:numly/state/persistence/kvs/providers.dart";
 import "package:numly/static/styles.dart";
-import "package:numly/static/values.dart";
 import "package:numly/views/pages/play_page/components/input/number_input.dart";
 import "package:numly/views/pages/play_page/components/input/virtual_keyboard.dart";
 import "package:numly/views/pages/play_page/components/test_area.dart";
@@ -99,15 +97,13 @@ class PlayPage extends HookConsumerWidget {
       onPressed: testValue == null || endlessMode == true
           ? null
           : () => setTest(testValue.length),
-      tooltip: "Restart".hardcoded,
+      tooltip: context.l10n.restartHint,
       icon: Icon(Styles.iconRepeat),
       disabledColor: Styles.colorIgnored,
     );
 
     final appBar = AppBar(
-      title: Text(
-        Values.applicationTitle,
-      ),
+      title: Text(context.l10n.applicationTitle),
       actions: [
         if (endlessMode != null && testValue != null && testEndValue == null)
           IconButton(
@@ -117,7 +113,7 @@ class PlayPage extends HookConsumerWidget {
               }
               ref.read(kvsEndlessModeProvider.notifier).set(!endlessMode);
             },
-            tooltip: "Endless".hardcoded,
+            tooltip: context.l10n.endlessHint,
             icon: Icon(
               Styles.iconEndless,
               fill: endlessMode ? 1 : 0,

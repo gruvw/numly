@@ -1,5 +1,5 @@
 import "package:hooks_riverpod/hooks_riverpod.dart";
-import "package:numly/models/data/mistake_streak.dart";
+import "package:numly/models/data/max_mistake_streak.dart";
 import "package:numly/models/data/training_length.dart";
 import "package:numly/models/game/game.dart";
 import "package:numly/state/persistence/kvs/kvs_notifier.dart";

@@ -1,6 +1,118 @@
 {
-  "key": "value",
-  "@key": {
-    "description": "description"
-  }
+  "@@locale": "en",
+  "applicationTitle": "Numly",
+  "@applicationTitle": {
+    "description": "The application title"
+  },
+  "learnHeader": "Learn",
+  "@learnHeader": {
+    "description": "Navigation item header for learning games page"
+  },
+  "trainHeader": "Train",
+  "@trainHeader": {
+    "description": "Navigation item header for training games page"
+  },
+  "customHeader": "Custom",
+  "@customHeader": {
+    "description": "Navigation item header for custom games page"
+  },
+  "testLengthHint": "Test length",
+  "@testLengthHint": {
+    "description": "Hint for the menu for selecting test length"
+  },
+  "replayHint": "Replay",
+  "@replayHint": {
+    "description": "Hint for the button to replay the last game"
+  },
+  "restartHint": "Restart",
+  "@restartHint": {
+    "description": "Hint for the button to restart the current test"
+  },
+  "endlessHint": "Endless",
+  "@endlessHint": {
+    "description": "Hint for the button to toggle endless mode"
+  },
+  "solutionTypeHint": "Solution Type",
+  "@solutionTypeHint": {
+    "description": "Hint for solution type indicator"
+  },
+  "routingErrorMessage": "Routing error, redirecting...",
+  "@routingErrorMessage": {
+    "description": "Message shown when there is a routing error"
+  },
+  "invalidNumberMessage": "Your answer is not a valid number.",
+  "@invalidNumberMessage": {
+    "description": "Error message when user input is not a valid number"
+  },
+  "wrongFormatMessage": "Mathematically correct but wrong format.",
+  "@wrongFormatMessage": {
+    "description": "Error message when answer is mathematically correct but in the wrong number format"
+  },
+  "emptyFavoriteGames": "No favorite games.",
+  "@emptyFavoriteGames": {
+    "description": "Message shown when there are no favorite games"
+  },
+  "favoritesCategoryTitle": "Favorites ({amount})",
+  "@favoritesTitle": {
+    "description": "Title for favorite games category with amount of favorites",
+    "placeholders": {
+      "amount": {
+        "type": "int"
+      }
+    }
+  },
+  "mistakeStreakStrict": "Strict",
+  "@mistakeStreakStrict": {
+    "description": "Name for strict mistake streak preference"
+  },
+  "mistakeStreakRetry": "Retry",
+  "@mistakeStreakRetry": {
+    "description": "Name for retry mistake streak preference"
+  },
+  "mistakeStreakResilient": "Resilient",
+  "@mistakeStreakResilient": {
+    "description": "Name for resilient mistake streak preference"
+  },
+  "mistakeStreakPersistent": "Persistent",
+  "@mistakeStreakPersistent": {
+    "description": "Name for persistent mistake streak preference"
+  },
+  "mistakeStreakUnlimited": "Unlimited",
+  "@mistakeStreakUnlimited": {
+    "description": "Name for unlimited mistake streak preference"
+  },
+  "trainingLengthShort": "Short",
+  "@trainingLengthShort": {
+    "description": "Name for short test training length"
+  },
+  "trainingLengthNormal": "Normal",
+  "@trainingLengthNormal": {
+    "description": "Name for normal test training length"
+  },
+  "trainingLengthLong": "Long",
+  "@trainingLengthLong": {
+    "description": "Name for long test training length"
+  },
+  "trainingLengthExtended": "Extended",
+  "@trainingLengthExtended": {
+    "description": "Name for extended test training length"
+  },
+  "integerAdditionCategoryTitle": "Integer Addition",
+  "@integerAdditionCategoryTitle": {
+    "description": "Title for integer addition game category"
+  },
+  "integerAdditionCategorySubtitle": "Adding integer numbers",
+  "@integerAdditionCategorySubtitle": {
+    "description": "Subtitle for integer addition category"
+  },
+  "smallResultGameTitle": "Small result",
+  "@smallResultGameTitle": {
+    "description": "Title for small result game"
+  },
+  "smallResultGameSubtitle": "Addition with result <10",
+  "@smallResultGameSubtitle": {
+    "description": "Subtitle for small result game"
+  },
+  "smallNumbersGameTitle": "Small numbers",
+  "smallNumbersGameSubtitle": "Adding numbers <10"
 }

@@ -1,6 +1,6 @@
 import "package:flutter/widgets.dart";
 import "package:material_symbols_icons/symbols.dart";
-import "package:numly/i18n/utils/hardcoded_string.dart";
+import "package:numly/i18n/utils/context_locale.dart";
 import "package:numly/models/game/game.dart";
 
 sealed class AppRoutes {
@@ -37,9 +37,9 @@ enum OverviewNavigationRoute implements AppRoute {
 
   String name(BuildContext context) {
     return switch (this) {
-      learn => "Learn".hardcoded,
-      train => "Train".hardcoded,
-      custom => "Custom".hardcoded,
+      learn => context.l10n.learnHeader,
+      train => context.l10n.trainHeader,
+      custom => context.l10n.customHeader,
     };
   }
 }

@@ -1,5 +1,4 @@
 import "package:numly/i18n/l10n/gen-l10n/numly_localizations.dart";
-import "package:numly/i18n/utils/hardcoded_string.dart";
 
 enum TrainingLength {
   short(10),
@@ -13,10 +12,10 @@ enum TrainingLength {
 
   String name(AppLocalizations l10n) {
     return switch (this) {
-      short => "Short".hardcoded,
-      normal => "Normal".hardcoded,
-      long => "Long".hardcoded,
-      extended => "Extended".hardcoded,
+      short => l10n.trainingLengthShort,
+      normal => l10n.trainingLengthNormal,
+      long => l10n.trainingLengthLong,
+      extended => l10n.trainingLengthExtended,
     };
   }
 }

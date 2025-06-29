@@ -24,8 +24,8 @@ class RationalNumber implements Comparable<RationalNumber> {
     required this.numerator,
     required this.denominator,
   }) : assert(
-         denominator >= i1,
-         "denominator ($denominator) must be larger than 1",
+         denominator > i0,
+         "denominator ($denominator) must be strictly positive",
        ),
        assert(
          _gcd(numerator.abs(), denominator) == i1,
@@ -105,7 +105,7 @@ class RationalNumber implements Comparable<RationalNumber> {
     final decimalMatch = decimalPattern.firstMatch(text);
     if (decimalMatch != null) {
       final intPart = decimalMatch.group(1)!;
-      final decPart = decimalMatch.group(2) ?? "";
+      final decPart = decimalMatch.group(3) ?? "";
 
       final numerator = intPart + decPart;
       final denominator = i10.pow(decPart.length);
@@ -147,6 +147,8 @@ class RationalNumber implements Comparable<RationalNumber> {
     return d == i1;
   }();
 
+  late final intPart = numerator ~/ denominator;
+
   late final intFracString = isInteger
       ? numerator.toString()
       : "$numerator/$denominator";
@@ -159,7 +161,6 @@ class RationalNumber implements Comparable<RationalNumber> {
       return intFracString;
     }
 
-    final intPart = numerator ~/ denominator;
     var decimal = "$intPart.";
 
     var remainder = numerator % denominator;

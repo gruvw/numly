@@ -1,6 +1,4 @@
 import "package:numly/models/game/game.dart";
-import "package:numly/models/test/operation.dart";
-import "package:numly/models/test/question.dart";
 import "package:numly/models/test/question_generator.dart";
 import "package:numly/models/test/test.dart";
 import "package:numly/static/math/number_generators.dart";
@@ -19,11 +17,9 @@ final integerAddition = Category(
       title: (l) => l.smallResultGameTitle,
       subtitle: (l) => l.smallResultGameSubtitle,
       part: TestPart(
-        questionGenerator: MinMaxQuestionGenerator(
+        questionGenerator: DecimalAdditionQuestionGenerator(
           numberGenerator: int0to10,
           maxSolution: r10,
-          operation: Operation.addition,
-          solutionType: SolutionType.decimal,
         ),
         targetTimePerQuestion: t2,
       ),
@@ -33,10 +29,8 @@ final integerAddition = Category(
       title: (l) => l.smallNumbersGameTitle,
       subtitle: (l) => l.smallNumbersGameSubtitle,
       part: TestPart(
-        questionGenerator: MinMaxQuestionGenerator(
+        questionGenerator: DecimalAdditionQuestionGenerator(
           numberGenerator: int0to10,
-          operation: Operation.addition,
-          solutionType: SolutionType.decimal,
         ),
         targetTimePerQuestion: t2,
       ),

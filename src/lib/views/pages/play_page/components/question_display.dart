@@ -21,6 +21,7 @@ class QuestionDisplay extends StatelessWidget {
         "${question.number1} × ${question.number2}",
       ),
       Operation.division => Text("${question.number1} / ${question.number2}"),
+      // TODO support all operations display
       _ => throw UnsupportedError("Operation not yet supported"),
     };
   }

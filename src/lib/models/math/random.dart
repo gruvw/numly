@@ -10,7 +10,7 @@ int randomIntRange(int minimum, int maximum) {
     return minimum;
   }
 
-  return minimum + random.nextInt(maximum);
+  return minimum + random.nextInt(range);
 }
 
 /// Generates random int between 0 (inclusive) and `maximum` (exclusive).

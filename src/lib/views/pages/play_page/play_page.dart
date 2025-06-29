@@ -39,8 +39,8 @@ class PlayPage extends HookConsumerWidget {
     final testStart = useState(DateTime.now());
     final testEnd = useState<DateTime?>(null);
     final doneQuestionsCount = useState(0);
+
     final mistakesCount = useState(0);
-    // TODO reset streaks and show answer after x (=2) wrong attempts
     final mistakeStreak = useState(0);
     final lastAnswerSubmitted = useState<String?>(null);
     final failedQuestionsCount = useState(0);
@@ -144,11 +144,11 @@ class PlayPage extends HookConsumerWidget {
             color: Styles.colorForeground,
           ),
         Spacer(),
-        if (testValue != null && doneQuestionsCount.value < testValue.length)
+        if (testValue != null)
           NumberInput(
             numberController: numberController,
             currentQuestion: testValue.getQuestion(
-              doneQuestionsCount.value,
+              doneQuestionsCount.value % testValue.length,
             ),
             mistakeStreak: mistakeStreak.value,
             lastSubmittedAnswer: lastAnswerSubmitted.value,

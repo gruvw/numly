@@ -17,29 +17,24 @@ jobs:
 
       - name: Install Flutter dependencies
         run: |
-          cd src
           flutter config --no-analytics --no-cli-animations
           flutter --version
           flutter pub get
 
       - name: Check code formatting
         run: |
-          cd src
           dart format --output=none --set-exit-if-changed .
 
       - name: Check for code errors
         run: |
-          cd src
           flutter analyze
 
       - name: Run tests
         run: |
-          cd src
           flutter test -r github
 
       - name: Build prod
         run: |
-          cd src
           flutter build web --release
 
       - name: Publish to GitHub Pages
@@ -47,5 +42,5 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: src/build/web
+          publish_dir: build/web
           # force_orphan: true

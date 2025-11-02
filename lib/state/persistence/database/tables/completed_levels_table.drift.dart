@@ -57,11 +57,10 @@ class $CompletedLevelsTableTable extends i2.CompletedLevelsTable
   }) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return i1.CompletedLevelsTableData(
-      gameId:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.string,
-            data['${effectivePrefix}game_id'],
-          )!,
+      gameId: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}game_id'],
+      )!,
     );
   }
 

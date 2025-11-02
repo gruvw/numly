@@ -54,11 +54,10 @@ class $FavoriteTableTable extends i2.FavoriteTable
   i1.FavoriteTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return i1.FavoriteTableData(
-      gameId:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.string,
-            data['${effectivePrefix}game_id'],
-          )!,
+      gameId: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}game_id'],
+      )!,
     );
   }
 

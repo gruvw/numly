@@ -93,21 +93,18 @@ class $HighScoreTableTable extends i3.HighScoreTable
   i1.Score map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return i1.Score.fromData(
-      gameId:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.string,
-            data['${effectivePrefix}game_id'],
-          )!,
-      length:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.int,
-            data['${effectivePrefix}length'],
-          )!,
-      durationMs:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.int,
-            data['${effectivePrefix}duration_ms'],
-          )!,
+      gameId: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}game_id'],
+      )!,
+      length: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.int,
+        data['${effectivePrefix}length'],
+      )!,
+      durationMs: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.int,
+        data['${effectivePrefix}duration_ms'],
+      )!,
     );
   }
 

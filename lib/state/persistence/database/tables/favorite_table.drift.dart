@@ -54,10 +54,11 @@ class $FavoriteTableTable extends i2.FavoriteTable
   i1.FavoriteTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return i1.FavoriteTableData(
-      gameId: attachedDatabase.typeMapping.read(
-        i0.DriftSqlType.string,
-        data['${effectivePrefix}game_id'],
-      )!,
+      gameId:
+          attachedDatabase.typeMapping.read(
+            i0.DriftSqlType.string,
+            data['${effectivePrefix}game_id'],
+          )!,
     );
   }
 
@@ -90,14 +91,11 @@ class FavoriteTableData extends i0.DataClass
   @override
   Map<String, dynamic> toJson({i0.ValueSerializer? serializer}) {
     serializer ??= i0.driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'gameId': serializer.toJson<String>(gameId),
-    };
+    return <String, dynamic>{'gameId': serializer.toJson<String>(gameId)};
   }
 
-  i1.FavoriteTableData copyWith({String? gameId}) => i1.FavoriteTableData(
-    gameId: gameId ?? this.gameId,
-  );
+  i1.FavoriteTableData copyWith({String? gameId}) =>
+      i1.FavoriteTableData(gameId: gameId ?? this.gameId);
   FavoriteTableData copyWithCompanion(i1.FavoriteTableCompanion data) {
     return FavoriteTableData(
       gameId: data.gameId.present ? data.gameId.value : this.gameId,

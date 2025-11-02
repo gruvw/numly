@@ -26,7 +26,7 @@
     - [X] Support % as input number
     - [X] Support power
     - [X] Support n-th root
-    - [ ] Randomly invert sides of commutative expressions (avoid imbalance when two different number generators provided)
+    - [ ] Option to randomly invert sides of commutative expressions (avoid imbalance when two different number generators provided)
 - [X] Question resolution / answer and submit
     - [X] Force reduced fractions (or scalar if possible 4/2 = 2), maybe show note on wrong result if correct but not reduced
 - [X] Levels system
@@ -87,6 +87,7 @@
 - [ ] Level design (train and learn basic levels)
     - [ ] Currency change (dollars, euro, CHF, pounds, Japanese yen)
     - [ ] Date / Age computation (1900, 2025)
+    - [ ] Partials (double/half, tripple/third, quadruple/quarter)
 - [X] Application icon
 - [X] Splash screen
 - [ ] Settings page

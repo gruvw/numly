@@ -70,14 +70,16 @@ class $KvsTableTable extends i2.KvsTable
   i1.KvsTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return i1.KvsTableData(
-      key: attachedDatabase.typeMapping.read(
-        i0.DriftSqlType.string,
-        data['${effectivePrefix}key'],
-      )!,
-      value: attachedDatabase.typeMapping.read(
-        i0.DriftSqlType.string,
-        data['${effectivePrefix}value'],
-      )!,
+      key:
+          attachedDatabase.typeMapping.read(
+            i0.DriftSqlType.string,
+            data['${effectivePrefix}key'],
+          )!,
+      value:
+          attachedDatabase.typeMapping.read(
+            i0.DriftSqlType.string,
+            data['${effectivePrefix}value'],
+          )!,
     );
   }
 
@@ -119,10 +121,8 @@ class KvsTableData extends i0.DataClass
     };
   }
 
-  i1.KvsTableData copyWith({String? key, String? value}) => i1.KvsTableData(
-    key: key ?? this.key,
-    value: value ?? this.value,
-  );
+  i1.KvsTableData copyWith({String? key, String? value}) =>
+      i1.KvsTableData(key: key ?? this.key, value: value ?? this.value);
   KvsTableData copyWithCompanion(i1.KvsTableCompanion data) {
     return KvsTableData(
       key: data.key.present ? data.key.value : this.key,

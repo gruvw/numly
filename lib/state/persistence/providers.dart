@@ -4,8 +4,8 @@ import "package:numly/models/data/score.dart";
 import "package:numly/models/game/game.dart";
 import "package:numly/state/persistence/database/core/database.dart";
 import "package:numly/state/persistence/kvs/providers.dart";
+import "package:numly/utils/riverpod.dart";
 
-// cosntant provider, won't change (safe to use ref.read)
 final dbProvider = Provider<Database>(
   (ref) => Database.native(),
 );
@@ -13,35 +13,38 @@ final dbProvider = Provider<Database>(
 final highScoreForTrainingLengthProvider =
     StreamProvider.family<Score?, GameSetting>(
       (ref, gameSetting) {
-        final db = ref.read(dbProvider);
+        final db = ref.watch(dbProvider);
 
-        return (db.select(db.highScoreTable)..where(
-              (t) =>
-                  t.gameId.equals(gameSetting.gameId) &
-                  t.length.equals(gameSetting.length),
-            ))
-            .watchSingleOrNull();
+        final query = db.select(db.highScoreTable)
+          ..where(
+            (t) =>
+                t.gameId.equals(gameSetting.gameId) &
+                t.length.equals(gameSetting.length),
+          );
+
+        return query.watchSingleOrNull();
       },
     );
 
 final highScoreSelectedTrainingLengthProvider =
-    FutureProvider.family<Score?, GameId>(
-      (ref, gameId) async {
-        final selectedTrainingLength = await ref.watch(
-          kvsTrainingLengthProvider.future,
-        );
+    Provider.family<AsyncValue<Score?>, GameId>(
+      (ref, gameId) {
+        final selectedTrainingLength = ref.watch(kvsTrainingLengthProvider);
 
-        return ref.watch(
-          highScoreForTrainingLengthProvider(
-            (gameId: gameId, length: selectedTrainingLength),
-          ).future,
+        return selectedTrainingLength.mapData(
+          (length) => ref.watch(
+            highScoreForTrainingLengthProvider((
+              gameId: gameId,
+              length: length,
+            )),
+          ),
         );
       },
     );
 
 final favoriteGameIdsProvider = StreamProvider<Set<GameId>>(
   (ref) {
-    final db = ref.read(dbProvider);
+    final db = ref.watch(dbProvider);
 
     return db
         .select(db.favoriteTable)
@@ -52,7 +55,7 @@ final favoriteGameIdsProvider = StreamProvider<Set<GameId>>(
 );
 
 final completedLevelIdsProvider = StreamProvider<Set<GameId>>((ref) {
-  final db = ref.read(dbProvider);
+  final db = ref.watch(dbProvider);
 
   return db
       .select(db.completedLevelsTable)

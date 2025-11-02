@@ -57,10 +57,11 @@ class $CompletedLevelsTableTable extends i2.CompletedLevelsTable
   }) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return i1.CompletedLevelsTableData(
-      gameId: attachedDatabase.typeMapping.read(
-        i0.DriftSqlType.string,
-        data['${effectivePrefix}game_id'],
-      )!,
+      gameId:
+          attachedDatabase.typeMapping.read(
+            i0.DriftSqlType.string,
+            data['${effectivePrefix}game_id'],
+          )!,
     );
   }
 
@@ -93,15 +94,11 @@ class CompletedLevelsTableData extends i0.DataClass
   @override
   Map<String, dynamic> toJson({i0.ValueSerializer? serializer}) {
     serializer ??= i0.driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'gameId': serializer.toJson<String>(gameId),
-    };
+    return <String, dynamic>{'gameId': serializer.toJson<String>(gameId)};
   }
 
   i1.CompletedLevelsTableData copyWith({String? gameId}) =>
-      i1.CompletedLevelsTableData(
-        gameId: gameId ?? this.gameId,
-      );
+      i1.CompletedLevelsTableData(gameId: gameId ?? this.gameId);
   CompletedLevelsTableData copyWithCompanion(
     i1.CompletedLevelsTableCompanion data,
   ) {

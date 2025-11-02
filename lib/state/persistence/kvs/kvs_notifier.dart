@@ -4,7 +4,7 @@ import "package:numly/state/persistence/kvs/providers.dart";
 import "package:numly/state/persistence/providers.dart";
 import "package:numly/utils/language.dart";
 
-class KvsNotifier<T> extends AsyncNotifier<T> {
+class KvsNotifier<T> extends Notifier<AsyncValue<T>> {
   static KvsNotifier<bool> boolean({
     required String configKey,
     required bool defaultValue,
@@ -52,8 +52,6 @@ class KvsNotifier<T> extends AsyncNotifier<T> {
   /// Note - This function should be pure and idempotent.
   final T Function(String source) parse;
 
-  late final _db = ref.read(dbProvider);
-
   KvsNotifier({
     required this.key,
     required this.defaultValue,
@@ -62,11 +60,15 @@ class KvsNotifier<T> extends AsyncNotifier<T> {
   });
 
   @override
-  Future<T> build() async {
-    final row = await ref.watch(kvsSourceProvider(key).future);
-    final value = row?.nmap((source) => parse(source));
+  AsyncValue<T> build() {
+    final sourceAsync = ref.watch(kvsSourceProvider(key));
 
-    return value ?? defaultValue;
+    return sourceAsync.whenData(
+      (source) {
+        final value = source?.nmap((source) => parse(source));
+        return value ?? defaultValue;
+      },
+    );
   }
 
   /// Assigns a new value to the key in the store, with (opt-out) immediate effect on the notifier's state.
@@ -80,8 +82,9 @@ class KvsNotifier<T> extends AsyncNotifier<T> {
     }
 
     final data = serialize(value);
-    await _db
-        .into(_db.kvsTable)
+    final db = ref.read(dbProvider);
+    await db
+        .into(db.kvsTable)
         .insertOnConflictUpdate(
           KvsTableCompanion.insert(
             key: key,
@@ -94,20 +97,21 @@ class KvsNotifier<T> extends AsyncNotifier<T> {
   /// Effectively removes the key from the store.
   /// The effect is not immediately reflected on the notifier.
   Future<void> reset() async {
-    final delete = (_db.delete(_db.kvsTable))..where((t) => t.key.equals(key));
+    final db = ref.read(dbProvider);
+    final delete = (db.delete(db.kvsTable))..where((t) => t.key.equals(key));
 
     await delete.go();
   }
 
   KvsNotifier<E> map<E>(
-    E Function(T) map,
-    T Function(E) reverse,
+    E Function(T) transform,
+    T Function(E) inverse,
   ) {
     return KvsNotifier<E>(
       key: key,
-      defaultValue: map(defaultValue),
-      serialize: (value) => serialize(reverse(value)),
-      parse: (source) => map(parse(source)),
+      defaultValue: transform(defaultValue),
+      serialize: (value) => serialize(inverse(value)),
+      parse: (source) => transform(parse(source)),
     );
   }
 }

@@ -1,4 +1,3 @@
-import "package:numly/i18n/l10n/gen-l10n/numly_localizations.dart";
 import "package:numly/logic/input_processing.dart";
 import "package:numly/models/math/rational_number.dart";
 import "package:numly/models/test/operation.dart";
@@ -30,50 +29,33 @@ class Question {
     }
   }();
 
-  Result _correctResult() => Result.correct(solutionText);
-
-  Result _wrongResult([String? message]) {
-    return Result.wrong(
-      solutionText,
-      message: message,
-    );
-  }
-
-  Result verify(String answerText, AppLocalizations l10n) {
+  Result verify(String answerText) {
     answerText = numberSubmitter(answerText);
     final answer = RationalNumber.tryParse(answerText);
 
     if (answer == null) {
-      return _wrongResult(l10n.invalidNumberMessage);
+      return Result.invalidNumber;
     }
 
     if (answerText == solutionText) {
-      return _correctResult();
+      return Result.exact;
     }
 
     if (solution.equals(answer)) {
-      return _wrongResult(l10n.wrongFormatMessage);
+      return Result.wrongFormat;
     }
 
-    return _wrongResult();
+    return Result.wrong;
   }
 }
 
-class Result {
+enum Result {
+  exact(true),
+  wrong(false),
+  invalidNumber(false),
+  wrongFormat(false);
+
   final bool correct;
-  final String solution;
-  final String? message;
 
-  Result({
-    required this.correct,
-    required this.solution,
-    required this.message,
-  });
-
-  Result.correct(this.solution) : correct = true, message = null;
-
-  Result.wrong(
-    this.solution, {
-    this.message,
-  }) : correct = false;
+  const Result(this.correct);
 }

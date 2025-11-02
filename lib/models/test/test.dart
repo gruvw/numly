@@ -29,6 +29,9 @@ class Test {
     required List<TestPart> parts,
     required int length,
   }) {
+    assert(parts.isNotEmpty, "test must have at least one part");
+    assert(length > 0, "test must have a > 0 length");
+
     final List<Question> questions = [];
     var targetDuration = Duration.zero;
 
@@ -45,6 +48,7 @@ class Test {
 
     // generate missing questions from random parts
     while (questions.length < length) {
+      // TODO weighted random choice based on proportion
       final part = parts.pick(random);
       questions.add(part.questionGenerator.generate());
       targetDuration += part.targetTimePerQuestion ?? Duration.zero;

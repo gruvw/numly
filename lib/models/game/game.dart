@@ -51,6 +51,15 @@ class Game {
     required this.subtitle,
     required TestPart part,
   }) : parts = [part];
+
+  // equality only based on `id`
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Game && runtimeType == other.runtimeType && other.id == id;
+
+  @override
+  int get hashCode => id.hashCode;
 }
 
 final allGames = Map<GameId, Game>.unmodifiable(

@@ -472,10 +472,11 @@ packages:
   hooks_riverpod:
     dependency: "direct main"
     description:
-      name: hooks_riverpod
-      sha256: ae4a2f6d82dd895379f9b95457e090ac2d2fef9446f9325f8d31b9c86cadc131
-      url: "https://pub.dev"
-    source: hosted
+      path: "packages/hooks_riverpod"
+      ref: "0eb7d77"
+      resolved-ref: "0eb7d77aee007925cc1ec2776814dd7539fb38ae"
+      url: "https://github.com/rrousselGit/riverpod"
+    source: git
     version: "3.0.3"
   hotreloader:
     dependency: transitive

@@ -20,7 +20,11 @@ dependencies:
   # state
   go_router: ^15.1.1
   flutter_hooks: ^0.21.2
-  hooks_riverpod: ^3.0.3
+  hooks_riverpod: 
+    git:
+      url: https://github.com/rrousselGit/riverpod
+      path: packages/hooks_riverpod
+      ref: 0eb7d77
 
   # persistence
   drift: ^2.26.1

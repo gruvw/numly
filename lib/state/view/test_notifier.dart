@@ -4,9 +4,8 @@ import "package:numly/models/game/learn/learn.dart";
 import "package:numly/models/test/test.dart";
 import "package:numly/models/view/test_state.dart";
 import "package:numly/state/persistence/kvs/providers.dart";
-import "package:numly/utils/riverpod.dart";
 
-class TestStateNotifier extends AsyncValueNotifier<TestState> {
+class TestStateNotifier extends AsyncNotifier<TestState> {
   final Game game;
 
   TestStateNotifier(this.game);
@@ -15,14 +14,14 @@ class TestStateNotifier extends AsyncValueNotifier<TestState> {
   late Test _nextTest; // used for endless tests
 
   @override
-  TestState create() {
+  TestState build() {
     final maxMistakeStreakAsync = ref.watch(kvsMaxMistakeStreakProvider);
     final endlessModeAsync = ref.watch(kvsEndlessModeProvider);
     final trainingLengthAsync = ref.watch(kvsTrainingLengthProvider);
 
     final testLength = learnGames.containsKey(game.id)
         ? learnTestLength
-        : trainingLengthAsync.unwrap();
+        : trainingLengthAsync.requireValue;
 
     _test = Test(parts: game.parts, length: testLength);
     _nextTest = Test(parts: game.parts, length: testLength);
@@ -32,11 +31,11 @@ class TestStateNotifier extends AsyncValueNotifier<TestState> {
       endTime: null,
       targetDuration: _test.targetDuration,
       length: testLength,
-      isEndless: endlessModeAsync.unwrap(),
+      isEndless: endlessModeAsync.requireValue,
       doneQuestionsCount: 0,
       mistakesCount: 0,
       mistakeStreak: 0,
-      maxMistakeStreak: maxMistakeStreakAsync.unwrap(),
+      maxMistakeStreak: maxMistakeStreakAsync.requireValue,
       failedQuestionsCount: 0,
       lastSubmittedAnswer: null,
       currentQuestion: _test.getQuestion(0),
@@ -113,7 +112,7 @@ class TestStateNotifier extends AsyncValueNotifier<TestState> {
 }
 
 final testStateNotifierProvider =
-    NotifierProvider.family<TestStateNotifier, AsyncValue<TestState>, Game>(
+    AsyncNotifierProvider.family<TestStateNotifier, TestState, Game>(
       TestStateNotifier.new,
       isAutoDispose: true,
     );

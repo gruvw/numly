@@ -4,7 +4,6 @@ import "package:numly/models/data/score.dart";
 import "package:numly/models/game/game.dart";
 import "package:numly/state/persistence/database/core/database.dart";
 import "package:numly/state/persistence/kvs/providers.dart";
-import "package:numly/utils/riverpod.dart";
 
 final dbProvider = Provider<Database>(
   (ref) => Database.native(),
@@ -27,18 +26,20 @@ final highScoreForTrainingLengthProvider =
     );
 
 final highScoreSelectedTrainingLengthProvider =
-    Provider.family<AsyncValue<Score?>, GameId>(
+    FutureProvider.family<Score?, GameId>(
       (ref, gameId) {
-        final selectedTrainingLength = ref.watch(kvsTrainingLengthProvider);
+        final selectedTrainingLength = ref
+            .watch(kvsTrainingLengthProvider)
+            .requireValue;
 
-        return selectedTrainingLength.mapData(
-          (length) => ref.watch(
-            highScoreForTrainingLengthProvider((
-              gameId: gameId,
-              length: length,
-            )),
-          ),
-        );
+        return ref
+            .watch(
+              highScoreForTrainingLengthProvider((
+                gameId: gameId,
+                length: selectedTrainingLength,
+              )),
+            )
+            .requireValue;
       },
     );
 
